@@ -1,5 +1,6 @@
 import { collection, config, fields } from '@keystatic/core'
 import { block } from '@keystatic/core/content-components'
+import { KEYSTATIC_STORAGE_KIND } from 'astro:env/client'
 import { contentViewImageDefaultDouble } from './keystatic/utils/contentViewImageDefaultDouble'
 import { contentViewImageHorizontal } from './keystatic/utils/contentViewImageHorizontal'
 import { contentViewImageSquare } from './keystatic/utils/contentViewImageSquare'
@@ -75,11 +76,11 @@ const blogSchema = {
 
 export default config({
   storage: {
-    // kind: 'local',
-    kind: 'github',
+    // https://keystatic.com/docs/github-mode#setting-up-git-hub-mode
+    kind: KEYSTATIC_STORAGE_KIND,
     repo: {
       owner: 'FixMyBerlin',
-      name: 'rsv-dossier',
+      name: 'rsv-info',
     },
   },
   ui: {
