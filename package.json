@@ -5,7 +5,7 @@
   "author": "FixMyCity <hello@fixmycity.de>",
   "license": "AGPL-3.0",
   "scripts": {
-    "dev": "npm run validateConfig && astro dev",
+    "dev": "astro dev",
     "start": "npm run dev",
     "build": "astro build",
     "build:local": "ASTRO_OUTPUT_MODE=static astro build",
