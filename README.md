@@ -9,7 +9,7 @@ This site show's general information about Radschnellverbindungen (cycle highway
 
 TLDR: The (geo)data is available in the [`content/geometries/`](./src/radschnellwege) folder. If you use the data, attribute it like this:
 
-> © [FixMyCity](https://fixmycity.de)/[RSV-Dossier](https://github.com/FixMyBerlin/rsv-dossier) - [ODbL License](https://opendatacommons.org/licenses/odbl/summary/index.html)
+> © [FixMyCity](https://fixmycity.de)/[RSV-Dossier](https://github.com/FixMyBerlin/rsv-info) - [ODbL License](https://opendatacommons.org/licenses/odbl/summary/index.html)
 
 You find the geometry and meta information about the highways under [`./src/radschnellwege/`](./src/radschnellwege/). There is one file for all highways in [`meta/`](./src/radschnellwege/meta) folder containing the meta information. In the [`geometries/`](./src/content/geometries) folder, every cycle highway has one individual file. In [`./data/schema/`](./data/schema/)you'll find the schema for the json files.
 

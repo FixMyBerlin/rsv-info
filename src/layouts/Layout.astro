@@ -83,7 +83,7 @@ console.log(pathname)
     <div
       class={clsx(
         ['relative mx-auto flex min-h-full flex-auto flex-col bg-white'],
-        pageLayout && 'max-w-[1440px]'
+        pageLayout && 'max-w-[1440px]',
       )}
     >
       <Navigation fixed={!pageLayout} client:load path={pathname} />

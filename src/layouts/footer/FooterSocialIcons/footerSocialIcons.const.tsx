@@ -12,7 +12,7 @@ const footerSocialIcons = [
   },
   {
     name: 'GitHub',
-    href: 'https://github.com/FixMyBerlin/fixmy.rsv',
+    href: 'https://github.com/FixMyBerlin/rsv-info',
     icon: (props: any) => (
       <svg viewBox="0 0 24 24" {...props}>
         <path
