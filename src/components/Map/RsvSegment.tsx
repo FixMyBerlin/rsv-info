@@ -1,7 +1,7 @@
 import { geojsonType } from '@turf/turf'
 import type { GeometrySchema } from 'data/schema/geometry.schema'
 import type { LineLayerSpecification } from 'maplibre-gl'
-import { Layer, Source } from 'react-map-gl'
+import { Layer, Source } from 'react-map-gl/maplibre'
 import { segmentColor } from 'src/utils/mapColors'
 
 // const selectedColor = '#475569';

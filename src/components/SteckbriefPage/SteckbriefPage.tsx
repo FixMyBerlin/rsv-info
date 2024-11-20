@@ -11,7 +11,7 @@ type Props = {
   geometry: GeometrySchema
 }
 
-export const SteckbriefPage: React.FC<Props> = ({ meta, geometry, setOverlay }) => {
+export const SteckbriefPage: React.FC<Props> = ({ meta, geometry }) => {
   return (
     <div className="relative min-h-[860px] bg-white">
       <div className="mx-auto px-4 py-8 sm:px-6 sm:py-12 lg:py-12">
