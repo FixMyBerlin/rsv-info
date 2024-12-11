@@ -1003,7 +1003,7 @@
   {
     "id": "1-bayern",
     "cost": "34  Millionen  Euro  geschätzt",
-    "state": "planning",
+    "state": "in_progress",
     "finished": null,
     "general": {
       "ref": "1",
