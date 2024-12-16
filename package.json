@@ -5,7 +5,7 @@
   "author": "FixMyCity <hello@fixmycity.de>",
   "license": "AGPL-3.0",
   "scripts": {
-    "dev": "npm run validateConfig && astro dev",
+    "dev": "astro dev",
     "start": "npm run dev",
     "build": "astro build",
     "build:local": "ASTRO_OUTPUT_MODE=static astro build",
@@ -29,7 +29,8 @@
     "bleach:info": "echo \"\u001b[43m\u001b[30m(!) Also delete the browser cache, see https://github.com/vitejs/vite/discussions/17738#discussioncomment-10158746\u001b[0m\"",
     "bleach:all": "rm -rf node_modules/ && npm run bleach",
     "bleach:full": "rm package-lock.json && npm run bleach:all",
-    "prepare": "husky"
+    "prepare": "husky",
+    "release": "gh pr create --base main --head develop --title \"Release $(date '+%Y-%m-%d')\" --body \"\""
   },
   "browserslist": [
     "defaults",

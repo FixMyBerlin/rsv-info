@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="src/images/logo-rsv-info-thin.svg" height="80" />
+  <img src="src/assets/general/svg/RSVLogo.svg" height="80" />
   <h1 align="center"><a href="https://radschnellverbindungen.info/">Radschnellverbindungen.info</a></h1>
 </div>
 
