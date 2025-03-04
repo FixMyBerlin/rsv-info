@@ -11,7 +11,7 @@ export const FooterLinkList: React.FC<Props> = ({ title, linkList, className = '
   return (
     <div className={className}>
       {title && (
-        <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-800">{title}</h3>
+        <h3 className="text-sm font-semibold tracking-wider text-slate-800 uppercase">{title}</h3>
       )}
       <ul className="mt-4 space-y-4">
         {linkList.map((item) => (

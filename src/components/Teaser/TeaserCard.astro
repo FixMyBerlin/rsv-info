@@ -54,7 +54,7 @@ const { href, title, description, tag, image, imageCopyright, linkText } = Astro
       }
       {
         imageCopyright && (
-          <figcaption class="mr-6 mt-1 text-right text-xs text-gray-400 md:text-sm">
+          <figcaption class="mt-1 mr-6 text-right text-xs text-gray-400 md:text-sm">
             © {imageCopyright}
           </figcaption>
         )
@@ -62,7 +62,7 @@ const { href, title, description, tag, image, imageCopyright, linkText } = Astro
     </figure>
   </div>
   <div class="flex h-full flex-col justify-between">
-    <div class="relative px-6 pb-2 pt-6 md:px-8">
+    <div class="relative px-6 pt-6 pb-2 md:px-8">
       <div class="mb-6 flex">
         <slot />
         {tag && <div class="h-6 w-6 text-sm text-purple-700">{tag}</div>}
