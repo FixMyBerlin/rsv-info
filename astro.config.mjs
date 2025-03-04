@@ -2,8 +2,8 @@ import mdx from '@astrojs/mdx'
 import netlify from '@astrojs/netlify'
 import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
-import tailwind from '@astrojs/tailwind'
 import keystatic from '@keystatic/astro'
+import tailwindcss from '@tailwindcss/vite'
 import { defineConfig, envField } from 'astro/config'
 
 // ABOUT:
@@ -27,7 +27,6 @@ export default defineConfig({
   site: 'https://radschnellverbindungen.info',
   integrations: [
     ASTRO_OUTPUT_MODE === 'static' ? undefined : keystatic(),
-    tailwind(),
     react(),
     mdx(),
     sitemap(), // We don't exclute inactive pages but rely on the per page `noindex`
@@ -37,8 +36,13 @@ export default defineConfig({
   // Docs https://docs.astro.build/en/basics/rendering-modes/
   output: ASTRO_OUTPUT_MODE,
   adapter: ASTRO_USE_NETLIFY_ADAPTER === 'true' ? netlify() : undefined,
-  redirects: {'abstimmungen/abstimmungsprozesse/':
-      '/kommunikation/radschnellwegeplanung-als-zusammenspiel-vieler-akteur-innen/',},
+  redirects: {
+    'abstimmungen/abstimmungsprozesse/':
+      '/kommunikation/radschnellwegeplanung-als-zusammenspiel-vieler-akteur-innen/',
+  },
+  vite: {
+    plugins: [tailwindcss()],
+  },
   experimental: {
     env: {
       schema: {

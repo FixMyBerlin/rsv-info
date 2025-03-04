@@ -43,7 +43,6 @@
     "@astrojs/netlify": "^5.5.4",
     "@astrojs/react": "^3.6.2",
     "@astrojs/sitemap": "^3.2.1",
-    "@astrojs/tailwind": "^5.1.2",
     "@astrojs/ts-plugin": "^1.10.4",
     "@fontsource/overpass": "^5.1.1",
     "@googlemaps/polyline-codec": "^1.0.28",
@@ -51,6 +50,7 @@
     "@heroicons/react": "^2.2.0",
     "@keystatic/astro": "^5.0.3",
     "@keystatic/core": "^0.5.41",
+    "@tailwindcss/vite": "^4.0.9",
     "@turf/turf": "^7.1.0",
     "@types/filesystem": "^0.0.36",
     "@types/react": "^18.3.12",
@@ -63,7 +63,7 @@
     "react-dom": "^18.3.1",
     "react-map-gl": "^7.2.0-beta.1",
     "svg-to-jsx": "^1.0.4",
-    "tailwindcss": "^3.4.15",
+    "tailwindcss": "^4.0.9",
     "typescript": "^5.6.3"
   },
   "devDependencies": {
@@ -77,6 +77,6 @@
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-astro-organize-imports": "^0.4.11",
     "prettier-plugin-organize-imports": "^4.1.0",
-    "prettier-plugin-tailwindcss": "^0.6.9"
+    "prettier-plugin-tailwindcss": "^0.6.11"
   }
 }
