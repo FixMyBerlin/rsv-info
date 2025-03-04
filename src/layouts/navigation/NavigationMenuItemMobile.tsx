@@ -1,5 +1,5 @@
 import { DisclosureButton } from '@headlessui/react'
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 
 type Props = { currentPage: string; name: string; to: string }
 

@@ -8,7 +8,7 @@ import {
 } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { navigate } from 'astro:transitions/client'
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 
 import { Fragment } from 'react'
 import meta from 'src/radschnellwege/meta/meta.json'

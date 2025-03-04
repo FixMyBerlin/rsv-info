@@ -1,6 +1,6 @@
 import { OptIn } from '@components/CookieConsent/OptIn'
 import { getOptInCookie } from '@components/CookieConsent/storage'
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 import type { MetaSchema } from 'data/schema/meta.schema'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import { useEffect, useState } from 'react'

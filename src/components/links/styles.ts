@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 import type { LinkProps } from './types'
 
 export const linkStyles = 'text-emerald-600 hover:underline'

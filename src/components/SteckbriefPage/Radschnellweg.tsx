@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 
 import { InfoIcon } from '@assets/general/tsx/InfoIcon'
 import type { MetaSchema } from 'data/schema/meta.schema'

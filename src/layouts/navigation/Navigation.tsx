@@ -1,5 +1,5 @@
 import { Disclosure, DisclosurePanel } from '@headlessui/react'
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 
 import { RSVLogo } from '@assets/general/tsx/RSVLogo'
 import { navigationLinks } from './navigationLinks.const'
