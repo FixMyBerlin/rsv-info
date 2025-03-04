@@ -77,12 +77,13 @@ const { Content } = await entry.render()
               <li>
                 <a
                   href={file.file}
+                  download={file.name.slug}
                   class:list={buttonStylesForWhiteLinkElement}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   <ArrowUpRightIcon className="mr-2 h-6 w-6 pt-0.5" />
-                  {file.name}
+                  {file.name.name}
                 </a>
               </li>
             ))}
