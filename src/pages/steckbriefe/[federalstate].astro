@@ -1,11 +1,11 @@
 ---
+export const prerender = true
+//
 import SteckbriefePage from '@components/SteckbriefePage/SteckbriefePage.astro'
 import type { RsvTeaser } from '@components/SteckbriefePage/SteckbriefePageTeasers.astro'
-
 import type { MetaSchema } from 'data/schema/meta.schema'
 import LayoutPage from 'src/layouts/LayoutPage.astro'
 import { getRsvTeasersFromMeta } from 'src/radschnellwege/meta/getRsvTeasersFromMeta'
-
 import meta from 'src/radschnellwege/meta/meta.json'
 
 export async function getStaticPaths() {

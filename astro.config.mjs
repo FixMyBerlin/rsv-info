@@ -11,7 +11,7 @@ import { defineConfig, envField } from 'astro/config'
 // Which we have to do manually, see https://docs.astro.build/en/guides/configuring-astro/#environment-variables
 //
 // USAGE:
-// `npm run dev` uses hybrid mode and keystatic()
+// `npm run dev` uses server mode and keystatic()
 // `npm run build` (server) is based on .env and has different settings for Netlify (CMS/Keystatic) vs. IONOS (Static site)
 // `npm run build:local && npm run serve` overwrites the .env settings to have a local test case for what is on IONOS
 import { loadEnv } from 'vite'
@@ -31,7 +31,7 @@ export default defineConfig({
     mdx(),
     sitemap(), // We don't exclute inactive pages but rely on the per page `noindex`
   ],
-  // On Netlify and during development we use `hybrid`, on Github Pages we usd `static`.
+  // On Netlify and during development we use `server`, on Github Pages we usd `static`.
   // Using static makes sure features like Astros redirecting work as expected.
   // Docs https://docs.astro.build/en/basics/rendering-modes/
   output: ASTRO_OUTPUT_MODE,
@@ -43,33 +43,31 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  experimental: {
-    env: {
-      schema: {
-        ASTRO_OUTPUT_MODE: envField.enum({
-          values: ['static', 'hybrid', 'server'],
-          access: 'secret',
-          context: 'server',
-          optional: false,
-        }),
-        ASTRO_USE_NETLIFY_ADAPTER: envField.boolean({
-          access: 'secret',
-          context: 'server',
-          optional: false,
-        }),
-        KEYSTATIC_STORAGE_KIND: envField.enum({
-          values: ['local', 'github'],
-          access: 'public',
-          context: 'client',
-          optional: false,
-        }),
-        ASTRO_ENV: envField.enum({
-          values: ['development', 'staging', 'production'],
-          access: 'public',
-          context: 'client',
-          optional: false,
-        }),
-      },
+  env: {
+    schema: {
+      ASTRO_OUTPUT_MODE: envField.enum({
+        values: ['static', 'server'],
+        access: 'secret',
+        context: 'server',
+        optional: false,
+      }),
+      ASTRO_USE_NETLIFY_ADAPTER: envField.boolean({
+        access: 'secret',
+        context: 'server',
+        optional: false,
+      }),
+      KEYSTATIC_STORAGE_KIND: envField.enum({
+        values: ['local', 'github'],
+        access: 'public',
+        context: 'client',
+        optional: false,
+      }),
+      ASTRO_ENV: envField.enum({
+        values: ['development', 'staging', 'production'],
+        access: 'public',
+        context: 'client',
+        optional: false,
+      }),
     },
   },
 })
