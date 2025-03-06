@@ -49,7 +49,7 @@ export const SteckbriefePageFilter: React.FC<Props> = ({ currentFilter }) => {
   })
 
   const all = 'Alle anzeigen'
-  statePaths[all] = '/steckbriefe/'
+  statePaths[all] = '/steckbriefe'
   stateCount[all] = radschnellwege.length
 
   return (

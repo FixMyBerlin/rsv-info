@@ -1,10 +1,10 @@
 export type navigationMenuItemProps = { name: string; to: string }
 
 export const navigationLinks: navigationMenuItemProps[] = [
-  { name: 'Steckbriefe', to: '/steckbriefe/' },
+  { name: 'Steckbriefe', to: '/steckbriefe' },
   // TEMP DISABLED:
-  // { name: 'Kommunikation', to: '/kommunikation/' },
-  // { name: 'Planung', to: '/planung/' },
+  // { name: 'Kommunikation', to: '/kommunikation' },
+  // { name: 'Planung', to: '/planung' },
   //
   // {
   //   name: 'Feedback geben',

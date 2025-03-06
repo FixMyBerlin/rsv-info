@@ -37,9 +37,11 @@ export default defineConfig({
   output: ASTRO_OUTPUT_MODE,
   adapter: ASTRO_USE_NETLIFY_ADAPTER === 'true' ? netlify() : undefined,
   redirects: {
-    'abstimmungen/abstimmungsprozesse/':
-      '/kommunikation/radschnellwegeplanung-als-zusammenspiel-vieler-akteur-innen/',
+    'abstimmungen/abstimmungsprozesse':
+      '/kommunikation/radschnellwegeplanung-als-zusammenspiel-vieler-akteur-innen',
   },
+  // Learn more at https://github.com/withastro/astro/issues/12532
+  trailingSlash: 'never',
   vite: {
     plugins: [tailwindcss()],
   },
