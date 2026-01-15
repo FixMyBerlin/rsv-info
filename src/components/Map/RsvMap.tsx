@@ -1,6 +1,6 @@
 import { OptIn } from '@components/CookieConsent/OptIn'
 import { getOptInCookie } from '@components/CookieConsent/storage'
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 import type { MetaSchema } from 'data/schema/meta.schema'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import { useEffect, useState } from 'react'
@@ -31,8 +31,8 @@ export const RSVMap: React.FC<Props> = ({ meta, geometry }) => {
         </div>
       )}
 
-      <div className="absolute bottom-0 left-0 right-0 z-10">
-        <div className="mb-2 mr-2 translate-x-1 translate-y-1 text-xs">
+      <div className="absolute right-0 bottom-0 left-0 z-10">
+        <div className="mr-2 mb-2 translate-x-1 translate-y-1 text-xs">
           <Attribution />
         </div>
         <Legend />

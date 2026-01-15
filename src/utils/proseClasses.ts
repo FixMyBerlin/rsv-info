@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 
 export const markdownProseClasses = clsx(
   'prose prose-sm md:prose-base', // responsive sizes
@@ -11,6 +11,6 @@ export const markdownProseClasses = clsx(
   'prose-h3:text-sm md:prose-h3:text-base', // h3 size
   'prose-h4:text-sm md:prose-h4:text-base', // h4 size
   'prose-li:m-0 prose-li:p-0',
-  'prose-a:text-emerald-600 prose-a:no-underline prose-a:hover:underline',
+  'prose-a:text-emerald-600 prose-a:no-underline hover:prose-a:underline',
   'prose-headings:max-w-[690px] prose-p:max-w-[690px] prose-a:max-w-[690px] prose-blockquote:max-w-[690px] prose-code:max-w-[690px] prose-ol:max-w-[690px] prose-ul:max-w-[690px] prose-table:max-w-[690px] prose-hr:max-w-[690px]',
 )

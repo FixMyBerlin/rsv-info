@@ -1,8 +1,9 @@
 ---
 import '@fontsource/overpass'
-import { ViewTransitions } from 'astro:transitions'
+import { ClientRouter } from 'astro:transitions'
+import { clsx } from 'clsx'
+import './base.css'
 import { Navigation } from './navigation/Navigation'
-import clsx from 'clsx'
 
 const seoDefaultValues = {
   defaultTitle: 'Radschnellverbindungen.info',
@@ -55,7 +56,7 @@ console.log(pathname)
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
 
-    <ViewTransitions />
+    <ClientRouter />
 
     <!-- Matomo tracking code -->
     <script>

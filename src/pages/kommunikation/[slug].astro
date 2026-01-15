@@ -1,4 +1,6 @@
 ---
+export const prerender = true
+//
 import Divider from '@components/Divider.astro'
 import ImageDouble from '@components/ImageComponents/ImageDouble.astro'
 import ImageSingleHorizontal from '@components/ImageComponents/ImageSingleHorizontal.astro'
@@ -52,7 +54,7 @@ const { Content } = await entry.render()
       />
       {
         imageCopyright && (
-          <figcaption class="mr-6 mt-1 text-right text-xs text-gray-400 md:text-sm">
+          <figcaption class="mt-1 mr-6 text-right text-xs text-gray-400 md:text-sm">
             © {imageCopyright}
           </figcaption>
         )
@@ -77,12 +79,13 @@ const { Content } = await entry.render()
               <li>
                 <a
                   href={file.file}
+                  download={file.name.slug}
                   class:list={buttonStylesForWhiteLinkElement}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   <ArrowUpRightIcon className="mr-2 h-6 w-6 pt-0.5" />
-                  {file.name}
+                  {file.name.name}
                 </a>
               </li>
             ))}

@@ -59,16 +59,22 @@ const blogSchema = {
   }),
   uploads: fields.array(
     fields.object({
-      name: fields.text({ label: 'Beschriftung', validation: { isRequired: true } }),
+      name: fields.slug({
+        name: { label: 'Beschriftung', validation: { isRequired: true } },
+        slug: { label: 'Dateiname' },
+      }),
       file: fields.file({
         label: 'Datei',
-        directory: 'public',
-        publicPath: '/',
         validation: { isRequired: true },
       }),
     }),
     {
-      itemLabel: (props) => props.fields.name.value || 'Datei',
+      itemLabel: (props) => props.fields.name.value.name || 'Datei',
+      // See https://keystatic.com/docs/fields/array#slug-field
+      // See https://github.com/Thinkmill/keystatic/discussions/1307#discussioncomment-10631626
+      // BUT, this still results in a `file.pdf` file name. It looks like there is no way to get a `<slug>.pdf` filename.
+      // See dicussion for follow up question.
+      slugField: 'name',
       label: 'Dateien',
     },
   ),

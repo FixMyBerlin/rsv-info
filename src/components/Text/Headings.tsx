@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 
 type Props = {
   children: React.ReactNode
@@ -9,7 +9,7 @@ export const H1: React.FC<Props> = ({ children, className }) => {
   return (
     <h1
       className={clsx([
-        'mt-7 break-words text-3xl font-extrabold leading-tight text-gray-900 sm:text-5xl sm:leading-tight',
+        'mt-7 text-3xl leading-tight font-extrabold break-words text-gray-900 sm:text-5xl sm:leading-tight',
 
         className,
       ])}
@@ -23,7 +23,7 @@ export const H2: React.FC<Props> = ({ children, className }) => {
   return (
     <h2
       className={clsx([
-        'mt-6 text-2xl font-extrabold leading-tight sm:text-4xl sm:leading-tight',
+        'mt-6 text-2xl leading-tight font-extrabold sm:text-4xl sm:leading-tight',
         className,
       ])}
     >
@@ -36,7 +36,7 @@ export const H3: React.FC<Props> = ({ children, className }) => {
   return (
     <h3
       className={clsx([
-        'text-x mt-5 font-extrabold leading-tight sm:text-3xl sm:leading-tight',
+        'text-x mt-5 leading-tight font-extrabold sm:text-3xl sm:leading-tight',
         className,
       ])}
     >

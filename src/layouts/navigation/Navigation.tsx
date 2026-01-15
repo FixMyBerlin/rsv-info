@@ -1,7 +1,6 @@
-import { Disclosure, DisclosurePanel } from '@headlessui/react'
-import clsx from 'clsx'
-
 import { RSVLogo } from '@assets/general/tsx/RSVLogo'
+import { Disclosure, DisclosurePanel } from '@headlessui/react'
+import { clsx } from 'clsx'
 import { navigationLinks } from './navigationLinks.const'
 import { NavigationMenuItemDesktop } from './NavigationMenuItemDesktop'
 import { NavigationMenuItemMobile } from './NavigationMenuItemMobile'
@@ -10,7 +9,7 @@ import { NavigationMobileMenuButton } from './NavigationMobileMenuButton'
 type Props = { path: string; fixed?: boolean }
 
 export const navHeightClasssName = 'h-20'
-export const Navigation: React.FC<Props> = ({ path, fixed }) => {
+export const Navigation = ({ path, fixed }: Props) => {
   // Check if the current page is a steckbriefe page (not list view) to apply a different layout with a fixed navbar
 
   return (
@@ -18,7 +17,7 @@ export const Navigation: React.FC<Props> = ({ path, fixed }) => {
     <Disclosure
       as="nav"
       className={clsx(
-        fixed && 'fixed left-0 right-0 top-0',
+        fixed && 'fixed top-0 right-0 left-0',
         'z-20 mx-auto flex w-full flex-col bg-white shadow-md',
       )}
     >
@@ -52,7 +51,7 @@ export const Navigation: React.FC<Props> = ({ path, fixed }) => {
           </div>
 
           <DisclosurePanel className="md:hidden">
-            <nav className="space-y-1 pb-3 pt-2">
+            <nav className="space-y-1 pt-2 pb-3">
               {navigationLinks.map((link) => (
                 <NavigationMenuItemMobile
                   name={link.name}
