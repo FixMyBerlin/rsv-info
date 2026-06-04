@@ -28,7 +28,7 @@ jobs:
       # Failures are logged as warnings and pages build with empty map geometry.
       # Static map PNGs in public/rsv-map-images/ are committed separately.
       - name: Install, build, and upload your site output
-        uses: withastro/action@v2
+        uses: withastro/action@v3
         env:
           KEYSTATIC_STORAGE_KIND: "local"
           ASTRO_ENV: "production"
@@ -36,7 +36,7 @@ jobs:
           ASTRO_USE_NETLIFY_ADAPTER: "false"
         with:
           node-version: 24
-          package-manager: npm
+          package-manager: bun
 
 # Please do not touch the following action
       - name: Store deployment content
