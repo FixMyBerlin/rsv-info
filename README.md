@@ -19,12 +19,12 @@ If you found any bugs feel free to create an issue.
 
 For starting developing, the following steps could be helpful for getting started:
 
-- Use or nvm to install Node.js: `nvm use`
-- Install dependenices: `npm install`
-- Start astro develop service: `npm start`
-- Use `npm run` to see a list of commands
+- Install [Bun](https://bun.sh/docs/installation) (see [`.bun-version`](./.bun-version) for the pinned version)
+- Install dependencies: `bun install`
+- Start the Astro dev server: `bun run dev` (or `bun start`)
+- Use `bun run` to see a list of commands
 
-We use husky to ensure commits don't include linting issues. If you use nvm, as suggested here, you should create a `~/.huskyrc`. See [docs](https://typicode.github.io/husky/#/?id=command-not-found)
+We use husky to ensure commits don't include linting issues. If pre-push hooks fail in a GUI Git client, ensure `bun` is on your `PATH`. See [Husky troubleshooting](https://typicode.github.io/husky/#/?id=command-not-found)
 
 Setup your `.env.development` file, for which you can use `.env.defaults` as a start.
 

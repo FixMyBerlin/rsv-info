@@ -11,9 +11,9 @@ import { defineConfig, envField } from 'astro/config'
 // Which we have to do manually, see https://docs.astro.build/en/guides/configuring-astro/#environment-variables
 //
 // USAGE:
-// `npm run dev` uses server mode and keystatic()
-// `npm run build` (server) is based on .env and has different settings for Netlify (CMS/Keystatic) vs. IONOS (Static site)
-// `npm run build:local && npm run serve` overwrites the .env settings to have a local test case for what is on IONOS
+// `bun run dev` uses server mode and keystatic()
+// `bun run build` (server) is based on .env and has different settings for Netlify (CMS/Keystatic) vs. IONOS (Static site)
+// `bun run build:local && bun run preview` overwrites the .env settings to have a local test case for what is on IONOS
 import { loadEnv } from 'vite'
 const { ASTRO_OUTPUT_MODE, ASTRO_USE_NETLIFY_ADAPTER } = loadEnv(
   process.env.NODE_ENV,
