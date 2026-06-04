@@ -1,24 +1,28 @@
 ---
 export const prerender = true
-//
+
 import SteckbriefePage from '@components/SteckbriefePage/SteckbriefePage.astro'
-import type { RsvTeaser } from '@components/SteckbriefePage/SteckbriefePageTeasers.astro'
-import type { MetaSchema } from 'data/schema/meta.schema'
+import { getCollection } from 'astro:content'
 import LayoutPage from 'src/layouts/LayoutPage.astro'
-import { getRsvTeasersFromMeta } from 'src/radschnellwege/meta/getRsvTeasersFromMeta'
-import meta from 'src/radschnellwege/meta/meta.json'
+import {
+  getFederalStateFilterData,
+  getSteckbriefTeasers,
+} from 'src/lib/steckbrief/getSteckbriefTeasers'
 
 export async function getStaticPaths() {
+  const steckbriefe = await getCollection('steckbriefe')
+  const federalStateOptions = getFederalStateFilterData(steckbriefe)
   const uniqueFederalStates = Array.from(
-    new Set(meta.flatMap((rsv) => [rsv.general.from.federalState, rsv.general.to.federalState])),
-  )
+    new Set(
+      steckbriefe.flatMap((entry) => [entry.data.fromFederalState, entry.data.toFederalState]),
+    ),
+  ).filter(Boolean) as string[]
+
   return uniqueFederalStates.map((state) => {
-    // @ts-expect-error todo
-    const filteredRsvs: MetaSchema[] = meta.filter(
-      (rsv) => rsv.general.from.federalState === state || rsv.general.to.federalState === state,
+    const filtered = steckbriefe.filter(
+      (entry) => entry.data.fromFederalState === state || entry.data.toFederalState === state,
     )
-    if (!filteredRsvs) return
-    const rsvTeasers: RsvTeaser[] = getRsvTeasersFromMeta(filteredRsvs)
+    const rsvTeasers = getSteckbriefTeasers(filtered)
     return {
       params: {
         federalstate: state
@@ -28,12 +32,12 @@ export async function getStaticPaths() {
           .replace(/ü/g, 'ue')
           .replace(/ß/g, 'ss'),
       },
-      props: { rsvTeasers, state },
+      props: { rsvTeasers, state, federalStateOptions },
     }
   })
 }
 
-const { rsvTeasers, state } = Astro.props as { rsvTeasers: RsvTeaser[]; state: string }
+const { rsvTeasers, state, federalStateOptions } = Astro.props
 
 const rsvCount = rsvTeasers.length > 1 ? ` ${rsvTeasers.length} ` : ' '
 
@@ -47,5 +51,6 @@ const description = `Übersicht der aktuell ${rsvCount} geplanten Radschnellverb
     headerDescription={description}
     headerTitle={title}
     currentFilter={state}
+    federalStateOptions={federalStateOptions}
   />
 </LayoutPage>

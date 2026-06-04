@@ -1,0 +1,15 @@
+slug: "8-niedersachsen"
+title: "Achimer  Radschnellweg"
+state: "in_progress"
+ref: "8"
+fromCity: "Achim"
+fromFederalState: "Niedersachsen"
+toCity: "Bremen"
+toFederalState: "Bremen"
+lengthKm: 10
+stand: "2024-02-29"
+sourceUrl: "https://www.achim.de/portal/seiten/rasch-achimer-radschnellweg-902001536-20601.html"
+website: "https://www.achim.de/portal/seiten/rasch-achimer-radschnellweg-902001536-20601.html"
+trassenscoutProjectSlugs: []
+showOnHome: false
+order: 0

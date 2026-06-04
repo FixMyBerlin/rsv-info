@@ -1,0 +1,19 @@
+slug: "28-baden-wuerttemberg"
+title: "Radschnellweg  Freiburg  –  Bad  Krozingen  –  Heitersheim  –  Müllheim"
+state: "idea"
+ref: "28"
+fromCity: "Freiburg"
+fromFederalState: "Baden-Württemberg"
+toCity: "Müllheim"
+toFederalState: "Baden-Württemberg"
+lengthKm: 26.5
+stand: "2022-06-07"
+sourceUrl: "https://www.region-suedlicher-oberrhein.de/de/projekte/radschnellwege/index.php"
+website: "https://www.region-suedlicher-oberrhein.de/de/projekte/radschnellwege/index.php"
+stakeholders:
+  - name: "Regionalverband  Südlicher  Oberrheim  (RVSO)"
+    roles:
+      - "authority"
+trassenscoutProjectSlugs: []
+showOnHome: false
+order: 0

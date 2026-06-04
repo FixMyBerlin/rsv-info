@@ -1,0 +1,19 @@
+slug: "rsv8-berlin"
+title: "Nonnendammallee  –  Falkenseer  Chaussee"
+state: "planning"
+ref: "RSV  8"
+fromCity: "Jakob-Kaiser-Platz,  Charlottenburg"
+fromFederalState: "Berlin"
+toCity: "Altstadt  Spandau"
+toFederalState: "Berlin"
+lengthKm: 11.9
+stand: "2022-05-26"
+sourceUrl: "https://www.infravelo.de/projekt/nonnendammallee-falkenseer-chaussee/"
+website: "https://www.infravelo.de/projekt/nonnendammallee-falkenseer-chaussee/"
+stakeholders:
+  - name: "infraVelo"
+    roles:
+      - "authority"
+trassenscoutProjectSlugs: []
+showOnHome: false
+order: 0

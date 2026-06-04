@@ -1,0 +1,19 @@
+slug: "rsv6-berlin"
+title: "Teltowkanalroute"
+state: "planning"
+ref: "RSV  6"
+fromCity: "Lichterfelde"
+fromFederalState: "Berlin"
+toCity: "Bahnhof  Südkreuz"
+toFederalState: "Berlin"
+lengthKm: 8.8
+stand: "2022-05-26"
+sourceUrl: "https://www.infravelo.de/projekt/teltowkanalroute/"
+website: "https://www.infravelo.de/projekt/teltowkanalroute/"
+stakeholders:
+  - name: "infraVelo"
+    roles:
+      - "authority"
+trassenscoutProjectSlugs: []
+showOnHome: false
+order: 0

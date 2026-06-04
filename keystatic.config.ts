@@ -96,10 +96,76 @@ export default config({
       // mark: () => <img src="/favicon.svg" height={27} />,
     },
     navigation: {
+      Steckbriefe: ['steckbriefe'],
       Blog: ['planningposts', 'communicationposts'],
     },
   },
   collections: {
+    steckbriefe: collection({
+      label: 'Steckbriefe',
+      slugField: 'slug',
+      path: 'src/data/steckbriefe/*/',
+      format: { data: 'yaml' },
+      columns: ['title', 'state', 'lastCheckedDate'],
+      schema: {
+        slug: fields.text({
+          label: 'Slug / URL-Teil',
+          description: 'Bestehende ID, z.B. frm7-hessen',
+          validation: { isRequired: true },
+        }),
+        title: fields.text({ label: 'Titel', validation: { isRequired: true } }),
+        description: fields.document({
+          label: 'Kurzfassung',
+          formatting: true,
+          links: true,
+        }),
+        trassenscoutProjectSlugs: fields.array(fields.text({ label: 'Trassenscout slug' }), {
+          label: 'Trassenscout project slugs',
+          itemLabel: (props) => props.value || 'Slug',
+          description: 'Leer lassen wenn noch kein Trassenscout-Projekt existiert.',
+        }),
+        state: fields.select({
+          label: 'Planungsstand',
+          options: [
+            { label: 'Idee', value: 'idea' },
+            { label: 'Abstimmungsprozess', value: 'agreement_process' },
+            { label: 'Planung', value: 'planning' },
+            { label: 'Im Bau', value: 'in_progress' },
+            { label: 'Fertig', value: 'done' },
+          ],
+          defaultValue: 'planning',
+        }),
+        ref: fields.text({ label: 'Referenz (z.B. RS8, FRM 7)' }),
+        fromCity: fields.text({ label: 'Von (Stadt)' }),
+        fromFederalState: fields.text({ label: 'Von (Bundesland)' }),
+        toCity: fields.text({ label: 'Nach (Stadt)' }),
+        toFederalState: fields.text({ label: 'Nach (Bundesland)' }),
+        lengthKm: fields.number({ label: 'Länge (km)' }),
+        stand: fields.date({ label: 'Stand' }),
+        lastCheckedDate: fields.date({ label: 'Zuletzt geprüft' }),
+        sourceUrl: fields.url({ label: 'Quellen-URL' }),
+        website: fields.url({ label: 'Projektwebsite' }),
+        stakeholders: fields.array(
+          fields.object({
+            name: fields.text({ label: 'Name', validation: { isRequired: true } }),
+            roles: fields.multiselect({
+              label: 'Rollen',
+              options: [
+                { label: 'Zuständigkeit', value: 'authority' },
+                { label: 'Kommunikation', value: 'communication' },
+                { label: 'Bau', value: 'construction_company' },
+              ],
+            }),
+          }),
+          { label: 'Stakeholders', itemLabel: (props) => props.fields.name.value || 'Stakeholder' },
+        ),
+        showOnHome: fields.checkbox({
+          label: 'Auf Startseite anzeigen',
+          defaultValue: false,
+        }),
+        order: fields.number({ label: 'Reihenfolge', defaultValue: 0 }),
+      },
+    }),
     planningposts: collection({
       label: 'Blog Planung',
       slugField: 'title',

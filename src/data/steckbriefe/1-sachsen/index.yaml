@@ -1,0 +1,18 @@
+slug: "1-sachsen"
+title: "Strecke  Pirna    –    Meißen"
+state: "idea"
+ref: "1"
+fromCity: "Meißen"
+fromFederalState: "Sachsen"
+toCity: "Pirna"
+toFederalState: "Sachsen"
+lengthKm: 45
+stand: "2022-06-27"
+sourceUrl: "https://www.adfc-sachsen.de/548-radschnellwege-auch-in-sachsen"
+stakeholders:
+  - name: "Landesarbeitsgemeinschaft  Radverkehr  Sachsen"
+    roles:
+      - "authority"
+trassenscoutProjectSlugs: []
+showOnHome: false
+order: 0

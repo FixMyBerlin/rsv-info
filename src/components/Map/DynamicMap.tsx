@@ -5,7 +5,7 @@ import 'maplibre-gl/dist/maplibre-gl.css'
 import { useEffect, useState } from 'react'
 import Map, { FullscreenControl, NavigationControl } from 'react-map-gl/maplibre'
 
-import type { GeometrySchema } from 'data/schema/geometry.schema'
+import type { GeometrySchema } from 'src/types/geometry'
 import { maptilerBaseUrl, maptilerKey } from 'src/utils/mapTiler.const'
 import { RSVSegment } from './RsvSegment'
 

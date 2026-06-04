@@ -6,37 +6,18 @@ import Link from '@components/links/Link'
 import PageHeader from '@components/PageHeader.astro'
 import Section from '@components/Section.astro'
 import { RsvStateLabel } from '@components/SteckbriefePage/RsvStateLabel'
-import type { RsvTeaser } from '@components/SteckbriefePage/SteckbriefePageTeasers.astro'
 import TeaserCard from '@components/Teaser/TeaserCard.astro'
 import TeasersContainer from '@components/Teaser/TeasersContainer.astro'
-import type { MetaSchema } from 'data/schema/meta.schema'
+import { getCollection } from 'astro:content'
 import LayoutPage from 'src/layouts/LayoutPage.astro'
-import { getRsvTeasersFromMeta } from 'src/radschnellwege/meta/getRsvTeasersFromMeta'
-import meta from 'src/radschnellwege/meta/meta.json'
+import {
+  getSteckbriefDisplayTitle,
+  getSteckbriefTeasers,
+} from 'src/lib/steckbrief/getSteckbriefTeasers'
 
-// @ts-expect-error
-const filteredRsvs: MetaSchema[] = meta.filter(
-  (rsv) =>
-    rsv.id === 'frm7-hessen' || rsv.id === 'rs8-baden-wuerttemberg' || rsv.id === 'rsv2-berlin',
-)
-const rsvTeasers: RsvTeaser[] = getRsvTeasersFromMeta(filteredRsvs)
-
-// const planningposts = await getCollection('planningposts')
-// const filteredAndSortedPlanningposts = planningposts
-//   .filter((a) => !a.data.preview)
-//   .filter((post) => post.data.showOnHome)
-//   .sort((a, b) => {
-//     return a.data.order - b.data.order
-//   })
-//   .slice(0, 3)
-// const communicationposts = await getCollection('communicationposts')
-// const filteredAndSortedCommunicationposts = communicationposts
-//   .filter((a) => !a.data.preview)
-//   .filter((post) => post.data.showOnHome)
-//   .sort((a, b) => {
-//     return a.data.order - b.data.order
-//   })
-//   .slice(0, 3)
+const steckbriefe = await getCollection('steckbriefe')
+const homeSteckbriefe = steckbriefe.filter((entry) => entry.data.showOnHome)
+const rsvTeasers = getSteckbriefTeasers(homeSteckbriefe)
 ---
 
 <LayoutPage
@@ -57,21 +38,19 @@ const rsvTeasers: RsvTeaser[] = getRsvTeasersFromMeta(filteredRsvs)
     <Divider />
     <TeasersContainer>
       {
-        rsvTeasers.map((rsvTeaser) => (
-          <TeaserCard
-            title={
-              // @ts-expect-error
-              (Number.isNaN(parseFloat(rsvTeaser.general.ref))
-                ? `${rsvTeaser.general.ref}: `
-                : '') + (rsvTeaser.general.name || rsvTeaser.jsonId)
-            }
-            description={rsvTeaser.general.description || undefined}
-            href={`/steckbriefe/${rsvTeaser.jsonId}`}
-            image={rsvTeaser.staticMap}
-          >
-            <RsvStateLabel state={rsvTeaser.state} />
-          </TeaserCard>
-        ))
+        rsvTeasers.map((rsvTeaser) => {
+          const entry = homeSteckbriefe.find((item) => item.data.slug === rsvTeaser.slug)
+          const title = entry ? getSteckbriefDisplayTitle(entry.data) : rsvTeaser.title
+          return (
+            <TeaserCard
+              title={title}
+              href={`/steckbriefe/${rsvTeaser.slug}`}
+              image={rsvTeaser.staticMap}
+            >
+              <RsvStateLabel state={rsvTeaser.state} />
+            </TeaserCard>
+          )
+        })
       }
     </TeasersContainer>
   </Section>
@@ -89,7 +68,7 @@ const rsvTeasers: RsvTeaser[] = getRsvTeasersFromMeta(filteredRsvs)
           const { title, type, teaserText, teaserImage, imageCopyright } = post.data
           return (
             <TeaserCard
-              href={`/kommunikation/${post.slug}`}
+              href={`/kommunikation/${post.id}`}
               title={title}
               description={teaserText}
               tag={type}
@@ -116,7 +95,7 @@ const rsvTeasers: RsvTeaser[] = getRsvTeasersFromMeta(filteredRsvs)
           const { title, type, teaserText, teaserImage, imageCopyright } = post.data
           return (
             <TeaserCard
-              href={`/planung/${post.slug}`}
+              href={`/planung/${post.id}`}
               title={title}
               description={teaserText}
               tag={type}

@@ -1,0 +1,20 @@
+slug: "frm1-hessen"
+title: "Radschnellweg  Frankfurt  –  Darmstadt"
+state: "in_progress"
+ref: "FRM  1"
+fromCity: "Frankfurt  am  Main"
+fromFederalState: "Hessen"
+toCity: "Darmstadt"
+toFederalState: "Hessen"
+lengthKm: 30
+stand: "2022-06-07"
+sourceUrl: "http://radschnellverbindung-ffm-da.de/kontakt"
+website: "http://radschnellverbindung-ffm-da.de/"
+stakeholders:
+  - name: "Nahmobil  Hessen"
+    roles:
+      - "authority"
+trassenscoutProjectSlugs:
+  - "frm1"
+showOnHome: false
+order: 0

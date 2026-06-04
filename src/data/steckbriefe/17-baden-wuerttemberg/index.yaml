@@ -1,0 +1,19 @@
+slug: "17-baden-wuerttemberg"
+title: "Bad  Wimpfen  –  Offenau  –  Gundelsheim"
+state: "idea"
+ref: "17"
+fromCity: "Bad  Wimpfen"
+fromFederalState: "Baden-Württemberg"
+toCity: "Gundelsheim"
+toFederalState: "Baden-Württemberg"
+lengthKm: 6
+stand: "2022-06-07"
+sourceUrl: "https://radschnellweg-hn.de/?p=online-umfrage"
+website: "https://radschnellweg-hn.de/?p=online-umfrage"
+stakeholders:
+  - name: "Landkreis  Heilbronn"
+    roles:
+      - "authority"
+trassenscoutProjectSlugs: []
+showOnHome: false
+order: 0

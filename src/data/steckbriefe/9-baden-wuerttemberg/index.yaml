@@ -1,0 +1,19 @@
+slug: "9-baden-wuerttemberg"
+title: "Radschnellverbindung  Vaihingen/Enz  -  Stuttgart"
+state: "agreement_process"
+ref: "9"
+fromCity: "Vaihingen/Enz"
+fromFederalState: "Baden-Württemberg"
+toCity: "Stuttgart"
+toFederalState: "Baden-Württemberg"
+lengthKm: 20
+stand: "2022-06-02"
+sourceUrl: "https://www.landkreis-ludwigsburg.de/de/verkehr-sicherheit-ordnung/radverkehr/radschnellwege/"
+website: "https://www.landkreis-ludwigsburg.de/de/verkehr-sicherheit-ordnung/radverkehr/radschnellwege/"
+stakeholders:
+  - name: "Landkreis  Ludwigsburg"
+    roles:
+      - "authority"
+trassenscoutProjectSlugs: []
+showOnHome: false
+order: 0

@@ -1,0 +1,19 @@
+slug: "rs10-baden-wuerttemberg"
+title: "Karlsruhe - Ettlingen"
+state: "planning"
+ref: "RS10"
+fromCity: "Karlsruhe"
+fromFederalState: "Baden-Württemberg"
+toCity: "Ettlingen"
+toFederalState: "Baden-Württemberg"
+lengthKm: 5
+stand: "2024-02-28"
+sourceUrl: "https://rp.baden-wuerttemberg.de/rpk/abt4/ref44/radschnellwege/rs10-karlsruhe-ettlingen"
+website: "https://rp.baden-wuerttemberg.de/rpk/abt4/ref44/radschnellwege/rs10-karlsruhe-ettlingen/"
+stakeholders:
+  - name: "Regionalverband  Mittlerer  Oberrhein"
+    roles:
+      - "authority"
+trassenscoutProjectSlugs: []
+showOnHome: false
+order: 0

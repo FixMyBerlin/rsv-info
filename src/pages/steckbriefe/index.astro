@@ -1,12 +1,15 @@
 ---
 import SteckbriefePage from '@components/SteckbriefePage/SteckbriefePage.astro'
-import { type RsvTeaser } from '@components/SteckbriefePage/SteckbriefePageTeasers.astro'
+import { getCollection } from 'astro:content'
 import LayoutPage from 'src/layouts/LayoutPage.astro'
-import { getRsvTeasersFromMeta } from 'src/radschnellwege/meta/getRsvTeasersFromMeta'
-import meta from 'src/radschnellwege/meta/meta.json'
+import {
+  getFederalStateFilterData,
+  getSteckbriefTeasers,
+} from 'src/lib/steckbrief/getSteckbriefTeasers'
 
-// @ts-expect-error todo
-const rsvTeasers: RsvTeaser[] = getRsvTeasersFromMeta(meta)
+const steckbriefe = await getCollection('steckbriefe')
+const rsvTeasers = getSteckbriefTeasers(steckbriefe)
+const federalStateOptions = getFederalStateFilterData(steckbriefe)
 
 const headerTitle = 'Übersicht über RSV-Planungen'
 const headerDescription = `
@@ -25,6 +28,7 @@ const headerDescription = `
     headerTitle={headerTitle}
     headerDescription={headerDescription}
     rsvTeasers={rsvTeasers}
+    federalStateOptions={federalStateOptions}
     currentFilter="Alle anzeigen"
   />
 </LayoutPage>

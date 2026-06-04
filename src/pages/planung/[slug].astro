@@ -13,13 +13,13 @@ import { H4 } from '@components/Text'
 import { buttonStylesForWhiteLinkElement } from '@components/links/styles'
 import { ArrowUpRightIcon } from '@heroicons/react/20/solid'
 import { Image } from 'astro:assets'
-import { getCollection } from 'astro:content'
+import { getCollection, render } from 'astro:content'
 import LayoutPage from 'src/layouts/LayoutPage.astro'
 
 export async function getStaticPaths() {
   const planningposts = await getCollection('planningposts')
   return planningposts.map((entry) => {
-    const entrySlug = entry.data.preview ? entry.slug + '--preview' : entry.slug
+    const entrySlug = entry.data.preview ? entry.id + '--preview' : entry.id
     return { params: { slug: entrySlug }, props: { entry } }
   })
 }
@@ -27,7 +27,7 @@ export async function getStaticPaths() {
 const { entry } = Astro.props
 const { title, subTitle, type, date, preview, teaserImage, imageCopyright, uploads } = entry.data
 
-const { Content } = await entry.render()
+const { Content } = await render(entry)
 ---
 
 <LayoutPage title={`${type}: ${title}`} noindex={preview}>

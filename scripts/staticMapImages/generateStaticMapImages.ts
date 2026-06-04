@@ -1,26 +1,25 @@
-import type { GeometrySchema } from 'data/schema/geometry.schema'
+import type { GeometrySchema } from '../../src/types/geometry'
 import type { Feature } from 'maplibre-gl'
 
 const pkg = require('@googlemaps/polyline-codec')
 const turf = require('@turf/turf')
 const fs = require('fs')
 const path = require('path')
+const { parse: parseYaml } = require('yaml')
 const { segmentColor } = require('./mapColors.js')
 const { maptilerBaseUrl, maptilerKey } = require('./mapTiler.const.js')
 const { encode } = pkg
 const { simplify } = turf
 
 const outputDir = path.resolve('public/rsv-map-images')
-const geometryDir = path.resolve('src/content/geometries')
+const steckbriefeDir = path.resolve('src/data/steckbriefe')
 
-// from rsv-dossier/src/utils/staticmap.ts
 // @ts-expect-error
 const buildPaths = ({ properties, geometry: { coordinates } }: Feature) => {
   const paint = { width: 5, stroke: segmentColor(properties) }
   // @ts-expect-error
   const paintArr = Object.keys(paint).map((key) => `${key}:${paint[key]}`)
 
-  // flip the coordinate order for encoding
   return (
     coordinates
       // @ts-expect-error
@@ -40,8 +39,6 @@ const staticMapRequest = (
   [width, height]: [number, number],
 ) => {
   const dims = `${width / 2}x${height / 2}@2x.png`
-
-  // URL and Keys: ~/utils/mapTiler.const.ts
   const url = new URL(`${maptilerBaseUrl}/static/${bbox.toString()}/${dims}`)
   url.searchParams.append('key', maptilerKey)
   url.searchParams.append('attribution', '0')
@@ -54,24 +51,47 @@ const staticMapRequest = (
   return url
 }
 
-const processFile = async (file: string, geometryDir: string, outputDir: string) => {
-  try {
-    const filePath = path.resolve(geometryDir, file)
-    const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'))
+async function loadGeometryFromTrassenscout(
+  slug: string,
+  trassenscoutProjectSlugs: string[],
+): Promise<GeometrySchema | null> {
+  if (trassenscoutProjectSlugs.length === 0) return null
 
-    // filter out discarded route variants
-    const filteredData = {
-      ...data,
-      features: data.features.filter((feature: Feature) => !feature.properties.discarded),
+  const { fetchAndMergeTrassenscoutProjects } = await import(
+    '../../src/lib/trassenscout/fetchProject'
+  )
+  const { normalizeTrassenscoutGeometry } = await import(
+    '../../src/lib/trassenscout/normalizeGeometry'
+  )
+
+  const rawCollection = await fetchAndMergeTrassenscoutProjects(trassenscoutProjectSlugs)
+  return normalizeTrassenscoutGeometry(rawCollection, slug)
+}
+
+const processSteckbrief = async (slug: string) => {
+  try {
+    const indexPath = path.join(steckbriefeDir, slug, 'index.yaml')
+    const entry = parseYaml(fs.readFileSync(indexPath, 'utf8'))
+    const trassenscoutProjectSlugs = (entry.trassenscoutProjectSlugs ?? []).filter(Boolean)
+    const data = await loadGeometryFromTrassenscout(slug, trassenscoutProjectSlugs)
+    if (!data) {
+      console.log(`Skipping ${slug}: no Trassenscout project slugs`)
+      return false
     }
 
-    // generate static map from geometry
+    const filteredData = {
+      ...data,
+      features: data.features.filter((feature) => !feature.properties.discarded),
+    }
+
+    if (filteredData.features.length === 0) {
+      console.log(`Skipping ${slug}: no map features`)
+      return false
+    }
+
     let url = staticMapRequest(filteredData, [1920, 1920]).toString()
     let tolerance = 0.000001
 
-    // console.log({ data })
-
-    // respect the MapTiler URL limit
     while (url.length > 8192) {
       const simplified = simplify(filteredData, { tolerance, highQuality: true })
       url = staticMapRequest(simplified, [1920, 1920]).toString()
@@ -85,27 +105,26 @@ const processFile = async (file: string, geometryDir: string, outputDir: string)
     const arrayBuffer = await response.arrayBuffer()
     const buffer = Buffer.from(arrayBuffer)
 
-    // Write the buffer to a file
-    const outputFilePath = path.resolve(outputDir, `${filteredData.id}.png`)
+    const outputFilePath = path.resolve(outputDir, `${slug}.png`)
     fs.writeFileSync(outputFilePath, buffer)
 
     console.log(`Image saved to ${outputFilePath}`)
     return true
   } catch (error) {
-    console.error(`Error processing file ${file}:`, error)
+    console.error(`Error processing ${slug}:`, error)
     return false
   }
 }
 
 const processFiles = async () => {
-  const files = fs.readdirSync(geometryDir)
+  const slugs = fs
+    .readdirSync(steckbriefeDir, { withFileTypes: true })
+    .filter((entry: { isDirectory: () => boolean }) => entry.isDirectory())
+    .map((entry: { name: string }) => entry.name)
 
-  // const results = await processFile(files[0], geometryDir, outputDir)
-  const results = await Promise.all(
-    files.map((file: string) => processFile(file, geometryDir, outputDir)),
-  )
-  const count = results.length
-  console.log(`${count} images (from ${files.length} geometry files) have been saved`)
+  const results = await Promise.all(slugs.map((slug: string) => processSteckbrief(slug)))
+  const count = results.filter(Boolean).length
+  console.log(`${count} images (from ${slugs.length} steckbriefe) have been saved`)
 }
 
 processFiles()

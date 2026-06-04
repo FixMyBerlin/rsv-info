@@ -1,26 +1,24 @@
 ---
 import TeaserCard from '@components/Teaser/TeaserCard.astro'
 import TeasersContainer from '@components/Teaser/TeasersContainer.astro'
-import type { MetaSchema } from 'data/schema/meta.schema'
+import type { SteckbriefTeaser } from 'src/types/steckbrief'
 import { RsvStateLabel } from './RsvStateLabel'
 
-export type RsvTeaser = {
-  jsonId: MetaSchema['id']
-  general: {
-    ref: MetaSchema['general']['ref']
-    name: MetaSchema['general']['name']
-    description: MetaSchema['general']['description']
-  }
-  state: MetaSchema['state']
-  staticMap: string
-}
+export type RsvTeaser = SteckbriefTeaser
 
 type Props = {
-  rsvTeasers: RsvTeaser[]
+  rsvTeasers: SteckbriefTeaser[]
 }
 const { rsvTeasers } = Astro.props
 
-const steckbriefePath = (id: string) => `/steckbriefe/${id}`
+const steckbriefePath = (slug: string) => `/steckbriefe/${slug}`
+
+const displayTitle = (teaser: SteckbriefTeaser) => {
+  if (teaser.ref && Number.isNaN(parseFloat(teaser.ref))) {
+    return `${teaser.ref}: ${teaser.title}`
+  }
+  return teaser.title
+}
 ---
 
 <TeasersContainer>
@@ -28,13 +26,9 @@ const steckbriefePath = (id: string) => `/steckbriefe/${id}`
     rsvTeasers.map((rsvTeaser) => {
       return (
         <TeaserCard
-          title={
-            // @ts-expect-error
-            (Number.isNaN(parseFloat(rsvTeaser.general.ref)) ? `${rsvTeaser.general.ref}: ` : '') +
-            (rsvTeaser.general.name || rsvTeaser.jsonId)
-          }
-          description={rsvTeaser.general.description || undefined}
-          href={steckbriefePath(rsvTeaser.jsonId)}
+          title={displayTitle(rsvTeaser)}
+          description={rsvTeaser.descriptionText || undefined}
+          href={steckbriefePath(rsvTeaser.slug)}
           image={rsvTeaser.staticMap}
         >
           <RsvStateLabel state={rsvTeaser.state} />

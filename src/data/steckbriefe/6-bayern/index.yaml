@@ -1,0 +1,14 @@
+slug: "6-bayern"
+title: "Radschnellverbindung  München  -  Oberhaching"
+state: "agreement_process"
+ref: "6"
+fromCity: "Oberhaching"
+fromFederalState: "Bayern"
+toCity: "München"
+toFederalState: "Bayern"
+lengthKm: 13
+stand: "2022-06-27"
+sourceUrl: "https://muenchenunterwegs.de/angebote/fuenf-radschnellverbindungen-von-muenchen-in-das-umland"
+trassenscoutProjectSlugs: []
+showOnHome: false
+order: 0
