@@ -16,7 +16,7 @@ function assertFeature(geojson: any): asserts geojson is GeoJSON.Feature<GeoJSON
   geojsonType(geojson, 'Feature', 'DynamicMap')
 }
 
-export const RSVSegment: React.FC<Props> = ({ feature }) => {
+export const RSVSegment = ({ feature }: Props) => {
   assertFeature(feature)
   const layout: LineLayerSpecification['layout'] = {
     'line-cap': 'round',

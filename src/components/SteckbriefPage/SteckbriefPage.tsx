@@ -15,7 +15,7 @@ type Props = {
   steckbrief: SteckbriefCollectionEntry['data']
 }
 
-const ApiFieldRow: React.FC<{ label: string; value?: string }> = ({ label, value }) => {
+const ApiFieldRow = ({ label, value }: { label: string; value?: string }) => {
   if (!value) return null
   return (
     <div className="space-y-2">
@@ -25,7 +25,7 @@ const ApiFieldRow: React.FC<{ label: string; value?: string }> = ({ label, value
   )
 }
 
-export const SteckbriefPage: React.FC<Props> = ({ steckbrief }) => {
+export const SteckbriefPage = ({ steckbrief }: Props) => {
   const { geometry, apiFields, description } = steckbrief
   const displayTitle = getSteckbriefDisplayTitle(steckbrief)
 
@@ -124,7 +124,7 @@ export const SteckbriefPage: React.FC<Props> = ({ steckbrief }) => {
   )
 }
 
-const TrassenscoutApiFields: React.FC<{ apiFields: SteckbriefApiFields }> = ({ apiFields }) => {
+const TrassenscoutApiFields = ({ apiFields }: { apiFields: SteckbriefApiFields }) => {
   const hasFields = apiFields.operator || apiFields.status || apiFields.estimatedCompletionDate
   if (!hasFields) return null
 

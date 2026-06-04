@@ -5,7 +5,7 @@ type Props = {
   className?: string
 }
 
-export const H1: React.FC<Props> = ({ children, className }) => {
+export const H1 = ({ children, className }: Props) => {
   return (
     <h1
       className={clsx([
@@ -19,7 +19,7 @@ export const H1: React.FC<Props> = ({ children, className }) => {
   )
 }
 
-export const H2: React.FC<Props> = ({ children, className }) => {
+export const H2 = ({ children, className }: Props) => {
   return (
     <h2
       className={clsx([
@@ -32,7 +32,7 @@ export const H2: React.FC<Props> = ({ children, className }) => {
   )
 }
 
-export const H3: React.FC<Props> = ({ children, className }) => {
+export const H3 = ({ children, className }: Props) => {
   return (
     <h3
       className={clsx([
@@ -44,7 +44,7 @@ export const H3: React.FC<Props> = ({ children, className }) => {
     </h3>
   )
 }
-export const H4: React.FC<Props> = ({ children, className }) => {
+export const H4 = ({ children, className }: Props) => {
   return (
     <h4 className={clsx(['mt-5 text-lg font-extrabold sm:text-2xl', className])}>{children}</h4>
   )

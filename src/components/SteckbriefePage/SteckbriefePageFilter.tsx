@@ -19,7 +19,7 @@ type Props = {
 }
 
 /** @desc A list of all federal states including the number of RSVs */
-export const SteckbriefePageFilter: React.FC<Props> = ({ currentFilter, federalStateOptions }) => {
+export const SteckbriefePageFilter = ({ currentFilter, federalStateOptions }: Props) => {
   const statePaths = Object.fromEntries(
     federalStateOptions.map((option) => [option.state, option.path]),
   )

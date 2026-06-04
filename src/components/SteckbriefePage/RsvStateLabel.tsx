@@ -4,7 +4,7 @@ type Props = {
   state: string
 }
 
-export const RsvStateLabel: React.FC<Props> = ({ state }) => {
+export const RsvStateLabel = ({ state }: Props) => {
   return (
     <span className="flex items-center justify-center gap-2.5 rounded-xs border border-[#6D28D9] px-3.5 py-1 pl-3 text-sm text-[#6D28D9]">
       {/* @ts-expect-error */}

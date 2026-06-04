@@ -12,7 +12,7 @@ type Props = {
   steckbrief: SteckbriefCollectionEntry['data']
 }
 
-export const Radschnellweg: React.FC<Props> = ({ steckbrief }) => {
+export const Radschnellweg = ({ steckbrief }: Props) => {
   const name =
     getSteckbriefDisplayTitle(steckbrief) || `${steckbrief.fromCity} - ${steckbrief.toCity}`
 

@@ -7,7 +7,7 @@ type props = {
   name: string
 }
 
-export const SteckbriefUpdateInfo: React.FC<props> = ({ setOverlay, name }) => {
+export const SteckbriefUpdateInfo = ({ setOverlay, name }: props) => {
   return (
     <div className="absolute z-50 h-36 w-96 rounded-lg bg-white px-6">
       <div className="flex">

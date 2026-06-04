@@ -7,7 +7,7 @@ type Props = {
   children: React.ReactNode
 }
 
-export const LayoutSteckbrief: React.FC<Props> = ({ className, children }) => {
+export const LayoutSteckbrief = ({ className, children }: Props) => {
   return (
     <div className="flex h-full flex-col">
       <div className={clsx(navHeightClasssName, 'flex-none')} />

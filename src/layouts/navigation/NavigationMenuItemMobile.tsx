@@ -3,7 +3,7 @@ import { clsx } from 'clsx'
 
 type Props = { currentPage: string; name: string; to: string }
 
-export const NavigationMenuItemMobile: React.FC<Props> = ({ currentPage, name, to }) => {
+export const NavigationMenuItemMobile = ({ currentPage, name, to }: Props) => {
   const active = currentPage === to
 
   return (

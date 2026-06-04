@@ -2,7 +2,7 @@ import Link from '@components/links/Link'
 import { useEffect, useState } from 'react'
 import { getOptInCookie, setOptInCookie } from './storage'
 
-export const OptOut: React.FC = () => {
+export const OptOut = () => {
   const [consent, setConsent] = useState(false)
   // @ts-expect-error todo
   useEffect(() => setConsent(getOptInCookie()))

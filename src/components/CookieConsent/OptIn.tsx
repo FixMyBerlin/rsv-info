@@ -6,7 +6,7 @@ type Props = {
   setConsent: (val: boolean | null) => void
 }
 
-export const OptIn: React.FC<Props> = ({ setConsent }) => {
+export const OptIn = ({ setConsent }: Props) => {
   return (
     <div className="mb-6 h-fit rounded-2xl bg-white shadow-sm">
       <div className="px-4 py-5 sm:p-6">
