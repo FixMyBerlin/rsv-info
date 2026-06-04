@@ -1,9 +1,9 @@
 import { glob } from 'astro/loaders'
-import { defineCollection, z } from 'astro:content'
+import { defineCollection, z, type SchemaContext } from 'astro:content'
 import { steckbriefeLoader } from './loaders/steckbriefeLoader'
 import { geometrySchema } from './types/geometry'
 
-const postsSchema = ({ image }: { image: (config?: unknown) => z.ZodTypeAny }) =>
+const postsSchema = ({ image }: SchemaContext) =>
   z.object({
     title: z.string(),
     subTitle: z.string().optional(),
