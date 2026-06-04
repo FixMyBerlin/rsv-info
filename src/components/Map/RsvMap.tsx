@@ -15,7 +15,7 @@ type Props = {
   geometry: GeometrySchema
 }
 
-export const RSVMap: React.FC<Props> = ({ slug, geometry }) => {
+export const RSVMap = ({ slug, geometry }: Props) => {
   const filteredGeometry = {
     ...geometry,
     features: geometry.features.filter((feature) => !feature.properties.discarded),

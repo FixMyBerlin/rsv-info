@@ -8,7 +8,7 @@ type Props = {
   children: React.ReactNode
 }
 
-export const TelLink: React.FC<Props> = ({ tel, className, subject, body, children }) => {
+export const TelLink = ({ tel, className, subject, body, children }: Props) => {
   const params = [
     subject && `subject=${encodeURIComponent(subject)}`,
     body && `body=${encodeURIComponent(body)}`,

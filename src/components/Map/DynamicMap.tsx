@@ -20,7 +20,7 @@ type Props = {
   geometry: GeometrySchema
 }
 
-export const DynamicMap: React.FC<Props> = ({ geometry }) => {
+export const DynamicMap = ({ geometry }: Props) => {
   assertFeatureCollection(geometry)
   // the factor by which the bbox is scaled to the viewport
   const scaleFactor = 4

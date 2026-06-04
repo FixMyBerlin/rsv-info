@@ -3,7 +3,7 @@ import { FooterLinkList } from './FooterLinks/FooterLinkList'
 import { footerLinks } from './FooterLinks/footerLinks.const'
 import { FooterSocialIcons } from './FooterSocialIcons/FooterSocialIcons'
 
-export const Footer: React.FC = () => {
+export const Footer = () => {
   return (
     <footer className="z-0 mt-12 bg-black" aria-labelledby="footer-heading">
       <h2 id="footer-heading" className="sr-only">
