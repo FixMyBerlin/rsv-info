@@ -1,0 +1,18 @@
+slug: "5-nordrhein-westfalen"
+title: "Strecke  Roermond  –  Mönchengladbach"
+state: "agreement_process"
+ref: "5"
+fromCity: "Roermond (NL)"
+fromFederalState: "Nordrhein-Westfalen"
+toCity: "Mönchengladbach"
+toFederalState: "Nordrhein-Westfalen"
+lengthKm: 37
+stand: "2022-06-27"
+sourceUrl: "https://www.rbk-direkt.de/radpendlerrouten.aspx"
+stakeholders:
+  - name: "Ministerium  für  Verkehr  des  Landes  Nordrhein-Westfalen"
+    roles:
+      - "authority"
+trassenscoutProjectSlugs: []
+showOnHome: false
+order: 0

@@ -1,0 +1,14 @@
+slug: "3-bayern"
+title: "Radschnellverbindung  München  -  Dachau"
+state: "agreement_process"
+ref: "3"
+fromCity: "Dachau"
+fromFederalState: "Bayern"
+toCity: "München"
+toFederalState: "Bayern"
+lengthKm: 15
+stand: "2022-06-27"
+sourceUrl: "https://muenchenunterwegs.de/angebote/fuenf-radschnellverbindungen-von-muenchen-in-das-umland"
+trassenscoutProjectSlugs: []
+showOnHome: false
+order: 0

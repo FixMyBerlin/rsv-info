@@ -1,0 +1,15 @@
+slug: "4-rheinland-pfalz"
+title: "Radschnellweg Neustadt an der Weinstraße - Landau in der Pfalz"
+state: "planning"
+ref: "4"
+fromCity: "Landau in der Pfalz"
+fromFederalState: "Rheinland-Pfalz"
+toCity: "Neustadt an der Weinstraße"
+toFederalState: "Rheinland-Pfalz"
+lengthKm: 20
+stand: "2022-09-08"
+sourceUrl: "https://www.m-r-n.com/was-wir-tun/themen-und-projekte/projekte/radfahren-rhein-neckar"
+website: "https://www.m-r-n.com/was-wir-tun/themen-und-projekte/projekte/radfahren-rhein-neckar"
+trassenscoutProjectSlugs: []
+showOnHome: false
+order: 0

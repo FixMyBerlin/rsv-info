@@ -1,0 +1,17 @@
+slug: "29-baden-wuerttemberg"
+title: "Weil  am  Rhein  -  Eimeldingen  -  Efringen-Kirchen  -  Bad  Bellingen  -  Schliengen"
+state: "idea"
+ref: "29"
+fromCity: "Weil  am  Rhein"
+fromFederalState: "Baden-Württemberg"
+toCity: "Schliengen"
+toFederalState: "Baden-Württemberg"
+lengthKm: 28
+stand: "2022-06-07"
+stakeholders:
+  - name: "Landkreis  Lörrach"
+    roles:
+      - "authority"
+trassenscoutProjectSlugs: []
+showOnHome: false
+order: 0

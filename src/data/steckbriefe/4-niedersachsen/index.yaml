@@ -1,0 +1,19 @@
+slug: "4-niedersachsen"
+title: "Radschnellweg  Oldenburg  –  Bremen"
+state: "idea"
+ref: "4"
+fromCity: "Oldenburg"
+fromFederalState: "Niedersachsen"
+toCity: "Bremen"
+toFederalState: "Bremen"
+lengthKm: 42
+stand: "2022-06-27"
+sourceUrl: "https://de.wikipedia.org/wiki/Liste_der_Radschnellverbindungen_in_Deutschland#Niedersachsen"
+website: "https://www.kommunalverbund.de/portal/seiten/regionales-mobilitaetskonzept-radverkehr-rmk-r--901000348-3300.html"
+stakeholders:
+  - name: "Metropolregion  Hannover"
+    roles:
+      - "authority"
+trassenscoutProjectSlugs: []
+showOnHome: false
+order: 0

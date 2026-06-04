@@ -1,0 +1,19 @@
+slug: "rs9-baden-wuerttemberg"
+title: "Radschnellweg  Friedrichshafen  -  Baindt"
+state: "planning"
+ref: "RS9"
+fromCity: "Friedrichshafen"
+fromFederalState: "Baden-Württemberg"
+toCity: "Baindt"
+toFederalState: "Baden-Württemberg"
+lengthKm: 29
+stand: "2022-06-07"
+sourceUrl: "https://www.rs9.info/"
+website: "https://www.rs9.info/"
+stakeholders:
+  - name: "Regionalverband  Bodensee-Oberschwaben"
+    roles:
+      - "authority"
+trassenscoutProjectSlugs: []
+showOnHome: false
+order: 0

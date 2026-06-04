@@ -7,13 +7,9 @@ This site show's general information about Radschnellverbindungen (cycle highway
 
 ## 💾 Data
 
-TLDR: The (geo)data is available in the [`content/geometries/`](./src/radschnellwege) folder. If you use the data, attribute it like this:
+Steckbrief editorial content is managed in **Keystatic** (`/keystatic` → Steckbriefe). Route geometry comes from **Trassenscout** when project slugs are configured on a Steckbrief.
 
-> © [FixMyCity](https://fixmycity.de)/[RSV-Dossier](https://github.com/FixMyBerlin/rsv-info) - [ODbL License](https://opendatacommons.org/licenses/odbl/summary/index.html)
-
-You find the geometry and meta information about the highways under [`./src/radschnellwege/`](./src/radschnellwege/). There is one file for all highways in [`meta/`](./src/radschnellwege/meta) folder containing the meta information. In the [`geometries/`](./src/content/geometries) folder, every cycle highway has one individual file. In [`./data/schema/`](./data/schema/)you'll find the schema for the json files.
-
-See [**README.md**](./src/radschnellwege/README.md) for more details.
+See **[docs/DATA.md](./docs/DATA.md)** for what to edit where, loader architecture, and Trassenscout conventions.
 
 ## 🧑‍💻 Developing
 
@@ -48,5 +44,3 @@ Dev: [CMS Admin UI](http://127.0.0.1:4321/keystatic)
 
 This project has different licenses. The code is licensed under the AGPL-3.0 License - see the [LICENSE.md](LICENSE.md) file for more information.
 It contains dependencies which have different Licenses, see [`package.json`](./package.json).
-
-For the license of the data, please see the specific [README.md](./src/radschnellwege/README.md) respectively [LICENSE](./src/radschnellwege/LICENSE) file.

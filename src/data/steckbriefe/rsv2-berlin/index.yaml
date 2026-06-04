@@ -1,0 +1,19 @@
+slug: "rsv2-berlin"
+title: "Mitte  –  Tegel  –  Spandau"
+state: "planning"
+ref: "RSV  2"
+fromCity: "Berlin  Mitte"
+fromFederalState: "Berlin"
+toCity: "Spandau"
+toFederalState: "Berlin"
+lengthKm: 14.4
+stand: "2022-05-26"
+sourceUrl: "https://www.infravelo.de/projekt/mitte-tegel-spandau/"
+website: "https://www.infravelo.de/projekt/mitte-tegel-spandau/"
+stakeholders:
+  - name: "infraVelo"
+    roles:
+      - "authority"
+trassenscoutProjectSlugs: []
+showOnHome: false
+order: 0

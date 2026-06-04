@@ -1,0 +1,19 @@
+slug: "rs5-nordrhein-westfalen"
+title: "Radschnellweg  Neuss,  Düsseldorf  Langenfeld/Monheim"
+state: "planning"
+ref: "RS5"
+fromCity: "Neuss"
+fromFederalState: "Nordrhein-Westfalen"
+toCity: "Monheim"
+toFederalState: "Nordrhein-Westfalen"
+lengthKm: 30
+stand: "2022-01-01"
+sourceUrl: "https://www.radschnellwege.nrw/radschnellweg-neuss-duesseldorf-langenfeldmonheim/"
+website: "https://www.radschnellwege.nrw/radschnellweg-neuss-duesseldorf-langenfeldmonheim/"
+stakeholders:
+  - name: "Ministerium  für  Verkehr  des  Landes  Nordrhein-Westfalen"
+    roles:
+      - "authority"
+trassenscoutProjectSlugs: []
+showOnHome: false
+order: 0

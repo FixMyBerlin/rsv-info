@@ -1,0 +1,19 @@
+slug: "rsv5-berlin"
+title: "West-Route"
+state: "planning"
+ref: "RSV  5"
+fromCity: "Spandau"
+fromFederalState: "Berlin"
+toCity: "S-Bahnhof  Tiergarten"
+toFederalState: "Berlin"
+lengthKm: 15.3
+stand: "2022-05-26"
+sourceUrl: "https://www.infravelo.de/projekt/west-route/"
+website: "https://www.infravelo.de/projekt/west-route/"
+stakeholders:
+  - name: "infraVelo"
+    roles:
+      - "authority"
+trassenscoutProjectSlugs: []
+showOnHome: false
+order: 0

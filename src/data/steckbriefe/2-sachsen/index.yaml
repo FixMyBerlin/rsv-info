@@ -1,0 +1,18 @@
+slug: "2-sachsen"
+title: "Strecke  Radeberg    –    Dippoldiswalde"
+state: "idea"
+ref: "2"
+fromCity: "Radeberg"
+fromFederalState: "Sachsen"
+toCity: "Dippoldiswalde"
+toFederalState: "Sachsen"
+lengthKm: 30
+stand: "2022-06-27"
+sourceUrl: "https://www.adfc-sachsen.de/548-radschnellwege-auch-in-sachsen"
+stakeholders:
+  - name: "Landesarbeitsgemeinschaft  Radverkehr  Sachsen"
+    roles:
+      - "authority"
+trassenscoutProjectSlugs: []
+showOnHome: false
+order: 0

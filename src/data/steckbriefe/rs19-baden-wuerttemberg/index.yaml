@@ -1,0 +1,19 @@
+slug: "rs19-baden-wuerttemberg"
+title: "Radschnellweg  Tübingen  -  Reutlingen"
+state: "planning"
+ref: "RS19"
+fromCity: "Tübingen"
+fromFederalState: "Baden-Württemberg"
+toCity: "Reutlingen"
+toFederalState: "Baden-Württemberg"
+lengthKm: 15
+stand: "2022-06-07"
+sourceUrl: "https://rp.baden-wuerttemberg.de/rpt/abt4/rs19-tuebingen-reutlingen/"
+website: "https://rp.baden-wuerttemberg.de/rpt/abt4/rs19-tuebingen-reutlingen/"
+stakeholders:
+  - name: "Landkreis  Tübingen"
+    roles:
+      - "authority"
+trassenscoutProjectSlugs: []
+showOnHome: false
+order: 0

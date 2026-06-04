@@ -1,0 +1,19 @@
+slug: "2-niedersachsen"
+title: "Radschnellweg  Hannover  –  Langenhagen"
+state: "planning"
+ref: "2"
+fromCity: "Hannover-Hauptbahnhof  Nordseite"
+fromFederalState: "Niedersachsen"
+toCity: "Langenhagen-Zentrum"
+toFederalState: "Niedersachsen"
+lengthKm: 6.3
+stand: "2022-06-27"
+sourceUrl: "https://www.hannover.de/Leben-in-der-Region-Hannover/Mobilit%C3%A4t/Hannovers-sch%C3%B6nste-Radtouren/Velorouten/Radschnellverbindung-Hannover-Langenhagen"
+website: "https://www.hannover.de/Leben-in-der-Region-Hannover/Mobilit%C3%A4t/Hannovers-sch%C3%B6nste-Radtouren/Velorouten/Radschnellverbindung-Hannover-Langenhagen"
+stakeholders:
+  - name: "Metropolregion  Hannover"
+    roles:
+      - "authority"
+trassenscoutProjectSlugs: []
+showOnHome: false
+order: 0

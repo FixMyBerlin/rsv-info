@@ -1,0 +1,19 @@
+slug: "7-baden-wuerttemberg"
+title: "Ringroute  Karlsruhe"
+state: "planning"
+ref: "7"
+fromCity: "Karlsruhe"
+fromFederalState: "Baden-Württemberg"
+toCity: "Karlsruhe"
+toFederalState: "Baden-Württemberg"
+lengthKm: 26
+stand: "2022-06-02"
+sourceUrl: "https://de.wikipedia.org/wiki/Radschnellwege_in_Baden-W%C3%BCrttemberg#Regierungsbezirk_Karlsruhe"
+website: "https://de.wikipedia.org/wiki/Radschnellwege_in_Baden-W%C3%BCrttemberg#Regierungsbezirk_Karlsruhe"
+stakeholders:
+  - name: "Ministerium  für  Verkehr  Baden-Württemberg"
+    roles:
+      - "authority"
+trassenscoutProjectSlugs: []
+showOnHome: false
+order: 0

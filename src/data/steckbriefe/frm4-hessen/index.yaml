@@ -1,0 +1,19 @@
+slug: "frm4-hessen"
+title: "Radschnellweg  Bad  Soden  –  Eschborn"
+state: "planning"
+ref: "FRM  4"
+fromCity: "Groß-Gerau"
+fromFederalState: "Hessen"
+toCity: "Frankfurt  am  Main"
+toFederalState: "Hessen"
+lengthKm: 10
+stand: "2022-06-07"
+sourceUrl: "https://www.region-frankfurt.de/Unsere-Themen-Leistungen/Mobilit%C3%A4t-in-der-Region/Mit-dem-Rad/Radschnellwege/"
+website: "https://www.region-frankfurt.de/Unsere-Themen-Leistungen/Mobilit%C3%A4t-in-der-Region/Mit-dem-Rad/Radschnellwege/"
+stakeholders:
+  - name: "Nahmobil  Hessen"
+    roles:
+      - "authority"
+trassenscoutProjectSlugs: []
+showOnHome: false
+order: 0

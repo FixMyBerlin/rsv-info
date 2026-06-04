@@ -1,0 +1,22 @@
+slug: "rs3-baden-wuerttemberg"
+title: "Radschnellweg  Heilbronn  -  Neckarsulm - Bad  Wimpfen"
+state: "in_progress"
+ref: "RS3"
+fromCity: "Bad  Wimpfen"
+fromFederalState: "Baden-Württemberg"
+toCity: "Heilbronn"
+toFederalState: "Baden-Württemberg"
+lengthKm: 9.5
+stand: "2022-06-07"
+sourceUrl: "https://rp.baden-wuerttemberg.de/rps/abt4/ref44/rs-3-radschnellverbindung-bad-wimpfen-neckarsulm-heilbronn-1-bauabschnitt/"
+website: "https://rp.baden-wuerttemberg.de/rps/abt4/ref44/rs-3-radschnellverbindung-bad-wimpfen-neckarsulm-heilbronn-1-bauabschnitt/"
+stakeholders:
+  - name: "Regierungspräsidium  Stuttgart"
+    roles:
+      - "authority"
+  - name: "Stadt Heilbronn"
+    roles:
+      - "authority"
+trassenscoutProjectSlugs: []
+showOnHome: false
+order: 0

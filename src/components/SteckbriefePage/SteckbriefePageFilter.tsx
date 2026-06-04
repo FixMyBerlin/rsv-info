@@ -11,46 +11,18 @@ import { navigate } from 'astro:transitions/client'
 import { clsx } from 'clsx'
 
 import { Fragment } from 'react'
-import meta from 'src/radschnellwege/meta/meta.json'
+import type { FederalStateFilterOption } from 'src/lib/steckbrief/getSteckbriefTeasers'
 
 type Props = {
   currentFilter: string
+  federalStateOptions: FederalStateFilterOption[]
 }
 
 /** @desc A list of all federal states including the number of RSVs */
-export const SteckbriefePageFilter: React.FC<Props> = ({ currentFilter }) => {
-  const radschnellwege = meta
-
-  const stateCount: Record<string, number> = {}
-  const statePaths: Record<string, string> = {}
-
-  const addState = (state: string) => {
-    stateCount[state] ||= 0
-    stateCount[state] += 1
-  }
-
-  radschnellwege.forEach(({ general: { from, to } }) => {
-    addState(from.federalState)
-    statePaths[from.federalState] = `/steckbriefe/${from.federalState
-      .toLocaleLowerCase()
-      .replace(/ä/g, 'ae')
-      .replace(/ö/g, 'oe')
-      .replace(/ü/g, 'ue')
-      .replace(/ß/g, 'ss')}`
-    if (stateCount[from.federalState] !== stateCount[to.federalState]) {
-      addState(to.federalState)
-      statePaths[to.federalState] = `/steckbriefe/${to.federalState
-        .toLocaleLowerCase()
-        .replace(/ä/g, 'ae')
-        .replace(/ö/g, 'oe')
-        .replace(/ü/g, 'ue')
-        .replace(/ß/g, 'ss')}`
-    }
-  })
-
-  const all = 'Alle anzeigen'
-  statePaths[all] = '/steckbriefe'
-  stateCount[all] = radschnellwege.length
+export const SteckbriefePageFilter: React.FC<Props> = ({ currentFilter, federalStateOptions }) => {
+  const statePaths = Object.fromEntries(
+    federalStateOptions.map((option) => [option.state, option.path]),
+  )
 
   return (
     <div className="mb-10 w-72">
@@ -74,28 +46,26 @@ export const SteckbriefePageFilter: React.FC<Props> = ({ currentFilter }) => {
                 leaveTo="opacity-0"
               >
                 <ListboxOptions className="ring-opacity-5 absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-xl ring-1 ring-black focus:outline-hidden sm:text-sm">
-                  {Object.keys(stateCount)
-                    .sort()
-                    .map((state) => (
-                      <ListboxOption
-                        key={state}
-                        className={
-                          'relative cursor-default py-2 pr-9 pl-3 text-gray-900 select-none hover:bg-slate-700 hover:text-white'
-                        }
-                        value={state}
-                      >
-                        {({ selected }) => (
-                          <div
-                            className={clsx(
-                              selected ? 'font-semibold' : 'font-normal',
-                              'block truncate',
-                            )}
-                          >
-                            {state} ({stateCount[state]})
-                          </div>
-                        )}
-                      </ListboxOption>
-                    ))}
+                  {federalStateOptions.map((option) => (
+                    <ListboxOption
+                      key={option.state}
+                      className={
+                        'relative cursor-default py-2 pr-9 pl-3 text-gray-900 select-none hover:bg-slate-700 hover:text-white'
+                      }
+                      value={option.state}
+                    >
+                      {({ selected }) => (
+                        <div
+                          className={clsx(
+                            selected ? 'font-semibold' : 'font-normal',
+                            'block truncate',
+                          )}
+                        >
+                          {option.state} ({option.count})
+                        </div>
+                      )}
+                    </ListboxOption>
+                  ))}
                 </ListboxOptions>
               </Transition>
             </div>

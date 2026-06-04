@@ -1,4 +1,4 @@
-import type { GeometrySchema } from 'data/schema/geometry.schema'
+import type { GeometrySchema } from 'src/types/geometry'
 
 export const mapColors = {
   main: '#34D399',

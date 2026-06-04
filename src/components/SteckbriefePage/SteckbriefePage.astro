@@ -1,6 +1,7 @@
 ---
 import Hero from '@components/Hero.astro'
 import Section from '@components/Section.astro'
+import type { FederalStateFilterOption } from 'src/lib/steckbrief/getSteckbriefTeasers'
 import { SteckbriefePageFilter } from './SteckbriefePageFilter'
 import SteckbriefePageTeasers, { type RsvTeaser } from './SteckbriefePageTeasers.astro'
 
@@ -9,15 +10,21 @@ type Props = {
   headerDescription?: string
   rsvTeasers: RsvTeaser[]
   currentFilter: string
+  federalStateOptions: FederalStateFilterOption[]
 }
 
-const { headerTitle, headerDescription, rsvTeasers, currentFilter } = Astro.props
+const { headerTitle, headerDescription, rsvTeasers, currentFilter, federalStateOptions } =
+  Astro.props
 ---
 
 <Hero title={headerTitle || 'Übersicht über RSV-Planungen'} subTitle={headerDescription} button />
 <Section>
   <p>Filtern nach Bundesland</p>
-  <SteckbriefePageFilter currentFilter={currentFilter} client:load />
+  <SteckbriefePageFilter
+    currentFilter={currentFilter}
+    federalStateOptions={federalStateOptions}
+    client:load
+  />
 
   <h2 class="sr-only" id="contact-heading">Alle Radschnellverbindungen</h2>
   <SteckbriefePageTeasers rsvTeasers={rsvTeasers} />

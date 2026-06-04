@@ -1,0 +1,19 @@
+slug: "21-baden-wuerttemberg"
+title: "Radschnellweg Heidelberg - Schwetzingen"
+state: "idea"
+ref: "RS16"
+fromCity: "Heidelberg"
+fromFederalState: "Baden-Württemberg"
+toCity: "Schwetzingen"
+toFederalState: "Baden-Württemberg"
+lengthKm: 7
+stand: "2022-06-07"
+sourceUrl: "https://www.m-r-n.com/was-wir-tun/themen-und-projekte/projekte/radfahren-rhein-neckar"
+website: "https://rp.baden-wuerttemberg.de/rpk/abt4/ref44/radschnellwege/rs16-heidelberg-schwetzingen/"
+stakeholders:
+  - name: "Stadt Schwetzingen & Land Baden-Württemberg"
+    roles:
+      - "authority"
+trassenscoutProjectSlugs: []
+showOnHome: false
+order: 0

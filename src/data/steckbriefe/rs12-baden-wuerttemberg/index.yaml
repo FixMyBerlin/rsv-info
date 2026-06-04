@@ -1,0 +1,14 @@
+slug: "rs12-baden-wuerttemberg"
+title: "Radschnellweg  Offenburg  –  Gengenbach"
+state: "planning"
+ref: "RS12"
+fromCity: "Offenburg"
+fromFederalState: "Baden-Württemberg"
+toCity: "Gengenbach"
+toFederalState: "Baden-Württemberg"
+lengthKm: 12
+stand: "2022-06-07"
+sourceUrl: "https://vm.baden-wuerttemberg.de/de/service/presse/pressemitteilung/pid/radschnellwege-im-land-erhalten-bundesfoerderung/"
+trassenscoutProjectSlugs: []
+showOnHome: false
+order: 0

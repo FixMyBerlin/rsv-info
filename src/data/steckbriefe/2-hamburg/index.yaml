@@ -1,0 +1,19 @@
+slug: "2-hamburg"
+title: "Bad  Bramstedt  –  Hamburg"
+state: "planning"
+ref: "2"
+fromCity: "Bad  Bramstedt"
+fromFederalState: "Schleswig-Holstein"
+toCity: "Hamburg"
+toFederalState: "Hamburg"
+lengthKm: 40
+stand: "2022-04-20"
+sourceUrl: "https://metropolregion.hamburg.de/radschnellwege/15303660/radschnellweg-bad-bramstedt-hamburg/"
+website: "https://metropolregion.hamburg.de/radschnellwege/15303660/radschnellweg-bad-bramstedt-hamburg/"
+stakeholders:
+  - name: "Metropolregion  Hamburg"
+    roles:
+      - "authority"
+trassenscoutProjectSlugs: []
+showOnHome: false
+order: 0
