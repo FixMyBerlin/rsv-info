@@ -34,12 +34,15 @@ Setup your `.env.development` file, for which you can use `.env.defaults` as a s
 
 For production you will also need a `.env.production` file. Otherwise the modules using the env variables, will not work.
 
-## Keystatic and Blog
+## Blog
 
-We use [Keystatic](https://keystatic.com/docs/introduction) for the blog on /planung and /kommunikation.
+We use [Keystatic](https://keystatic.com/docs/introduction) for the blog on `/planung` and `/kommunikation`.
 
-CMS Admin UI: [http://127.0.0.1:4321/keystatic](http://127.0.0.1:4321/keystatic)
-Homepage: [http://localhost:4321](http://localhost:4321)
+* [Keystatic CMS](https://rsv-info-cms.netlify.app/keystatic)
+* [Preview](https://rsv-info-cms.netlify.app/)
+* [Netlify-Admin](https://app.netlify.com/projects/rsv-info-cms/overview)
+
+Dev: [CMS Admin UI](http://127.0.0.1:4321/keystatic)
 
 ## License
 
