@@ -1,0 +1,57 @@
+name: Weekly Trassenscout sync
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+      timezone: Europe/Berlin
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: weekly-trassenscout-sync
+  cancel-in-progress: false
+
+jobs:
+  sync-trassenscout:
+    name: Sync Trassenscout data and map images
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Sync Trassenscout cache and static map images
+        env:
+          HUSKY: '0'
+        run: bun run trassenscout:sync
+
+      - name: Create or update pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: sync/trassenscout
+          base: main
+          title: Syncronisation mit Trassenscout
+          commit-message: 'chore: synchronise with Trassenscout'
+          body: |
+            Automated weekly sync from Trassenscout.
+
+            - Checked-in geometry and API fields: `src/data/trassenscout/`
+            - Social sharing map images: `public/rsv-map-images/`
+
+            Review the Netlify deploy preview, then merge to `main` for production (IONOS).
+          add-paths: |
+            src/data/trassenscout
+            public/rsv-map-images
+          labels: |
+            automated
+            trassenscout

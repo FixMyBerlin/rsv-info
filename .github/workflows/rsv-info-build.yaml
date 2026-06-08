@@ -24,9 +24,8 @@ jobs:
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
-      # Steckbriefe loader may fetch Trassenscout (HTTPS) for entries with project slugs.
-      # Failures are logged as warnings and pages build with empty map geometry.
-      # Static map PNGs in public/rsv-map-images/ are committed separately.
+      # Steckbriefe geometry comes from checked-in src/data/trassenscout/*.json (no live API).
+      # Static map PNGs in public/rsv-map-images/ are committed via trassenscout:sync.
       - name: Install, build, and upload your site output
         uses: withastro/action@v3
         env:
