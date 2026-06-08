@@ -24,7 +24,9 @@ For starting developing, the following steps could be helpful for getting starte
 - Start the Astro dev server: `bun run dev` (or `bun start`)
 - Use `bun run` to see a list of commands
 
-We use husky to ensure commits don't include linting issues. If pre-push hooks fail in a GUI Git client, ensure `bun` is on your `PATH`. See [Husky troubleshooting](https://typicode.github.io/husky/#/?id=command-not-found)
+We use [oxlint](https://oxc.rs/docs/guide/usage/linter.html) and [oxfmt](https://oxc.rs/docs/guide/usage/formatter.html) for linting and formatting (`src` and `keystatic`), and [React Compiler](https://react.dev/learn/react-compiler) via `babel-plugin-react-compiler` in the Astro React integration. Husky runs `bun run check` on pre-push (type-check, format, lint). `.astro` files are linted but not formatted yet (Oxfmt Astro support is pending).
+
+If pre-push hooks fail in a GUI Git client, ensure `bun` is on your `PATH`. See [Husky troubleshooting](https://typicode.github.io/husky/#/?id=command-not-found)
 
 Setup your `.env.development` file, for which you can use `.env.defaults` as a start.
 
