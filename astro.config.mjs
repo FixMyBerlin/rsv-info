@@ -27,7 +27,11 @@ export default defineConfig({
   site: 'https://radschnellverbindungen.info',
   integrations: [
     ASTRO_OUTPUT_MODE === 'static' ? undefined : keystatic(),
-    react(),
+    react({
+      babel: {
+        plugins: ['babel-plugin-react-compiler'],
+      },
+    }),
     mdx(),
     sitemap(), // We don't exclute inactive pages but rely on the per page `noindex`
   ],
