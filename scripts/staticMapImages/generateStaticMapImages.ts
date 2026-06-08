@@ -5,7 +5,6 @@ const pkg = require('@googlemaps/polyline-codec')
 const turf = require('@turf/turf')
 const fs = require('fs')
 const path = require('path')
-const { parse: parseYaml } = require('yaml')
 const { segmentColor } = require('./mapColors.js')
 const { maptilerBaseUrl, maptilerKey } = require('./mapTiler.const.js')
 const { encode } = pkg
@@ -51,31 +50,17 @@ const staticMapRequest = (
   return url
 }
 
-async function loadGeometryFromTrassenscout(
-  slug: string,
-  trassenscoutProjectSlugs: string[],
-): Promise<GeometrySchema | null> {
-  if (trassenscoutProjectSlugs.length === 0) return null
-
-  const { fetchAndMergeTrassenscoutProjects } = await import(
-    '../../src/lib/trassenscout/fetchProject'
-  )
-  const { normalizeTrassenscoutGeometry } = await import(
-    '../../src/lib/trassenscout/normalizeGeometry'
-  )
-
-  const rawCollection = await fetchAndMergeTrassenscoutProjects(trassenscoutProjectSlugs)
-  return normalizeTrassenscoutGeometry(rawCollection, slug)
+function loadGeometryFromCache(slug: string): GeometrySchema | null {
+  const { loadTrassenscoutCacheSync } = require('../../src/lib/trassenscout/loadTrassenscoutCache')
+  const cache = loadTrassenscoutCacheSync(slug)
+  return cache?.geometry ?? null
 }
 
 const processSteckbrief = async (slug: string) => {
   try {
-    const indexPath = path.join(steckbriefeDir, slug, 'index.yaml')
-    const entry = parseYaml(fs.readFileSync(indexPath, 'utf8'))
-    const trassenscoutProjectSlugs = (entry.trassenscoutProjectSlugs ?? []).filter(Boolean)
-    const data = await loadGeometryFromTrassenscout(slug, trassenscoutProjectSlugs)
+    const data = loadGeometryFromCache(slug)
     if (!data) {
-      console.log(`Skipping ${slug}: no Trassenscout project slugs`)
+      console.log(`Skipping ${slug}: no checked-in Trassenscout cache`)
       return false
     }
 

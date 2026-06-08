@@ -27,8 +27,11 @@
     "updatePackages:minor": "bunx taze minor --includeLocked --maturity-period 5 --write && bun install",
     "generateTsxFromSvg": "bun ./scripts/svgToTsx/svgToTsx.ts && bun run format",
     "export:steckbriefe": "bun ./scripts/exportSteckbriefeCsv/exportSteckbriefeCsv.ts",
+    "trassenscout:update": "bun ./scripts/trassenscout/update.ts",
+    "generate:map-images": "bun ./scripts/staticMapImages/generateStaticMapImages.ts",
+    "trassenscout:sync": "bun run trassenscout:update && bun run generate:map-images",
     "bleach": "rm -rf node_modules/.astro && rm -rf node_modules/.bin && rm -rf node_modules/.vite && rm -rf .astro/ && rm -rf .netlify/ && rm -rf dist/ && bun install && bun run bleach:info",
-    "bleach:info": "echo \"\u001b[43m\u001b[30m(!) Also delete the browser cache, see https://github.com/vitejs/vite/discussions/17738#discussioncomment-10158746\u001b[0m\"",
+    "bleach:info": "echo \"\x1B[43m\x1B[30m(!) Also delete the browser cache, see https://github.com/vitejs/vite/discussions/17738#discussioncomment-10158746\x1B[0m\"",
     "bleach:all": "rm -rf node_modules/ && bun run bleach",
     "bleach:full": "rm bun.lock && bun run bleach:all",
     "prepare": "husky",
@@ -66,7 +69,8 @@
     "react-map-gl": "^8.1.1",
     "svg-to-jsx": "^1.0.4",
     "tailwindcss": "^4.3.0",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "yaml": "^2.9.0"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.19",

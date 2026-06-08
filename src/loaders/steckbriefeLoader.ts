@@ -2,11 +2,9 @@ import { createReader } from '@keystatic/core/reader'
 import type { Loader } from 'astro/loaders'
 
 import keystaticConfig from '../../keystatic.config'
-import { aggregateApiFields } from '../lib/trassenscout/aggregateApiFields'
 import { emptyGeometry } from '../lib/trassenscout/emptyGeometry'
-import { fetchAndMergeTrassenscoutProjects } from '../lib/trassenscout/fetchProject'
-import { normalizeTrassenscoutGeometry } from '../lib/trassenscout/normalizeGeometry'
-import type { ProgressState } from '../types/steckbrief'
+import { loadTrassenscoutCacheSync } from '../lib/trassenscout/loadTrassenscoutCache'
+import type { ProgressState, SteckbriefApiFields } from '../types/steckbrief'
 
 export function steckbriefeLoader(): Loader {
   return {
@@ -23,18 +21,16 @@ export function steckbriefeLoader(): Loader {
         const hasTrassenscoutSlugs = trassenscoutProjectSlugs.length > 0
 
         let resolvedGeometry = emptyGeometry(slug)
-        let apiFields: Record<string, never> | ReturnType<typeof aggregateApiFields> = {}
+        let apiFields: SteckbriefApiFields = {}
 
         if (hasTrassenscoutSlugs) {
-          try {
-            const rawCollection = await fetchAndMergeTrassenscoutProjects([
-              ...trassenscoutProjectSlugs,
-            ])
-            resolvedGeometry = normalizeTrassenscoutGeometry(rawCollection, slug)
-            apiFields = aggregateApiFields(rawCollection.features)
-          } catch (error) {
+          const cache = loadTrassenscoutCacheSync(slug)
+          if (cache) {
+            resolvedGeometry = cache.geometry
+            apiFields = cache.apiFields
+          } else {
             logger.warn(
-              `Trassenscout fetch failed for "${slug}": ${error instanceof Error ? error.message : error}`,
+              `No checked-in Trassenscout cache for "${slug}" — run bun run trassenscout:sync`,
             )
           }
         }
