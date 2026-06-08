@@ -1,19 +1,19 @@
-slug: "9-nordrhein-westfalen"
-title: "Radschnellweg  Monheim"
-state: "in_progress"
-ref: "9"
-fromCity: "Düsseldorf"
-fromFederalState: "Nordrhein-Westfalen"
-toCity: "Leverkusen"
-toFederalState: "Nordrhein-Westfalen"
+slug: '9-nordrhein-westfalen'
+title: 'Radschnellweg  Monheim'
+state: 'in_progress'
+ref: '9'
+fromCity: 'Düsseldorf'
+fromFederalState: 'Nordrhein-Westfalen'
+toCity: 'Leverkusen'
+toFederalState: 'Nordrhein-Westfalen'
 lengthKm: 5.4
-stand: "2022-01-01"
-sourceUrl: "https://www.radschnellwege.nrw/radschnellweg-monheim/"
-website: "https://www.radschnellwege.nrw/radschnellweg-monheim/"
+stand: '2022-01-01'
+sourceUrl: 'https://www.radschnellwege.nrw/radschnellweg-monheim/'
+website: 'https://www.radschnellwege.nrw/radschnellweg-monheim/'
 stakeholders:
-  - name: "Ministerium  für  Verkehr  des  Landes  Nordrhein-Westfalen"
+  - name: 'Ministerium  für  Verkehr  des  Landes  Nordrhein-Westfalen'
     roles:
-      - "authority"
+      - 'authority'
 trassenscoutProjectSlugs: []
 showOnHome: false
 order: 0

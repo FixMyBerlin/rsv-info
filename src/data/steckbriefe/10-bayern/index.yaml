@@ -1,18 +1,18 @@
-slug: "10-bayern"
-title: "Strecke  Erlangen  –  Herzogenaurach"
-state: "planning"
-ref: "10"
-fromCity: "Erlangen"
-fromFederalState: "Bayern"
-toCity: "Herzogenaurach"
-toFederalState: "Bayern"
+slug: '10-bayern'
+title: 'Strecke  Erlangen  –  Herzogenaurach'
+state: 'planning'
+ref: '10'
+fromCity: 'Erlangen'
+fromFederalState: 'Bayern'
+toCity: 'Herzogenaurach'
+toFederalState: 'Bayern'
 lengthKm: 12.7
-stand: "2022-06-27"
-sourceUrl: "https://nationaler-radverkehrsplan.de/de/aktuell/nachrichten/radschnellweg-zwischen-erlangen-und-herzogenaurach"
+stand: '2022-06-27'
+sourceUrl: 'https://nationaler-radverkehrsplan.de/de/aktuell/nachrichten/radschnellweg-zwischen-erlangen-und-herzogenaurach'
 stakeholders:
-  - name: "Planungsverband  Nürnberg"
+  - name: 'Planungsverband  Nürnberg'
     roles:
-      - "authority"
+      - 'authority'
 trassenscoutProjectSlugs: []
 showOnHome: false
 order: 0

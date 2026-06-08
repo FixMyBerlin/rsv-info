@@ -1,19 +1,19 @@
-slug: "18-baden-wuerttemberg"
-title: "Klingenberg  /  Horkheim  –  Lauffen  am  Neckar"
-state: "idea"
-ref: "18"
-fromCity: "Klingenberg"
-fromFederalState: "Baden-Württemberg"
-toCity: "Lauffen  am  Neckar"
-toFederalState: "Baden-Württemberg"
+slug: '18-baden-wuerttemberg'
+title: 'Klingenberg  /  Horkheim  –  Lauffen  am  Neckar'
+state: 'idea'
+ref: '18'
+fromCity: 'Klingenberg'
+fromFederalState: 'Baden-Württemberg'
+toCity: 'Lauffen  am  Neckar'
+toFederalState: 'Baden-Württemberg'
 lengthKm: 7
-stand: "2022-06-07"
-sourceUrl: "https://radschnellweg-hn.de/?p=online-umfrage"
-website: "https://radschnellweg-hn.de/?p=online-umfrage"
+stand: '2022-06-07'
+sourceUrl: 'https://radschnellweg-hn.de/?p=online-umfrage'
+website: 'https://radschnellweg-hn.de/?p=online-umfrage'
 stakeholders:
-  - name: "Landkreis  Heilbronn"
+  - name: 'Landkreis  Heilbronn'
     roles:
-      - "authority"
+      - 'authority'
 trassenscoutProjectSlugs: []
 showOnHome: false
 order: 0

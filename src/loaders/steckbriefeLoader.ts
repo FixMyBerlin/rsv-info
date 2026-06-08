@@ -1,5 +1,6 @@
 import { createReader } from '@keystatic/core/reader'
 import type { Loader } from 'astro/loaders'
+
 import keystaticConfig from '../../keystatic.config'
 import { aggregateApiFields } from '../lib/trassenscout/aggregateApiFields'
 import { emptyGeometry } from '../lib/trassenscout/emptyGeometry'

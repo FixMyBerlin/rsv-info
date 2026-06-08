@@ -1,23 +1,23 @@
-slug: "frm8-hessen"
-title: "Radschnellweg  Hanau  –  Frankfurt  südmainlisch"
-state: "planning"
-ref: "FRM  8"
-fromCity: "Frankfurt  am  Main"
-fromFederalState: "Hessen"
-toCity: "Hanau"
-toFederalState: "Hessen"
+slug: 'frm8-hessen'
+title: 'Radschnellweg  Hanau  –  Frankfurt  südmainlisch'
+state: 'planning'
+ref: 'FRM  8'
+fromCity: 'Frankfurt  am  Main'
+fromFederalState: 'Hessen'
+toCity: 'Hanau'
+toFederalState: 'Hessen'
 lengthKm: 20
-stand: "2022-06-07"
-sourceUrl: "https://www.region-frankfurt.de/Unsere-Themen-Leistungen/Mobilit%C3%A4t-in-der-Region/Mit-dem-Rad/Radschnellwege/"
-website: "https://www.region-frankfurt.de/Unsere-Themen-Leistungen/Mobilit%C3%A4t-in-der-Region/Mit-dem-Rad/Radschnellwege/"
+stand: '2022-06-07'
+sourceUrl: 'https://www.region-frankfurt.de/Unsere-Themen-Leistungen/Mobilit%C3%A4t-in-der-Region/Mit-dem-Rad/Radschnellwege/'
+website: 'https://www.region-frankfurt.de/Unsere-Themen-Leistungen/Mobilit%C3%A4t-in-der-Region/Mit-dem-Rad/Radschnellwege/'
 stakeholders:
-  - name: "Nahmobil  Hessen"
+  - name: 'Nahmobil  Hessen'
     roles:
-      - "authority"
+      - 'authority'
 trassenscoutProjectSlugs:
-  - "frm8-ra1"
-  - "frm8-ra2"
-  - "frm8-ra3"
-  - "frm8-ra4"
+  - 'frm8-ra1'
+  - 'frm8-ra2'
+  - 'frm8-ra3'
+  - 'frm8-ra4'
 showOnHome: false
 order: 0

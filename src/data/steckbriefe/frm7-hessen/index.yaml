@@ -1,20 +1,20 @@
-slug: "frm7-hessen"
-title: "Radschnellweg  Frankfurt  –  Hanau  nordmainisch"
-state: "planning"
-ref: "FRM  7"
-fromCity: "Frankfurt  am  Main"
-fromFederalState: "Hessen"
-toCity: "Hanau"
-toFederalState: "Hessen"
+slug: 'frm7-hessen'
+title: 'Radschnellweg  Frankfurt  –  Hanau  nordmainisch'
+state: 'planning'
+ref: 'FRM  7'
+fromCity: 'Frankfurt  am  Main'
+fromFederalState: 'Hessen'
+toCity: 'Hanau'
+toFederalState: 'Hessen'
 lengthKm: 17
-stand: "2024-02-29"
-sourceUrl: "https://radschnellweg-frm7.de/"
-website: "https://radschnellweg-frm7.de/"
+stand: '2024-02-29'
+sourceUrl: 'https://radschnellweg-frm7.de/'
+website: 'https://radschnellweg-frm7.de/'
 stakeholders:
-  - name: "Nahmobil  Hessen"
+  - name: 'Nahmobil  Hessen'
     roles:
-      - "authority"
+      - 'authority'
 trassenscoutProjectSlugs:
-  - "frm7"
+  - 'frm7'
 showOnHome: true
 order: 0

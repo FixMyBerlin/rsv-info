@@ -1,18 +1,18 @@
-slug: "6-niedersachsen"
-title: "Strecke  Wolfenbüttel  –  Braunschweig"
-state: "idea"
-ref: "6"
-fromCity: "Wolfenbüttel"
-fromFederalState: "Niedersachsen"
-toCity: "Braunschweig"
-toFederalState: "Niedersachsen"
+slug: '6-niedersachsen'
+title: 'Strecke  Wolfenbüttel  –  Braunschweig'
+state: 'idea'
+ref: '6'
+fromCity: 'Wolfenbüttel'
+fromFederalState: 'Niedersachsen'
+toCity: 'Braunschweig'
+toFederalState: 'Niedersachsen'
 lengthKm: 12
-stand: "2022-06-27"
-sourceUrl: "https://adfc-wf.de/documents/Radschnellweg_Schaufenster_ZUM_.pdf"
+stand: '2022-06-27'
+sourceUrl: 'https://adfc-wf.de/documents/Radschnellweg_Schaufenster_ZUM_.pdf'
 stakeholders:
-  - name: "Metropolregion  Hannover"
+  - name: 'Metropolregion  Hannover'
     roles:
-      - "authority"
+      - 'authority'
 trassenscoutProjectSlugs: []
 showOnHome: false
 order: 0

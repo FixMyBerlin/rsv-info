@@ -1,19 +1,19 @@
-slug: "1-nordrhein-westfalen"
-title: "RadPendlerRoute  Leverkusen    –  Köln-Deutz"
-state: "agreement_process"
-ref: "1"
-fromCity: "Bahnhof  Leverkusen"
-fromFederalState: "Nordrhein-Westfalen"
-toCity: "Bahnhof  Köln-Deutz"
-toFederalState: "Nordrhein-Westfalen"
+slug: '1-nordrhein-westfalen'
+title: 'RadPendlerRoute  Leverkusen    –  Köln-Deutz'
+state: 'agreement_process'
+ref: '1'
+fromCity: 'Bahnhof  Leverkusen'
+fromFederalState: 'Nordrhein-Westfalen'
+toCity: 'Bahnhof  Köln-Deutz'
+toFederalState: 'Nordrhein-Westfalen'
 lengthKm: 12.9
-stand: "2022-06-27"
-sourceUrl: "https://www.rbk-direkt.de/radpendlerrouten.aspx"
-website: "https://www.rbk-direkt.de/radpendlerrouten.aspx"
+stand: '2022-06-27'
+sourceUrl: 'https://www.rbk-direkt.de/radpendlerrouten.aspx'
+website: 'https://www.rbk-direkt.de/radpendlerrouten.aspx'
 stakeholders:
-  - name: "Ministerium  für  Verkehr  des  Landes  Nordrhein-Westfalen"
+  - name: 'Ministerium  für  Verkehr  des  Landes  Nordrhein-Westfalen'
     roles:
-      - "authority"
+      - 'authority'
 trassenscoutProjectSlugs: []
 showOnHome: false
 order: 0

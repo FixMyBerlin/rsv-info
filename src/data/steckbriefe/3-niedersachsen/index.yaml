@@ -1,19 +1,19 @@
-slug: "3-niedersachsen"
-title: "Radschnellweg  Göttingen"
-state: "in_progress"
-ref: "3"
-fromCity: "im  Stadtgebiet  Göttingen"
-fromFederalState: "Niedersachsen"
-toCity: "im  Stadtgebiet  Göttingen"
-toFederalState: "Niedersachsen"
+slug: '3-niedersachsen'
+title: 'Radschnellweg  Göttingen'
+state: 'in_progress'
+ref: '3'
+fromCity: 'im  Stadtgebiet  Göttingen'
+fromFederalState: 'Niedersachsen'
+toCity: 'im  Stadtgebiet  Göttingen'
+toFederalState: 'Niedersachsen'
 lengthKm: 4
-stand: "2022-06-27"
-sourceUrl: "https://www.radschnellweg-euregio.de/was-ist-ein-radschnellweg/eradschnellweg-goettingen-d"
-website: "https://www.radschnellweg-euregio.de/was-ist-ein-radschnellweg/eradschnellweg-goettingen-d"
+stand: '2022-06-27'
+sourceUrl: 'https://www.radschnellweg-euregio.de/was-ist-ein-radschnellweg/eradschnellweg-goettingen-d'
+website: 'https://www.radschnellweg-euregio.de/was-ist-ein-radschnellweg/eradschnellweg-goettingen-d'
 stakeholders:
-  - name: "Metropolregion  Hannover"
+  - name: 'Metropolregion  Hannover'
     roles:
-      - "authority"
+      - 'authority'
 trassenscoutProjectSlugs: []
 showOnHome: false
 order: 0

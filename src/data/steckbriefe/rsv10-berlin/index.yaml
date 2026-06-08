@@ -1,19 +1,19 @@
-slug: "rsv10-berlin"
-title: "Reinickendorf-Route"
-state: "planning"
-ref: "RSV  10"
-fromCity: "Reinickendorf"
-fromFederalState: "Berlin"
-toCity: "Mitte"
-toFederalState: "Berlin"
+slug: 'rsv10-berlin'
+title: 'Reinickendorf-Route'
+state: 'planning'
+ref: 'RSV  10'
+fromCity: 'Reinickendorf'
+fromFederalState: 'Berlin'
+toCity: 'Mitte'
+toFederalState: 'Berlin'
 lengthKm: 10.86
-stand: "2022-05-26"
-sourceUrl: "https://www.infravelo.de/projekt/reinickendorf-route-1/"
-website: "https://www.infravelo.de/projekt/reinickendorf-route-1/"
+stand: '2022-05-26'
+sourceUrl: 'https://www.infravelo.de/projekt/reinickendorf-route-1/'
+website: 'https://www.infravelo.de/projekt/reinickendorf-route-1/'
 stakeholders:
-  - name: "infraVelo"
+  - name: 'infraVelo'
     roles:
-      - "authority"
+      - 'authority'
 trassenscoutProjectSlugs: []
 showOnHome: false
 order: 0

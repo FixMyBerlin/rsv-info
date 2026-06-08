@@ -1,19 +1,19 @@
-slug: "rsv1-berlin"
-title: "Y-Trasse"
-state: "planning"
-ref: "RSV  1"
-fromCity: "Kreuzberg"
-fromFederalState: "Berlin"
-toCity: "Adlershof"
-toFederalState: "Berlin"
+slug: 'rsv1-berlin'
+title: 'Y-Trasse'
+state: 'planning'
+ref: 'RSV  1'
+fromCity: 'Kreuzberg'
+fromFederalState: 'Berlin'
+toCity: 'Adlershof'
+toFederalState: 'Berlin'
 lengthKm: 20.2
-stand: "2022-05-26"
-sourceUrl: "https://www.infravelo.de/projekt/y-trasse/"
-website: "https://www.infravelo.de/projekt/y-trasse/"
+stand: '2022-05-26'
+sourceUrl: 'https://www.infravelo.de/projekt/y-trasse/'
+website: 'https://www.infravelo.de/projekt/y-trasse/'
 stakeholders:
-  - name: "infraVelo"
+  - name: 'infraVelo'
     roles:
-      - "authority"
+      - 'authority'
 trassenscoutProjectSlugs: []
 showOnHome: false
 order: 0

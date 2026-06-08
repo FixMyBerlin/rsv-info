@@ -1,4 +1,5 @@
 import type { CollectionEntry } from 'astro:content'
+
 import type { SteckbriefTeaser } from '../../types/steckbrief'
 
 export type SteckbriefCollectionEntry = CollectionEntry<'steckbriefe'>

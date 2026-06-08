@@ -1,5 +1,6 @@
 import { glob } from 'astro/loaders'
 import { defineCollection, z, type SchemaContext } from 'astro:content'
+
 import { steckbriefeLoader } from './loaders/steckbriefeLoader'
 import { geometrySchema } from './types/geometry'
 

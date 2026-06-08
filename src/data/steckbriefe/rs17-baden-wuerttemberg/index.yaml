@@ -1,19 +1,19 @@
-slug: "rs17-baden-wuerttemberg"
-title: "Ditzingen  -  Weil  der  Stadt"
-state: "idea"
-ref: "RS17"
-fromCity: "Ditzingen"
-fromFederalState: "Baden-Württemberg"
-toCity: "Weil  der  Stadt"
-toFederalState: "Baden-Württemberg"
+slug: 'rs17-baden-wuerttemberg'
+title: 'Ditzingen  -  Weil  der  Stadt'
+state: 'idea'
+ref: 'RS17'
+fromCity: 'Ditzingen'
+fromFederalState: 'Baden-Württemberg'
+toCity: 'Weil  der  Stadt'
+toFederalState: 'Baden-Württemberg'
 lengthKm: 24
-stand: "2022-06-07"
-sourceUrl: "https://www.landkreis-ludwigsburg.de/de/verkehr-sicherheit-ordnung/radverkehr/radschnellwege/"
-website: "https://www.landkreis-ludwigsburg.de/de/verkehr-sicherheit-ordnung/radverkehr/radschnellwege/"
+stand: '2022-06-07'
+sourceUrl: 'https://www.landkreis-ludwigsburg.de/de/verkehr-sicherheit-ordnung/radverkehr/radschnellwege/'
+website: 'https://www.landkreis-ludwigsburg.de/de/verkehr-sicherheit-ordnung/radverkehr/radschnellwege/'
 stakeholders:
-  - name: "Landkreis  Böblingen"
+  - name: 'Landkreis  Böblingen'
     roles:
-      - "authority"
+      - 'authority'
 trassenscoutProjectSlugs: []
 showOnHome: false
 order: 0

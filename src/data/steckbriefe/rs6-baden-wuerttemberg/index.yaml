@@ -1,19 +1,19 @@
-slug: "rs6-baden-wuerttemberg"
-title: "Radschnellweg  Freiburg  -  Waldkirch/Emmendingen"
-state: "planning"
-ref: "RS6"
-fromCity: "Freiburg"
-fromFederalState: "Baden-Württemberg"
-toCity: "Waldkirch/Emmendigen"
-toFederalState: "Baden-Württemberg"
+slug: 'rs6-baden-wuerttemberg'
+title: 'Radschnellweg  Freiburg  -  Waldkirch/Emmendingen'
+state: 'planning'
+ref: 'RS6'
+fromCity: 'Freiburg'
+fromFederalState: 'Baden-Württemberg'
+toCity: 'Waldkirch/Emmendigen'
+toFederalState: 'Baden-Württemberg'
 lengthKm: 25
-stand: "2024-02-28"
-sourceUrl: "https://www.breisgau-y.de/radschnellweg"
-website: "https://www.breisgau-y.de/radschnellweg"
+stand: '2024-02-28'
+sourceUrl: 'https://www.breisgau-y.de/radschnellweg'
+website: 'https://www.breisgau-y.de/radschnellweg'
 stakeholders:
-  - name: "Regionalverband  Südlicher  Oberrheim  (RVSO)"
+  - name: 'Regionalverband  Südlicher  Oberrheim  (RVSO)'
     roles:
-      - "authority"
+      - 'authority'
 trassenscoutProjectSlugs: []
 showOnHome: false
 order: 0

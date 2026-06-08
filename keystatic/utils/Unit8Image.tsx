@@ -1,22 +1,20 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 
 type Props = {
   data: any
 }
 
 export const Uint8Array = ({ data }: Props) => {
-  const [imageUrl, setImageUrl] = useState<null | string>(null)
+  const imageUrl = useMemo(() => {
+    const blob = new Blob([data], { type: 'image/jpeg' })
+    return URL.createObjectURL(blob)
+  }, [data])
 
   useEffect(() => {
-    const blob = new Blob([data], { type: 'image/jpeg' }) // Adjust the type if needed
-    const url = URL.createObjectURL(blob)
-    setImageUrl(url)
-
-    // Clean up function to revoke the object URL
     return () => {
-      URL.revokeObjectURL(url)
+      URL.revokeObjectURL(imageUrl)
     }
-  }, [data])
+  }, [imageUrl])
 
   return imageUrl ? (
     <img

@@ -1,19 +1,19 @@
-slug: "rsv9-berlin"
-title: "Ost-Route"
-state: "planning"
-ref: "RSV  9"
-fromCity: "Marzahn-Hellersdorf"
-fromFederalState: "Berlin"
-toCity: "S-Bahn  Tiergarten"
-toFederalState: "Berlin"
+slug: 'rsv9-berlin'
+title: 'Ost-Route'
+state: 'planning'
+ref: 'RSV  9'
+fromCity: 'Marzahn-Hellersdorf'
+fromFederalState: 'Berlin'
+toCity: 'S-Bahn  Tiergarten'
+toFederalState: 'Berlin'
 lengthKm: 23
-stand: "2022-05-26"
-sourceUrl: "https://www.infravelo.de/projekt/ost-route/"
-website: "https://www.infravelo.de/projekt/ost-route/"
+stand: '2022-05-26'
+sourceUrl: 'https://www.infravelo.de/projekt/ost-route/'
+website: 'https://www.infravelo.de/projekt/ost-route/'
 stakeholders:
-  - name: "infraVelo"
+  - name: 'infraVelo'
     roles:
-      - "authority"
+      - 'authority'
 trassenscoutProjectSlugs: []
 showOnHome: false
 order: 0

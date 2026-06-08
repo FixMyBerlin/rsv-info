@@ -1,19 +1,19 @@
-slug: "rs7-nordrhein-westfalen"
-title: "Radschnellweg  Mittleres  Ruhrgebiet"
-state: "planning"
-ref: "RS7"
-fromCity: "Bottrop"
-fromFederalState: "Nordrhein-Westfalen"
-toCity: "Essen"
-toFederalState: "Nordrhein-Westfalen"
+slug: 'rs7-nordrhein-westfalen'
+title: 'Radschnellweg  Mittleres  Ruhrgebiet'
+state: 'planning'
+ref: 'RS7'
+fromCity: 'Bottrop'
+fromFederalState: 'Nordrhein-Westfalen'
+toCity: 'Essen'
+toFederalState: 'Nordrhein-Westfalen'
 lengthKm: 13
-stand: "2022-01-01"
-sourceUrl: "https://www.radschnellwege.nrw/radschnellweg-mittleres-ruhrgebiet/"
-website: "https://www.radschnellwege.nrw/radschnellweg-mittleres-ruhrgebiet/"
+stand: '2022-01-01'
+sourceUrl: 'https://www.radschnellwege.nrw/radschnellweg-mittleres-ruhrgebiet/'
+website: 'https://www.radschnellwege.nrw/radschnellweg-mittleres-ruhrgebiet/'
 stakeholders:
-  - name: "Ministerium  für  Verkehr  des  Landes  Nordrhein-Westfalen"
+  - name: 'Ministerium  für  Verkehr  des  Landes  Nordrhein-Westfalen'
     roles:
-      - "authority"
+      - 'authority'
 trassenscoutProjectSlugs: []
 showOnHome: false
 order: 0

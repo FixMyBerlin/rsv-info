@@ -1,24 +1,24 @@
-slug: "frm9-hessen"
-title: "Radschnellweg  Seligenstadt  -Frankfurter  Flughafen"
-state: "planning"
-ref: "FRM  9"
-fromCity: "Flughafen  Frankfurt"
-fromFederalState: "Hessen"
-toCity: "Seligenstadt"
-toFederalState: "Hessen"
+slug: 'frm9-hessen'
+title: 'Radschnellweg  Seligenstadt  -Frankfurter  Flughafen'
+state: 'planning'
+ref: 'FRM  9'
+fromCity: 'Flughafen  Frankfurt'
+fromFederalState: 'Hessen'
+toCity: 'Seligenstadt'
+toFederalState: 'Hessen'
 lengthKm: 25
-stand: "2022-06-07"
-sourceUrl: "https://www.region-frankfurt.de/Unsere-Themen-Leistungen/Mobilit%C3%A4t-in-der-Region/Mit-dem-Rad/Radschnellwege/"
-website: "https://www.region-frankfurt.de/Unsere-Themen-Leistungen/Mobilit%C3%A4t-in-der-Region/Mit-dem-Rad/Radschnellwege/"
+stand: '2022-06-07'
+sourceUrl: 'https://www.region-frankfurt.de/Unsere-Themen-Leistungen/Mobilit%C3%A4t-in-der-Region/Mit-dem-Rad/Radschnellwege/'
+website: 'https://www.region-frankfurt.de/Unsere-Themen-Leistungen/Mobilit%C3%A4t-in-der-Region/Mit-dem-Rad/Radschnellwege/'
 stakeholders:
-  - name: "Nahmobil  Hessen"
+  - name: 'Nahmobil  Hessen'
     roles:
-      - "authority"
+      - 'authority'
 trassenscoutProjectSlugs:
-  - "frm9-ra1"
-  - "frm9-ra2"
-  - "frm9-ra3"
-  - "frm9-ra4"
-  - "frm9-ra5"
+  - 'frm9-ra1'
+  - 'frm9-ra2'
+  - 'frm9-ra3'
+  - 'frm9-ra4'
+  - 'frm9-ra5'
 showOnHome: false
 order: 0

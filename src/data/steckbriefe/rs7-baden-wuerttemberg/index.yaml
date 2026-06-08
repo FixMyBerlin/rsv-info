@@ -1,19 +1,19 @@
-slug: "rs7-baden-wuerttemberg"
-title: "Radschnellweg  Wiesental"
-state: "planning"
-ref: "RS7"
-fromCity: "Schopfheim"
-fromFederalState: "Baden-Württemberg"
-toCity: "Lörrach"
-toFederalState: "Baden-Württemberg"
+slug: 'rs7-baden-wuerttemberg'
+title: 'Radschnellweg  Wiesental'
+state: 'planning'
+ref: 'RS7'
+fromCity: 'Schopfheim'
+fromFederalState: 'Baden-Württemberg'
+toCity: 'Lörrach'
+toFederalState: 'Baden-Württemberg'
 lengthKm: 18
-stand: "2022-06-02"
-sourceUrl: "https://www.radschnellweg-wiesental.de/radschnellweg"
-website: "https://www.radschnellweg-wiesental.de/"
+stand: '2022-06-02'
+sourceUrl: 'https://www.radschnellweg-wiesental.de/radschnellweg'
+website: 'https://www.radschnellweg-wiesental.de/'
 stakeholders:
-  - name: "Landkreis  Lörrach"
+  - name: 'Landkreis  Lörrach'
     roles:
-      - "authority"
+      - 'authority'
 trassenscoutProjectSlugs: []
 showOnHome: false
 order: 0

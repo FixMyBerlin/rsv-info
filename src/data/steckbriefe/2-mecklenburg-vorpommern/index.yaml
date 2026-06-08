@@ -1,18 +1,18 @@
-slug: "2-mecklenburg-vorpommern"
-title: "Radschnellweg  Rostock"
-state: "in_progress"
-ref: "2"
-fromCity: "Rostock"
-fromFederalState: "Mecklenburg-Vorpommern"
-toCity: "Warnemünde"
-toFederalState: "Mecklenburg-Vorpommern"
+slug: '2-mecklenburg-vorpommern'
+title: 'Radschnellweg  Rostock'
+state: 'in_progress'
+ref: '2'
+fromCity: 'Rostock'
+fromFederalState: 'Mecklenburg-Vorpommern'
+toCity: 'Warnemünde'
+toFederalState: 'Mecklenburg-Vorpommern'
 lengthKm: 18
-stand: "2022-06-27"
-sourceUrl: "https://nationaler-radverkehrsplan.de/de/aktuell/nachrichten/neu-rostock-radschnellweg-mobilpunkte"
+stand: '2022-06-27'
+sourceUrl: 'https://nationaler-radverkehrsplan.de/de/aktuell/nachrichten/neu-rostock-radschnellweg-mobilpunkte'
 stakeholders:
-  - name: "Hansestadt  Rostock  Mobilitätskoordinator"
+  - name: 'Hansestadt  Rostock  Mobilitätskoordinator'
     roles:
-      - "authority"
+      - 'authority'
 trassenscoutProjectSlugs: []
 showOnHome: false
 order: 0

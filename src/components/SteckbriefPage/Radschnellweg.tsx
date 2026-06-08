@@ -1,10 +1,10 @@
-import { clsx } from 'clsx'
-
 import { InfoIcon } from '@assets/general/tsx/InfoIcon'
+import { clsx } from 'clsx'
 import { useState } from 'react'
 import { LayoutSteckbrief } from 'src/layouts/LayoutSteckbrief'
 import type { SteckbriefCollectionEntry } from 'src/lib/steckbrief/getSteckbriefTeasers'
 import { getSteckbriefDisplayTitle } from 'src/lib/steckbrief/getSteckbriefTeasers'
+
 import { SteckbriefPage } from './SteckbriefPage'
 import { SteckbriefUpdateInfo } from './SteckbriefPageUpdateInfo'
 
