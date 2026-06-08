@@ -1,19 +1,19 @@
-slug: "24-baden-wuerttemberg"
-title: "Radschnellweg  Offenburg  –  Kehl - Strasbourg"
-state: "agreement_process"
-ref: "RS20"
-fromCity: "Offenburg"
-fromFederalState: "Baden-Württemberg"
-toCity: "Strasbourg"
-toFederalState: "Baden-Württemberg"
+slug: '24-baden-wuerttemberg'
+title: 'Radschnellweg  Offenburg  –  Kehl - Strasbourg'
+state: 'agreement_process'
+ref: 'RS20'
+fromCity: 'Offenburg'
+fromFederalState: 'Baden-Württemberg'
+toCity: 'Strasbourg'
+toFederalState: 'Baden-Württemberg'
 lengthKm: 17.5
-stand: "2024-10-28"
-sourceUrl: "https://www.ortenaukreis.de/Kurzmen%C3%BC/Radschnellwege-kommen-weiter-voran-Ortenaukreis-stellt-Planungsstand-vor.php?object=tx,3406.5.1&ModID=7&FID=3406.16950.1&NavID=3406.7"
-website: "https://www.region-suedlicher-oberrhein.de/de/projekte/radschnellwege/index.php"
+stand: '2024-10-28'
+sourceUrl: 'https://www.ortenaukreis.de/Kurzmen%C3%BC/Radschnellwege-kommen-weiter-voran-Ortenaukreis-stellt-Planungsstand-vor.php?object=tx,3406.5.1&ModID=7&FID=3406.16950.1&NavID=3406.7'
+website: 'https://www.region-suedlicher-oberrhein.de/de/projekte/radschnellwege/index.php'
 stakeholders:
-  - name: "Regionalverband  Südlicher  Oberrheim  (RVSO)"
+  - name: 'Regionalverband  Südlicher  Oberrheim  (RVSO)'
     roles:
-      - "authority"
+      - 'authority'
 trassenscoutProjectSlugs: []
 showOnHome: false
 order: 0

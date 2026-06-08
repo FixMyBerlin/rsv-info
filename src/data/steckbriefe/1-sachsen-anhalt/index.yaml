@@ -1,19 +1,19 @@
-slug: "1-sachsen-anhalt"
-title: "Radschnellweg  Halle    –  Leipzig"
-state: "idea"
-ref: "1"
-fromCity: "Halle  (Saale)"
-fromFederalState: "Sachsen-Anhalt"
-toCity: "Leipzig"
-toFederalState: "Sachsen"
+slug: '1-sachsen-anhalt'
+title: 'Radschnellweg  Halle    –  Leipzig'
+state: 'idea'
+ref: '1'
+fromCity: 'Halle  (Saale)'
+fromFederalState: 'Sachsen-Anhalt'
+toCity: 'Leipzig'
+toFederalState: 'Sachsen'
 lengthKm: 36
-stand: "2022-06-27"
-sourceUrl: "https://radschnellweg.org/"
-website: "https://radschnellweg.org/"
+stand: '2022-06-27'
+sourceUrl: 'https://radschnellweg.org/'
+website: 'https://radschnellweg.org/'
 stakeholders:
-  - name: "Metropolregion  Mitteldeutschland"
+  - name: 'Metropolregion  Mitteldeutschland'
     roles:
-      - "authority"
+      - 'authority'
 trassenscoutProjectSlugs: []
 showOnHome: false
 order: 0

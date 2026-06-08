@@ -1,19 +1,19 @@
-slug: "19-baden-wuerttemberg"
-title: "Veloring  Friedrichshafen"
-state: "in_progress"
-ref: "19"
-fromCity: "Jugendherberge-Friedrichshafen"
-fromFederalState: "Baden-Württemberg"
-toCity: "Manzell-Friedrichshafen"
-toFederalState: "Baden-Württemberg"
+slug: '19-baden-wuerttemberg'
+title: 'Veloring  Friedrichshafen'
+state: 'in_progress'
+ref: '19'
+fromCity: 'Jugendherberge-Friedrichshafen'
+fromFederalState: 'Baden-Württemberg'
+toCity: 'Manzell-Friedrichshafen'
+toFederalState: 'Baden-Württemberg'
 lengthKm: 7
-stand: "2022-06-07"
-sourceUrl: "https://www.friedrichshafen.de/wirtschaft-mobilitaet/verkehr/radverkehr/veloring/"
-website: "https://www.friedrichshafen.de/wirtschaft-mobilitaet/verkehr/radverkehr/veloring/"
+stand: '2022-06-07'
+sourceUrl: 'https://www.friedrichshafen.de/wirtschaft-mobilitaet/verkehr/radverkehr/veloring/'
+website: 'https://www.friedrichshafen.de/wirtschaft-mobilitaet/verkehr/radverkehr/veloring/'
 stakeholders:
-  - name: "Regionalverband  Bodensee-Oberschwaben"
+  - name: 'Regionalverband  Bodensee-Oberschwaben'
     roles:
-      - "authority"
+      - 'authority'
 trassenscoutProjectSlugs: []
 showOnHome: false
 order: 0

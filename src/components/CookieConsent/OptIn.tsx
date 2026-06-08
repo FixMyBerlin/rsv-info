@@ -1,5 +1,6 @@
 import Link from '@components/links/Link'
 import { buttonStylesForGreenLinkElement } from '@components/links/styles'
+
 import { setOptInCookie } from './storage'
 
 type Props = {

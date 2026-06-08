@@ -1,23 +1,23 @@
-slug: "frm3-hessen"
-title: "Radschnellweg  Wiesbaden  –  Frankfurt"
-state: "planning"
-ref: "FRM  3"
-fromCity: "Wiesbaden"
-fromFederalState: "Hessen"
-toCity: "Frankfurt  am  Main"
-toFederalState: "Hessen"
+slug: 'frm3-hessen'
+title: 'Radschnellweg  Wiesbaden  –  Frankfurt'
+state: 'planning'
+ref: 'FRM  3'
+fromCity: 'Wiesbaden'
+fromFederalState: 'Hessen'
+toCity: 'Frankfurt  am  Main'
+toFederalState: 'Hessen'
 lengthKm: 40
-stand: "2022-06-07"
-sourceUrl: "https://www.nahmobil-hessen.de/projektseite-radschnellverbindungen-in-hessen/"
-website: "https://www.region-frankfurt.de/Unsere-Themen-Leistungen/Mobilit%C3%A4t-in-der-Region/Mit-dem-Rad/Radschnellwege/-Rennen-der-Radschnellwege/"
+stand: '2022-06-07'
+sourceUrl: 'https://www.nahmobil-hessen.de/projektseite-radschnellverbindungen-in-hessen/'
+website: 'https://www.region-frankfurt.de/Unsere-Themen-Leistungen/Mobilit%C3%A4t-in-der-Region/Mit-dem-Rad/Radschnellwege/-Rennen-der-Radschnellwege/'
 stakeholders:
-  - name: "Nahmobil  Hessen"
+  - name: 'Nahmobil  Hessen'
     roles:
-      - "authority"
+      - 'authority'
 trassenscoutProjectSlugs:
-  - "frm3-ra1"
-  - "frm3-ra2"
-  - "frm3-ra3"
-  - "frm3-ra4"
+  - 'frm3-ra1'
+  - 'frm3-ra2'
+  - 'frm3-ra3'
+  - 'frm3-ra4'
 showOnHome: false
 order: 0

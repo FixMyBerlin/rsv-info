@@ -1,19 +1,19 @@
-slug: "20-baden-wuerttemberg"
-title: "Radschnellweg  Heidelberg  /  Bruchsal"
-state: "idea"
-ref: "20"
-fromCity: "Bruchsal"
-fromFederalState: "Baden-Württemberg"
-toCity: "Heidelberg"
-toFederalState: "Baden-Württemberg"
+slug: '20-baden-wuerttemberg'
+title: 'Radschnellweg  Heidelberg  /  Bruchsal'
+state: 'idea'
+ref: '20'
+fromCity: 'Bruchsal'
+fromFederalState: 'Baden-Württemberg'
+toCity: 'Heidelberg'
+toFederalState: 'Baden-Württemberg'
 lengthKm: 37
-stand: "2022-06-07"
-sourceUrl: "https://www.m-r-n.com/was-wir-tun/themen-und-projekte/projekte/radfahren-rhein-neckar"
-website: "https://www.m-r-n.com/was-wir-tun/themen-und-projekte/projekte/radfahren-rhein-neckar"
+stand: '2022-06-07'
+sourceUrl: 'https://www.m-r-n.com/was-wir-tun/themen-und-projekte/projekte/radfahren-rhein-neckar'
+website: 'https://www.m-r-n.com/was-wir-tun/themen-und-projekte/projekte/radfahren-rhein-neckar'
 stakeholders:
-  - name: "Verband  Region  Rhein-Neck"
+  - name: 'Verband  Region  Rhein-Neck'
     roles:
-      - "authority"
+      - 'authority'
 trassenscoutProjectSlugs: []
 showOnHome: false
 order: 0

@@ -1,11 +1,13 @@
 import { OptIn } from '@components/CookieConsent/OptIn'
 import { getOptInCookie } from '@components/CookieConsent/storage'
 import { clsx } from 'clsx'
+
 import 'maplibre-gl/dist/maplibre-gl.css'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { navHeightClasssName } from 'src/layouts/navigation/Navigation'
 import { hasMapGeometry } from 'src/lib/trassenscout/emptyGeometry'
 import type { GeometrySchema } from 'src/types/geometry'
+
 import { Attribution } from './Attribution'
 import { DynamicMap } from './DynamicMap'
 import { Legend } from './Legend'
@@ -21,8 +23,7 @@ export const RSVMap = ({ slug, geometry }: Props) => {
     features: geometry.features.filter((feature) => !feature.properties.discarded),
   }
   const showMap = hasMapGeometry(geometry)
-  const [consent, setConsent] = useState<boolean | null>(true)
-  useEffect(() => setConsent(getOptInCookie()))
+  const [consent, setConsent] = useState<boolean | null>(() => getOptInCookie())
   return (
     <div className="relative max-h-full max-w-full bg-[#F9FAFC]">
       {showMap && consent === null && (

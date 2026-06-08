@@ -1,19 +1,19 @@
-slug: "rs6-nordrhein-westfalen"
-title: "Radschnellweg  Köln  –  Frechen"
-state: "planning"
-ref: "RS6"
-fromCity: "Köln"
-fromFederalState: "Nordrhein-Westfalen"
-toCity: "Frechen"
-toFederalState: "Nordrhein-Westfalen"
+slug: 'rs6-nordrhein-westfalen'
+title: 'Radschnellweg  Köln  –  Frechen'
+state: 'planning'
+ref: 'RS6'
+fromCity: 'Köln'
+fromFederalState: 'Nordrhein-Westfalen'
+toCity: 'Frechen'
+toFederalState: 'Nordrhein-Westfalen'
 lengthKm: 8.4
-stand: "2022-01-01"
-sourceUrl: "https://www.radschnellwege.nrw/radschnellweg-koeln-frechen/"
-website: "https://www.radschnellwege.nrw/radschnellweg-koeln-frechen/"
+stand: '2022-01-01'
+sourceUrl: 'https://www.radschnellwege.nrw/radschnellweg-koeln-frechen/'
+website: 'https://www.radschnellwege.nrw/radschnellweg-koeln-frechen/'
 stakeholders:
-  - name: "Ministerium  für  Verkehr  des  Landes  Nordrhein-Westfalen"
+  - name: 'Ministerium  für  Verkehr  des  Landes  Nordrhein-Westfalen'
     roles:
-      - "authority"
+      - 'authority'
 trassenscoutProjectSlugs: []
 showOnHome: false
 order: 0

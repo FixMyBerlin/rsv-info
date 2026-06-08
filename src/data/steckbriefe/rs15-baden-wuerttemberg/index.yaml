@@ -1,19 +1,19 @@
-slug: "rs15-baden-wuerttemberg"
-title: "Radschnellverbindung  Darmstadt  -  Rhein-Neckar"
-state: "planning"
-ref: "RS15"
-fromCity: "Darmstadt"
-fromFederalState: "Hessen"
-toCity: "Heidelberg  /  Mannheim"
-toFederalState: "Baden-Württemberg"
+slug: 'rs15-baden-wuerttemberg'
+title: 'Radschnellverbindung  Darmstadt  -  Rhein-Neckar'
+state: 'planning'
+ref: 'RS15'
+fromCity: 'Darmstadt'
+fromFederalState: 'Hessen'
+toCity: 'Heidelberg  /  Mannheim'
+toFederalState: 'Baden-Württemberg'
 lengthKm: 20
-stand: "2022-06-02"
-sourceUrl: "https://www.m-r-n.com/was-wir-tun/themen-und-projekte/projekte/radfahren-rhein-neckar"
-website: "https://www.m-r-n.com/was-wir-tun/themen-und-projekte/projekte/radfahren-rhein-neckar"
+stand: '2022-06-02'
+sourceUrl: 'https://www.m-r-n.com/was-wir-tun/themen-und-projekte/projekte/radfahren-rhein-neckar'
+website: 'https://www.m-r-n.com/was-wir-tun/themen-und-projekte/projekte/radfahren-rhein-neckar'
 stakeholders:
-  - name: "Verband  Region  Rhein-Neckar"
+  - name: 'Verband  Region  Rhein-Neckar'
     roles:
-      - "authority"
+      - 'authority'
 trassenscoutProjectSlugs: []
 showOnHome: false
 order: 0

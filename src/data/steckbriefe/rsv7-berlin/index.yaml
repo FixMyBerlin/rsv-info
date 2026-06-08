@@ -1,19 +1,19 @@
-slug: "rsv7-berlin"
-title: "Spandauer  Damm  –  Freiheit"
-state: "idea"
-ref: "RSV  7"
-fromCity: "S-Bahnhof  Westend"
-fromFederalState: "Berlin"
-toCity: "Altstadt  Spandau"
-toFederalState: "Berlin"
+slug: 'rsv7-berlin'
+title: 'Spandauer  Damm  –  Freiheit'
+state: 'idea'
+ref: 'RSV  7'
+fromCity: 'S-Bahnhof  Westend'
+fromFederalState: 'Berlin'
+toCity: 'Altstadt  Spandau'
+toFederalState: 'Berlin'
 lengthKm: 3.4
-stand: "2022-05-26"
-sourceUrl: "https://www.infravelo.de/projekt/spandauer-damm-freiheit/"
-website: "https://www.infravelo.de/projekt/spandauer-damm-freiheit/"
+stand: '2022-05-26'
+sourceUrl: 'https://www.infravelo.de/projekt/spandauer-damm-freiheit/'
+website: 'https://www.infravelo.de/projekt/spandauer-damm-freiheit/'
 stakeholders:
-  - name: "infraVelo"
+  - name: 'infraVelo'
     roles:
-      - "authority"
+      - 'authority'
 trassenscoutProjectSlugs: []
 showOnHome: false
 order: 0

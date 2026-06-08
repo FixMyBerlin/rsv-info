@@ -1,19 +1,19 @@
-slug: "5-hamburg"
-title: "Lüneburg  –  Hamburg"
-state: "planning"
-ref: "5"
-fromCity: "Lüneburg"
-fromFederalState: "Hamburg"
-toCity: "Hamburg"
-toFederalState: "Hamburg"
+slug: '5-hamburg'
+title: 'Lüneburg  –  Hamburg'
+state: 'planning'
+ref: '5'
+fromCity: 'Lüneburg'
+fromFederalState: 'Hamburg'
+toCity: 'Hamburg'
+toFederalState: 'Hamburg'
 lengthKm: 45
-stand: "2022-04-20"
-sourceUrl: "https://metropolregion.hamburg.de/radschnellwege/15310310/radschnellweg-lueneburg-hamburg/"
-website: "https://metropolregion.hamburg.de/radschnellwege/15310310/radschnellweg-lueneburg-hamburg/"
+stand: '2022-04-20'
+sourceUrl: 'https://metropolregion.hamburg.de/radschnellwege/15310310/radschnellweg-lueneburg-hamburg/'
+website: 'https://metropolregion.hamburg.de/radschnellwege/15310310/radschnellweg-lueneburg-hamburg/'
 stakeholders:
-  - name: "Metropolregion  Hamburg"
+  - name: 'Metropolregion  Hamburg'
     roles:
-      - "authority"
+      - 'authority'
 trassenscoutProjectSlugs: []
 showOnHome: false
 order: 0

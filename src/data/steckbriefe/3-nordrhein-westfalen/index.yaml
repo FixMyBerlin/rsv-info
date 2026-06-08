@@ -1,19 +1,19 @@
-slug: "3-nordrhein-westfalen"
-title: "RadPendlerRoute  Mondorf  /  Troisdorf  –  Köln-Deutz"
-state: "agreement_process"
-ref: "3"
-fromCity: "Mondorf"
-fromFederalState: "Nordrhein-Westfalen"
-toCity: "Bahnhof  Köln-Deutz"
-toFederalState: "Nordrhein-Westfalen"
+slug: '3-nordrhein-westfalen'
+title: 'RadPendlerRoute  Mondorf  /  Troisdorf  –  Köln-Deutz'
+state: 'agreement_process'
+ref: '3'
+fromCity: 'Mondorf'
+fromFederalState: 'Nordrhein-Westfalen'
+toCity: 'Bahnhof  Köln-Deutz'
+toFederalState: 'Nordrhein-Westfalen'
 lengthKm: 35
-stand: "2022-06-27"
-sourceUrl: "https://www.rbk-direkt.de/radpendlerrouten.aspx"
-website: "https://www.rbk-direkt.de/radpendlerrouten.aspx"
+stand: '2022-06-27'
+sourceUrl: 'https://www.rbk-direkt.de/radpendlerrouten.aspx'
+website: 'https://www.rbk-direkt.de/radpendlerrouten.aspx'
 stakeholders:
-  - name: "Ministerium  für  Verkehr  des  Landes  Nordrhein-Westfalen"
+  - name: 'Ministerium  für  Verkehr  des  Landes  Nordrhein-Westfalen'
     roles:
-      - "authority"
+      - 'authority'
 trassenscoutProjectSlugs: []
 showOnHome: false
 order: 0

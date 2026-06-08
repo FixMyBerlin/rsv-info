@@ -10,14 +10,7 @@ type Props = {
   button?: LinkProps['button']
 }
 
-export const MailLink = ({
-  mailto,
-  className,
-  subject,
-  body,
-  children,
-  button,
-}: Props) => {
+export const MailLink = ({ mailto, className, subject, body, children, button }: Props) => {
   const params = [
     subject && `subject=${encodeURIComponent(subject)}`,
     body && `body=${encodeURIComponent(body)}`,

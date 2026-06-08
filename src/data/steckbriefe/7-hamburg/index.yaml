@@ -1,19 +1,19 @@
-slug: "7-hamburg"
-title: "Tostedt  –  Hamburg"
-state: "idea"
-ref: "7"
-fromCity: "Toestedt"
-fromFederalState: "Niedersachsen"
-toCity: "Hamburg"
-toFederalState: "Hamburg"
+slug: '7-hamburg'
+title: 'Tostedt  –  Hamburg'
+state: 'idea'
+ref: '7'
+fromCity: 'Toestedt'
+fromFederalState: 'Niedersachsen'
+toCity: 'Hamburg'
+toFederalState: 'Hamburg'
 lengthKm: 32
-stand: "2022-04-20"
-sourceUrl: "https://metropolregion.hamburg.de/radschnellwege/15307158/radschnellweg-tostedt-hamburg/"
-website: "https://metropolregion.hamburg.de/radschnellwege/15307158/radschnellweg-tostedt-hamburg/"
+stand: '2022-04-20'
+sourceUrl: 'https://metropolregion.hamburg.de/radschnellwege/15307158/radschnellweg-tostedt-hamburg/'
+website: 'https://metropolregion.hamburg.de/radschnellwege/15307158/radschnellweg-tostedt-hamburg/'
 stakeholders:
-  - name: "Metropolregion  Hamburg"
+  - name: 'Metropolregion  Hamburg'
     roles:
-      - "authority"
+      - 'authority'
 trassenscoutProjectSlugs: []
 showOnHome: false
 order: 0

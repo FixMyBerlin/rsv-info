@@ -1,19 +1,19 @@
-slug: "1-schleswig-holstein"
-title: "Radschnellweg  Bad  Schwartau    –  Lübeck-Mitte    –  Universität"
-state: "planning"
-ref: "1"
-fromCity: "Bad  Schwartau"
-fromFederalState: "Schleswig-Holstein"
-toCity: "Universität  Lübeck"
-toFederalState: "Schleswig-Holstein"
+slug: '1-schleswig-holstein'
+title: 'Radschnellweg  Bad  Schwartau    –  Lübeck-Mitte    –  Universität'
+state: 'planning'
+ref: '1'
+fromCity: 'Bad  Schwartau'
+fromFederalState: 'Schleswig-Holstein'
+toCity: 'Universität  Lübeck'
+toFederalState: 'Schleswig-Holstein'
 lengthKm: 10
-stand: "2022-04-20"
-sourceUrl: "https://metropolregion.hamburg.de/radschnellwege/15307314/radschnellweg-luebeck/"
-website: "https://metropolregion.hamburg.de/radschnellwege/15307314/radschnellweg-luebeck/"
+stand: '2022-04-20'
+sourceUrl: 'https://metropolregion.hamburg.de/radschnellwege/15307314/radschnellweg-luebeck/'
+website: 'https://metropolregion.hamburg.de/radschnellwege/15307314/radschnellweg-luebeck/'
 stakeholders:
-  - name: "Metropolregion  Hamburg"
+  - name: 'Metropolregion  Hamburg'
     roles:
-      - "authority"
+      - 'authority'
 trassenscoutProjectSlugs: []
 showOnHome: false
 order: 0

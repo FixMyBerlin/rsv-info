@@ -1,19 +1,19 @@
-slug: "31-baden-wuerttemberg"
-title: "Radschnellverbindung    Konstanz  -  Singen"
-state: "idea"
-ref: "31"
-fromCity: "Konstanz"
-fromFederalState: "Baden-Württemberg"
-toCity: "Singen"
-toFederalState: "Baden-Württemberg"
+slug: '31-baden-wuerttemberg'
+title: 'Radschnellverbindung    Konstanz  -  Singen'
+state: 'idea'
+ref: '31'
+fromCity: 'Konstanz'
+fromFederalState: 'Baden-Württemberg'
+toCity: 'Singen'
+toFederalState: 'Baden-Württemberg'
 lengthKm: 28
-stand: "2022-06-07"
-sourceUrl: "https://www.lrakn.de/service-und-verwaltung/aemter/strassenbauamt/machbarkeitsstudie+radschnellverbindung+zwischen+konstanz+und+singen"
-website: "https://www.lrakn.de/service-und-verwaltung/aemter/strassenbauamt/machbarkeitsstudie+radschnellverbindung+zwischen+konstanz+und+singen"
+stand: '2022-06-07'
+sourceUrl: 'https://www.lrakn.de/service-und-verwaltung/aemter/strassenbauamt/machbarkeitsstudie+radschnellverbindung+zwischen+konstanz+und+singen'
+website: 'https://www.lrakn.de/service-und-verwaltung/aemter/strassenbauamt/machbarkeitsstudie+radschnellverbindung+zwischen+konstanz+und+singen'
 stakeholders:
-  - name: "Landkreis  Konstan"
+  - name: 'Landkreis  Konstan'
     roles:
-      - "authority"
+      - 'authority'
 trassenscoutProjectSlugs: []
 showOnHome: false
 order: 0

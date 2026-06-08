@@ -1,19 +1,19 @@
-slug: "frm2-hessen"
-title: "Radschnellweg  Groß-Gerau  –  Frankfurt"
-state: "planning"
-ref: "FRM  2"
-fromCity: "Groß-Gerau"
-fromFederalState: "Hessen"
-toCity: "Frankfurt  am  Main"
-toFederalState: "Hessen"
+slug: 'frm2-hessen'
+title: 'Radschnellweg  Groß-Gerau  –  Frankfurt'
+state: 'planning'
+ref: 'FRM  2'
+fromCity: 'Groß-Gerau'
+fromFederalState: 'Hessen'
+toCity: 'Frankfurt  am  Main'
+toFederalState: 'Hessen'
 lengthKm: 30
-stand: "2022-06-07"
-sourceUrl: "https://www.nahmobil-hessen.de/projektseite-radschnellverbindungen-in-hessen/"
-website: "https://www.schneller-radfahren-kreisgg.de/"
+stand: '2022-06-07'
+sourceUrl: 'https://www.nahmobil-hessen.de/projektseite-radschnellverbindungen-in-hessen/'
+website: 'https://www.schneller-radfahren-kreisgg.de/'
 stakeholders:
-  - name: "Nahmobil  Hessen"
+  - name: 'Nahmobil  Hessen'
     roles:
-      - "authority"
+      - 'authority'
 trassenscoutProjectSlugs: []
 showOnHome: false
 order: 0

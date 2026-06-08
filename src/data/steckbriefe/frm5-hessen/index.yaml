@@ -1,33 +1,33 @@
-slug: "frm5-hessen"
-title: "Radschnellweg  Frankfurt  -  Vordertaunus"
-state: "planning"
-ref: "FRM  5"
-fromCity: "Frankfurt  am  Main"
-fromFederalState: "Hessen"
-toCity: "Friedrichsdorf"
-toFederalState: "Hessen"
+slug: 'frm5-hessen'
+title: 'Radschnellweg  Frankfurt  -  Vordertaunus'
+state: 'planning'
+ref: 'FRM  5'
+fromCity: 'Frankfurt  am  Main'
+fromFederalState: 'Hessen'
+toCity: 'Friedrichsdorf'
+toFederalState: 'Hessen'
 lengthKm: 30
-stand: "2022-06-07"
-sourceUrl: "https://www.region-frankfurt.de/Unsere-Themen-Leistungen/Mobilit%C3%A4t-in-der-Region/Mit-dem-Rad/Radschnellwege/"
-website: "https://www.region-frankfurt.de/Unsere-Themen-Leistungen/Mobilit%C3%A4t-in-der-Region/Mit-dem-Rad/Radschnellwege/"
+stand: '2022-06-07'
+sourceUrl: 'https://www.region-frankfurt.de/Unsere-Themen-Leistungen/Mobilit%C3%A4t-in-der-Region/Mit-dem-Rad/Radschnellwege/'
+website: 'https://www.region-frankfurt.de/Unsere-Themen-Leistungen/Mobilit%C3%A4t-in-der-Region/Mit-dem-Rad/Radschnellwege/'
 stakeholders:
-  - name: "Nahmobil  Hessen"
+  - name: 'Nahmobil  Hessen'
     roles:
-      - "authority"
+      - 'authority'
 trassenscoutProjectSlugs:
-  - "frm5-nv"
-  - "frm5-ra02"
-  - "frm5-ra03"
-  - "frm5-ra04"
-  - "frm5-ra04a"
-  - "frm5-ra05"
-  - "frm5-ra06"
-  - "frm5-ra07"
-  - "frm5-ra08"
-  - "frm5-ra09"
-  - "frm5-ra10"
-  - "frm5-ra11"
-  - "frm5-ra77"
-  - "frm5-ra99"
+  - 'frm5-nv'
+  - 'frm5-ra02'
+  - 'frm5-ra03'
+  - 'frm5-ra04'
+  - 'frm5-ra04a'
+  - 'frm5-ra05'
+  - 'frm5-ra06'
+  - 'frm5-ra07'
+  - 'frm5-ra08'
+  - 'frm5-ra09'
+  - 'frm5-ra10'
+  - 'frm5-ra11'
+  - 'frm5-ra77'
+  - 'frm5-ra99'
 showOnHome: false
 order: 0

@@ -6,6 +6,7 @@ import type { ComponentProps } from 'react'
 import type { SteckbriefCollectionEntry } from 'src/lib/steckbrief/getSteckbriefTeasers'
 import { getSteckbriefDisplayTitle } from 'src/lib/steckbrief/getSteckbriefTeasers'
 import type { SteckbriefApiFields } from 'src/types/steckbrief'
+
 import { SteckbriefPageProgressBar } from './SteckbriefPageProgressBar'
 
 type MarkdocDocument = ComponentProps<typeof DocumentRenderer>['document']

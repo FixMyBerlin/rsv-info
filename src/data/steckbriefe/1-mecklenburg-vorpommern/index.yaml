@@ -1,19 +1,19 @@
-slug: "1-mecklenburg-vorpommern"
-title: "Radschnellweg  Schwerin-Wismar"
-state: "in_progress"
-ref: "1"
-fromCity: "Schwerin"
-fromFederalState: "Mecklenburg-Vorpommern"
-toCity: "Wismar"
-toFederalState: "Mecklenburg-Vorpommern"
+slug: '1-mecklenburg-vorpommern'
+title: 'Radschnellweg  Schwerin-Wismar'
+state: 'in_progress'
+ref: '1'
+fromCity: 'Schwerin'
+fromFederalState: 'Mecklenburg-Vorpommern'
+toCity: 'Wismar'
+toFederalState: 'Mecklenburg-Vorpommern'
 lengthKm: 36
-stand: "2022-04-20"
-sourceUrl: "https://metropolregion.hamburg.de/radschnellwege/15307182/radschnellweg-schwerin-wismar/"
-website: "https://metropolregion.hamburg.de/radschnellwege/15307182/radschnellweg-schwerin-wismar/"
+stand: '2022-04-20'
+sourceUrl: 'https://metropolregion.hamburg.de/radschnellwege/15307182/radschnellweg-schwerin-wismar/'
+website: 'https://metropolregion.hamburg.de/radschnellwege/15307182/radschnellweg-schwerin-wismar/'
 stakeholders:
-  - name: "Metropolregion  Hamburg"
+  - name: 'Metropolregion  Hamburg'
     roles:
-      - "authority"
+      - 'authority'
 trassenscoutProjectSlugs: []
 showOnHome: false
 order: 0

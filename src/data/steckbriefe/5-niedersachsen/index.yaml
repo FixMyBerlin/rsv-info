@@ -1,19 +1,19 @@
-slug: "5-niedersachsen"
-title: "Radschnellweg  Osnabrück  –  Belm"
-state: "in_progress"
-ref: "5"
-fromCity: "Osnabrück"
-fromFederalState: "Niedersachsen"
-toCity: "Belm"
-toFederalState: "Niedersachsen"
+slug: '5-niedersachsen'
+title: 'Radschnellweg  Osnabrück  –  Belm'
+state: 'in_progress'
+ref: '5'
+fromCity: 'Osnabrück'
+fromFederalState: 'Niedersachsen'
+toCity: 'Belm'
+toFederalState: 'Niedersachsen'
 lengthKm: 6.5
-stand: "2022-06-27"
-sourceUrl: "https://www.osnabrueck.de/radfahren/radschnellweg"
-website: "https://www.osnabrueck.de/start/aktuelles/news/radschnellweg-osnabrueck-belm-zweiter-bauabschnitt-gestartet"
+stand: '2022-06-27'
+sourceUrl: 'https://www.osnabrueck.de/radfahren/radschnellweg'
+website: 'https://www.osnabrueck.de/start/aktuelles/news/radschnellweg-osnabrueck-belm-zweiter-bauabschnitt-gestartet'
 stakeholders:
-  - name: "Metropolregion  Hannover"
+  - name: 'Metropolregion  Hannover'
     roles:
-      - "authority"
+      - 'authority'
 trassenscoutProjectSlugs: []
 showOnHome: false
 order: 0

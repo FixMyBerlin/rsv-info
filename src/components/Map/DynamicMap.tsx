@@ -1,12 +1,12 @@
 import { bbox, bboxPolygon, geojsonType, square, transformScale } from '@turf/turf'
-
 import maplibregl from 'maplibre-gl'
+
 import 'maplibre-gl/dist/maplibre-gl.css'
 import { useEffect, useState } from 'react'
 import Map, { FullscreenControl, NavigationControl } from 'react-map-gl/maplibre'
-
 import type { GeometrySchema } from 'src/types/geometry'
 import { maptilerBaseUrl, maptilerKey } from 'src/utils/mapTiler.const'
+
 import { RSVSegment } from './RsvSegment'
 
 type BBox2d = [number, number, number, number]
