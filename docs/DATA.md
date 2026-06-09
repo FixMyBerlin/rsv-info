@@ -76,6 +76,28 @@ Per feature, the sync script reads:
 
 For display, values from all merged features are collected, empty values dropped, deduplicated, sorted A–Z, and joined with `, `. A row is shown only when at least one non-empty value exists.
 
+## Planning state vs. Trassenscout status
+
+These are **two separate fields** with no automatic mapping between them.
+
+| | **Keystatic `state`** (Planungsstand) | **Trassenscout `status`** (per subsection) |
+|---|---|---|
+| Source | Editorial, in Keystatic | Trassenscout API, per feature / Teilabschnitt |
+| Values | Fixed enum: `idea`, `agreement_process`, `planning`, `in_progress`, `done` | Free text from Trassenscout, e.g. `Idee`, `In Planung`, `variant` |
+| Scope | Whole RSV Steckbrief | Individual route subsections |
+
+**Keystatic `state`** drives the overall project UI:
+
+- Progress bar on the Steckbrief page (`SteckbriefPageProgressBar`)
+- State label on overview teasers (`RsvStateLabel`: Idee, Prüfung, Planung, Umsetzung, Gebaut)
+
+**Trassenscout `status`** is used in two ways:
+
+1. **Projektdetails** — aggregated across all linked subsections and shown as **Status (Teilabschnitt)** (see table above)
+2. **Map styling** — only when `status === "variant"`: line is drawn as an alternative route (see below). All other TS status values do not affect map colours.
+
+Saving in Keystatic updates `state` immediately on rebuild. Trassenscout `status` only changes after `bun run trassenscout:sync` (or the weekly PR).
+
 ## Conventions
 
 ### Map styling: `status === "variant"`
@@ -83,7 +105,8 @@ For display, values from all merged features are collected, empty values dropped
 When Trassenscout returns `status: "variant"` on a feature, it is treated as an **alternative route variant** on the map:
 
 - Internal property: `variant: 'Alternative'` (alternate color via [`segmentColor`](../src/utils/mapColors.ts))
-- **Not** a planning-progress state — does not feed the progress bar
+- Does **not** affect Keystatic `state` or the progress bar
+- The value `variant` may still appear in **Status (Teilabschnitt)** if Trassenscout returns it
 - All other statuses: `variant: 'Vorzugstrasse'`, `discarded: false`
 
 ### Geometry normalization
