@@ -32,7 +32,7 @@ flowchart LR
 | **Keystatic `steckbriefe`** (`src/data/steckbriefe/`) | Slug, title, description (RTE), planning state, from/to, length, stand, source, website, stakeholders, home teaser flags |
 | **Keystatic `trassenscoutProjectSlugs`** | String refs used by the sync script to fetch from Trassenscout |
 | **Checked-in `src/data/trassenscout/{slug}.json`** | Normalized geometry, aggregated API fields (`operator`, `status`, `estimatedCompletionDate`), sync metadata |
-| **`public/rsv-map-images/`** | Static map PNGs for social sharing / teasers (regenerated on sync) |
+| **`public/rsv-map-images/`** | Static map PNGs for social sharing / teasers (regenerated on sync); `fallback.png` for Steckbriefe without Trassenscout geometry |
 
 The custom Astro loader in [`src/loaders/steckbriefeLoader.ts`](../src/loaders/steckbriefeLoader.ts) reads Keystatic via `createReader` and loads **checked-in** Trassenscout cache files only — no live API at build time. Steckbriefe without slugs are still published with an empty map. The sync script lives in [`scripts/trassenscout/update.ts`](../scripts/trassenscout/update.ts).
 
@@ -46,7 +46,7 @@ Refresh checked-in geometry and map images locally:
 bun run trassenscout:sync
 ```
 
-This runs `trassenscout:update` (fetch from Trassenscout, write `src/data/trassenscout/`) and `generate:map-images` (MapTiler PNGs into `public/rsv-map-images/`).
+This runs `trassenscout:update` (fetch from Trassenscout, write `src/data/trassenscout/`) and `generate:map-images` (MapTiler PNGs into `public/rsv-map-images/` for routes with geometry, removes stale per-slug images, and refreshes `fallback.png` for the rest).
 
 A **weekly GitHub Action** (Monday 06:00 Europe/Berlin) runs the same sync and opens or updates a pull request titled **"Syncronisation mit Trassenscout"** when files change. Review the Netlify deploy preview on the PR, then merge to `main` for production (IONOS).
 

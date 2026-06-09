@@ -4,6 +4,7 @@ export const prerender = true
 import { Radschnellweg } from '@components/SteckbriefPage/Radschnellweg'
 import { getCollection } from 'astro:content'
 import Layout from 'src/layouts/Layout.astro'
+import { getSteckbriefStaticMapImage } from 'src/lib/steckbrief/staticMapImage'
 
 export async function getStaticPaths() {
   const steckbriefe = await getCollection('steckbriefe')
@@ -18,7 +19,7 @@ const { steckbrief } = Astro.props
 
 <Layout
   title={'Steckbrief ' + steckbrief.title}
-  image={`/rsv-map-images/${steckbrief.slug}.png`}
+  image={getSteckbriefStaticMapImage(steckbrief.slug, steckbrief.geometry)}
   description={steckbrief.title}
 >
   <Radschnellweg client:load steckbrief={steckbrief} />
