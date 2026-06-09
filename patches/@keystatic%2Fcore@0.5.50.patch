@@ -1,0 +1,15 @@
+diff --git a/dist/declarations/src/config.d.ts b/dist/declarations/src/config.d.ts
+index cd5057dbbc0ef2e81ba0734ada85c549247a197f..31834406b1460bf74e03919ce25f0f9c944a0985 100644
+--- a/dist/declarations/src/config.d.ts
++++ b/dist/declarations/src/config.d.ts
+@@ -133,7 +133,9 @@ export declare function collection<Schema extends Record<string, ComponentSchema
+     [K in keyof Schema]: Schema[K] extends SlugFormField<any, any, any, any> ? K : never;
+ }[keyof Schema]>(collection: Collection<Schema, SlugField & string> & {
+     columns?: {
+-        [K in keyof Schema]: Schema[K] extends FormField<any, any, string | number | boolean | Date | null | undefined> | SlugFormField<any, any, any, string> ? K & string : never;
++        [K in keyof Schema]: Schema[K] extends FormField<any, any, string | number | boolean | Date | null | undefined> | SlugFormField<any, any, any, string> ? K & string : Schema[K] extends {
++            kind: 'array';
++        } ? K & string : never;
+     }[keyof Schema][];
+ }): Collection<Schema, SlugField & string>;
+ export declare function singleton<Schema extends Record<string, ComponentSchema>>(collection: Singleton<Schema>): Singleton<Schema>;
