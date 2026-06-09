@@ -35,12 +35,14 @@ jobs:
           HUSKY: '0'
         run: bun run trassenscout:sync
 
+      # Fixed branch name: create-pull-request updates the open PR instead of opening a second one.
       - name: Create or update pull request
         uses: peter-evans/create-pull-request@v7
         with:
           branch: sync/trassenscout
           base: main
           title: Syncronisation mit Trassenscout
+          assignees: mlvln
           commit-message: 'chore: synchronise with Trassenscout'
           body: |
             Automated weekly sync from Trassenscout.
