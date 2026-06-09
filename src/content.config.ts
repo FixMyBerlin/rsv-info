@@ -32,6 +32,7 @@ const communicationposts = defineCollection({
 const steckbriefe = defineCollection({
   loader: steckbriefeLoader(),
   schema: z.object({
+    visibility: z.enum(['visible', 'hidden']).default('visible'),
     slug: z.string(),
     title: z.string(),
     ref: z.string().optional(),
@@ -56,7 +57,6 @@ const steckbriefe = defineCollection({
     trassenscoutProjectSlugs: z.array(z.string()),
     showOnHome: z.boolean(),
     order: z.number(),
-    description: z.unknown().optional(),
     geometry: geometrySchema,
     apiFields: z.object({
       operator: z.string().optional(),
