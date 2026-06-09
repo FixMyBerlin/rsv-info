@@ -140,10 +140,10 @@ const processFiles = async () => {
   await writeFallbackImage()
 
   const results = await Promise.all(slugs.map((slug: string) => processSteckbrief(slug)))
-  const slugsWithGeometry = new Set(
+  const slugsWithGeometry = new Set<string>(
     slugs.filter((_: string, index: number) => results[index]),
   )
-  pruneStaleMapImages(new Set(slugs), slugsWithGeometry)
+  pruneStaleMapImages(new Set<string>(slugs), slugsWithGeometry)
 
   const withoutGeometry = slugs.length - slugsWithGeometry.size
   console.log(
