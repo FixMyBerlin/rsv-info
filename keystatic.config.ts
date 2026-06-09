@@ -106,7 +106,7 @@ export default config({
       slugField: 'slug',
       path: 'src/data/steckbriefe/*/',
       format: { data: 'yaml' },
-      columns: ['title', 'state', 'lastCheckedDate'],
+      columns: ['title', 'state', 'trassenscoutProjectSlugs', 'lastCheckedDate'],
       schema: {
         slug: fields.text({
           label: 'Slug / URL-Teil',
@@ -120,9 +120,10 @@ export default config({
           links: true,
         }),
         trassenscoutProjectSlugs: fields.array(fields.text({ label: 'Trassenscout slug' }), {
-          label: 'Trassenscout project slugs',
+          label: 'Trassenscout',
           itemLabel: (props) => props.value || 'Slug',
-          description: 'Leer lassen wenn noch kein Trassenscout-Projekt existiert.',
+          description:
+            'Leer lassen wenn noch kein Trassenscout-Projekt existiert.',
         }),
         state: fields.select({
           label: 'Planungsstand',
