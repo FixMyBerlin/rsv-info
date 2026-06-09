@@ -12,6 +12,7 @@ const { simplify } = turf
 
 const outputDir = path.resolve('public/rsv-map-images')
 const steckbriefeDir = path.resolve('src/data/steckbriefe')
+const FALLBACK_FILENAME = 'fallback.png'
 
 // @ts-expect-error
 const buildPaths = ({ properties, geometry: { coordinates } }: Feature) => {
@@ -50,28 +51,46 @@ const staticMapRequest = (
   return url
 }
 
+async function fetchMapImage(url: string): Promise<Buffer> {
+  const response = await fetch(url)
+  if (!response.ok) {
+    throw new Error(`Failed to fetch image: ${response.statusText}`)
+  }
+  const arrayBuffer = await response.arrayBuffer()
+  return Buffer.from(arrayBuffer)
+}
+
 function loadGeometryFromCache(slug: string): GeometrySchema | null {
   const { loadTrassenscoutCacheSync } = require('../../src/lib/trassenscout/loadTrassenscoutCache')
   const cache = loadTrassenscoutCacheSync(slug)
   return cache?.geometry ?? null
 }
 
+function hasRenderableMapFeatures(geometry: GeometrySchema): boolean {
+  return geometry.features.some((feature) => !feature.properties.discarded)
+}
+
+async function writeFallbackImage(): Promise<void> {
+  const { emptyGeometry } = require('../../src/lib/trassenscout/emptyGeometry')
+  const empty = emptyGeometry('_fallback')
+  const url = staticMapRequest(empty, [1920, 1920]).toString()
+  const buffer = await fetchMapImage(url)
+  const outputFilePath = path.resolve(outputDir, FALLBACK_FILENAME)
+  fs.writeFileSync(outputFilePath, buffer)
+  console.log(`Fallback image saved to ${outputFilePath}`)
+}
+
 const processSteckbrief = async (slug: string) => {
   try {
     const data = loadGeometryFromCache(slug)
-    if (!data) {
-      console.log(`Skipping ${slug}: no checked-in Trassenscout cache`)
+    if (!data || !hasRenderableMapFeatures(data)) {
+      console.log(`Skipping ${slug}: no Trassenscout geometry`)
       return false
     }
 
     const filteredData = {
       ...data,
       features: data.features.filter((feature) => !feature.properties.discarded),
-    }
-
-    if (filteredData.features.length === 0) {
-      console.log(`Skipping ${slug}: no map features`)
-      return false
     }
 
     let url = staticMapRequest(filteredData, [1920, 1920]).toString()
@@ -83,13 +102,7 @@ const processSteckbrief = async (slug: string) => {
       tolerance *= 2
     }
 
-    const response = await fetch(url)
-    if (!response.ok) {
-      throw new Error(`Failed to fetch image: ${response.statusText}`)
-    }
-    const arrayBuffer = await response.arrayBuffer()
-    const buffer = Buffer.from(arrayBuffer)
-
+    const buffer = await fetchMapImage(url)
     const outputFilePath = path.resolve(outputDir, `${slug}.png`)
     fs.writeFileSync(outputFilePath, buffer)
 
@@ -101,15 +114,41 @@ const processSteckbrief = async (slug: string) => {
   }
 }
 
+function pruneStaleMapImages(activeSlugs: Set<string>, slugsWithGeometry: Set<string>) {
+  if (!fs.existsSync(outputDir)) return
+
+  for (const file of fs.readdirSync(outputDir)) {
+    if (!file.endsWith('.png') || file === FALLBACK_FILENAME) continue
+
+    const slug = file.replace(/\.png$/, '')
+    if (!activeSlugs.has(slug) || !slugsWithGeometry.has(slug)) {
+      const filePath = path.resolve(outputDir, file)
+      fs.unlinkSync(filePath)
+      console.log(`Removed stale map image ${filePath}`)
+    }
+  }
+}
+
 const processFiles = async () => {
+  fs.mkdirSync(outputDir, { recursive: true })
+
   const slugs = fs
     .readdirSync(steckbriefeDir, { withFileTypes: true })
     .filter((entry: { isDirectory: () => boolean }) => entry.isDirectory())
     .map((entry: { name: string }) => entry.name)
 
+  await writeFallbackImage()
+
   const results = await Promise.all(slugs.map((slug: string) => processSteckbrief(slug)))
-  const count = results.filter(Boolean).length
-  console.log(`${count} images (from ${slugs.length} steckbriefe) have been saved`)
+  const slugsWithGeometry = new Set(
+    slugs.filter((_: string, index: number) => results[index]),
+  )
+  pruneStaleMapImages(new Set(slugs), slugsWithGeometry)
+
+  const withoutGeometry = slugs.length - slugsWithGeometry.size
+  console.log(
+    `${slugsWithGeometry.size} route map image(s) saved, ${withoutGeometry} steckbrief(e) use fallback`,
+  )
 }
 
 processFiles()

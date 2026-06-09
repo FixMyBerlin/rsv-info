@@ -1,6 +1,7 @@
 import type { CollectionEntry } from 'astro:content'
 
 import type { SteckbriefTeaser } from '../../types/steckbrief'
+import { getSteckbriefStaticMapImage } from './staticMapImage'
 
 export type SteckbriefCollectionEntry = CollectionEntry<'steckbriefe'>
 
@@ -54,7 +55,7 @@ export function getSteckbriefTeasers(entries: SteckbriefCollectionEntry[]): Stec
     title: entry.data.title,
     ref: entry.data.ref,
     state: entry.data.state,
-    staticMap: `/rsv-map-images/${entry.data.slug}.png`,
+    staticMap: getSteckbriefStaticMapImage(entry.data.slug, entry.data.geometry),
   }))
 }
 
