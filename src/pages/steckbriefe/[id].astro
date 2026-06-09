@@ -2,7 +2,7 @@
 export const prerender = true
 
 import { Radschnellweg } from '@components/SteckbriefPage/Radschnellweg'
-import { getCollection } from 'astro:content'
+import { getCollection, render } from 'astro:content'
 import Layout from 'src/layouts/Layout.astro'
 import { getSteckbriefStaticMapImage } from 'src/lib/steckbrief/staticMapImage'
 
@@ -10,17 +10,22 @@ export async function getStaticPaths() {
   const steckbriefe = await getCollection('steckbriefe')
   return steckbriefe.map((entry) => ({
     params: { id: entry.data.slug },
-    props: { steckbrief: entry.data },
+    props: { entry },
   }))
 }
 
-const { steckbrief } = Astro.props
+const { entry } = Astro.props
+const { Content: DescriptionContent } = await render(entry)
 ---
 
 <Layout
-  title={'Steckbrief ' + steckbrief.title}
-  image={getSteckbriefStaticMapImage(steckbrief.slug, steckbrief.geometry)}
-  description={steckbrief.title}
+  title={'Steckbrief ' + entry.data.title}
+  image={getSteckbriefStaticMapImage(entry.data.slug, entry.data.geometry)}
+  description={entry.data.title}
 >
-  <Radschnellweg client:load steckbrief={steckbrief} />
+  <Radschnellweg client:load steckbrief={entry.data}>
+    <div class="prose">
+      <DescriptionContent />
+    </div>
+  </Radschnellweg>
 </Layout>

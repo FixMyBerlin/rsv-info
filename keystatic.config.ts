@@ -105,19 +105,26 @@ export default config({
       label: 'Steckbriefe',
       slugField: 'slug',
       path: 'src/data/steckbriefe/*/',
-      format: { data: 'yaml' },
-      columns: ['title', 'state', 'trassenscoutProjectSlugs', 'lastCheckedDate'],
+      format: { contentField: 'description' },
+      columns: ['visibility', 'title', 'trassenscoutProjectSlugs', 'lastCheckedDate'],
       schema: {
+        visibility: fields.select({
+          label: 'Sichtbarkeit',
+          options: [
+            { label: 'Sichtbar', value: 'visible' },
+            { label: 'Versteckt', value: 'hidden' },
+          ],
+          defaultValue: 'visible',
+        }),
         slug: fields.text({
           label: 'Slug / URL-Teil',
           description: 'Bestehende ID, z.B. frm7-hessen',
           validation: { isRequired: true },
         }),
         title: fields.text({ label: 'Titel', validation: { isRequired: true } }),
-        description: fields.document({
+        description: fields.mdx({
           label: 'Kurzfassung',
-          formatting: true,
-          links: true,
+          options: { link: true },
         }),
         trassenscoutProjectSlugs: fields.array(fields.text({ label: 'Trassenscout slug' }), {
           label: 'Trassenscout',

@@ -1,19 +1,17 @@
 import Link from '@components/links/Link'
 import { RSVMap } from '@components/Map/RsvMap'
 import { H1, H4 } from '@components/Text'
-import { DocumentRenderer } from '@keystatic/core/renderer'
-import type { ComponentProps } from 'react'
+import type { ReactNode } from 'react'
 import type { SteckbriefCollectionEntry } from 'src/lib/steckbrief/getSteckbriefTeasers'
 import { getSteckbriefDisplayTitle } from 'src/lib/steckbrief/getSteckbriefTeasers'
 import type { SteckbriefApiFields } from 'src/types/steckbrief'
 
 import { SteckbriefPageProgressBar } from './SteckbriefPageProgressBar'
 
-type MarkdocDocument = ComponentProps<typeof DocumentRenderer>['document']
-
 type Props = {
   setOverlay: (b: boolean) => void
   steckbrief: SteckbriefCollectionEntry['data']
+  description?: ReactNode
 }
 
 const ApiFieldRow = ({ label, value }: { label: string; value?: string }) => {
@@ -26,8 +24,8 @@ const ApiFieldRow = ({ label, value }: { label: string; value?: string }) => {
   )
 }
 
-export const SteckbriefPage = ({ steckbrief }: Props) => {
-  const { geometry, apiFields, description } = steckbrief
+export const SteckbriefPage = ({ steckbrief, description }: Props) => {
+  const { geometry, apiFields } = steckbrief
   const displayTitle = getSteckbriefDisplayTitle(steckbrief)
 
   return (
@@ -38,10 +36,10 @@ export const SteckbriefPage = ({ steckbrief }: Props) => {
           <div className="mt-8">
             <SteckbriefPageProgressBar currentState={steckbrief.state} />
           </div>
-          {description != null ? (
+          {description ? (
             <div className="prose mt-8 max-w-none">
               <H4 className="mb-4">Kurzfassung</H4>
-              <DocumentRenderer document={description as MarkdocDocument} />
+              {description}
               {steckbrief.sourceUrl && (
                 <p className="mt-2 text-sm">
                   (Quelle:&nbsp;

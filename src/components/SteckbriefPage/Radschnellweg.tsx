@@ -1,6 +1,6 @@
 import { InfoIcon } from '@assets/general/tsx/InfoIcon'
 import { clsx } from 'clsx'
-import { useState } from 'react'
+import { useState, type ReactNode } from 'react'
 import { LayoutSteckbrief } from 'src/layouts/LayoutSteckbrief'
 import type { SteckbriefCollectionEntry } from 'src/lib/steckbrief/getSteckbriefTeasers'
 import { getSteckbriefDisplayTitle } from 'src/lib/steckbrief/getSteckbriefTeasers'
@@ -10,9 +10,10 @@ import { SteckbriefUpdateInfo } from './SteckbriefPageUpdateInfo'
 
 type Props = {
   steckbrief: SteckbriefCollectionEntry['data']
+  children?: ReactNode
 }
 
-export const Radschnellweg = ({ steckbrief }: Props) => {
+export const Radschnellweg = ({ steckbrief, children }: Props) => {
   const name =
     getSteckbriefDisplayTitle(steckbrief) || `${steckbrief.fromCity} - ${steckbrief.toCity}`
 
@@ -35,7 +36,7 @@ export const Radschnellweg = ({ steckbrief }: Props) => {
           <div className="fixed top-0 right-0 bottom-0 left-0 z-50 min-h-full min-w-full bg-gray-300/30" />
         )}
         <LayoutSteckbrief>
-          <SteckbriefPage steckbrief={steckbrief} setOverlay={setOverlay} />
+          <SteckbriefPage steckbrief={steckbrief} setOverlay={setOverlay} description={children} />
         </LayoutSteckbrief>
       </div>
       <div className="fixed right-4 bottom-4 h-36 w-96">

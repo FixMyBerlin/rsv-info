@@ -2,6 +2,8 @@ import type { GeometrySchema } from './geometry'
 
 export type ProgressState = 'idea' | 'agreement_process' | 'planning' | 'in_progress' | 'done'
 
+export type SteckbriefVisibility = 'visible' | 'hidden'
+
 export type SteckbriefApiFields = {
   operator?: string
   status?: string
@@ -14,6 +16,7 @@ export type SteckbriefStakeholder = {
 }
 
 export type SteckbriefEntry = {
+  visibility: SteckbriefVisibility
   slug: string
   title: string
   ref?: string
@@ -31,7 +34,6 @@ export type SteckbriefEntry = {
   trassenscoutProjectSlugs: string[]
   showOnHome: boolean
   order: number
-  description?: unknown
   geometry: GeometrySchema
   apiFields: SteckbriefApiFields
 }

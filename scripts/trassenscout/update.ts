@@ -8,7 +8,7 @@ import {
   serializeTrassenscoutCache,
   TRASSENSCOUT_CACHE_DIR,
 } from '../../src/lib/trassenscout/loadTrassenscoutCache'
-import { listSteckbriefeFromYaml } from '../../src/lib/trassenscout/listSteckbriefeFromYaml'
+import { listSteckbriefe } from '../../src/lib/trassenscout/listSteckbriefe'
 
 async function ensureCacheDir(cwd: string) {
   await fs.mkdir(path.join(cwd, TRASSENSCOUT_CACHE_DIR), { recursive: true })
@@ -40,7 +40,7 @@ async function main() {
 
   await ensureCacheDir(cwd)
 
-  const steckbriefe = listSteckbriefeFromYaml(cwd)
+  const steckbriefe = await listSteckbriefe(cwd)
   const withSlugs = steckbriefe.filter((entry) => entry.trassenscoutProjectSlugs.length > 0)
   const activeSlugs = new Set(withSlugs.map((entry) => entry.slug))
   const failures: string[] = []
