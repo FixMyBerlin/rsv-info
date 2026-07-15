@@ -19,7 +19,7 @@ If you found any bugs feel free to create an issue.
 
 For starting developing, the following steps could be helpful for getting started:
 
-- Install [Bun](https://bun.sh/docs/installation) (see [`.bun-version`](./.bun-version) for the pinned version)
+- Install [Bun](https://bun.sh/docs/installation) (pinned in `package.json` → `packageManager`, currently `bun@1.3.13`)
 - Install dependencies: `bun install`
 - Start the Astro dev server: `bun run dev` (or `bun start`)
 - Use `bun run` to see a list of commands

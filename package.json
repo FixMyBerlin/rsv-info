@@ -78,7 +78,8 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "husky": "^9.1.7",
     "oxfmt": "^0.53.0",
-    "oxlint": "^1.68.0"
+    "oxlint": "^1.68.0",
+    "vite": "^7.3.3"
   },
   "patchedDependencies": {
     "@keystatic/core@0.5.50": "patches/@keystatic%2Fcore@0.5.50.patch"
