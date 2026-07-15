@@ -89,7 +89,6 @@ export function steckbriefeLoader(): Loader {
           data: parsedData,
           filePath: filePathRel,
           digest: generateDigest(content),
-          deferredRender: true,
         })
         published += 1
       }
