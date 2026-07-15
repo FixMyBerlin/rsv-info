@@ -126,12 +126,19 @@ export default config({
           label: 'Kurzfassung',
           options: { link: true },
         }),
-        trassenscoutProjectSlugs: fields.array(fields.text({ label: 'Trassenscout slug' }), {
-          label: 'Trassenscout',
-          itemLabel: (props) => props.value || 'Slug',
-          description:
-            'Leer lassen wenn noch kein Trassenscout-Projekt existiert.',
-        }),
+        trassenscoutProjectSlugs: fields.array(
+          fields.text({
+            label: 'Trassenscout slug',
+            description:
+              'Slug wie in der Trassenscout-URL (Kleinbuchstaben), z. B. https://trassenscout.de/elmshorn-hamburg',
+          }),
+          {
+            label: 'Trassenscout',
+            itemLabel: (props) => props.value || 'Slug',
+            description:
+              'Trassenscout-Projekt-Slugs (URL-Pfad, Kleinbuchstaben), z. B. https://trassenscout.de/elmshorn-hamburg. Leer lassen, wenn noch kein Trassenscout-Projekt existiert.',
+          },
+        ),
         state: fields.select({
           label: 'Planungsstand',
           options: [
