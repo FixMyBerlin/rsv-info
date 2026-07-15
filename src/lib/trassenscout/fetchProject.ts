@@ -1,4 +1,4 @@
-export const TRASSENSCOUT_API_BASE_URL = 'https://trassenscout.de'
+import { trassenscoutProjectApiUrl } from './apiUrl'
 
 type TrassenscoutFeature = {
   type: 'Feature'
@@ -21,29 +21,24 @@ const fetchCache = new Map<string, TrassenscoutFeatureCollection>()
 
 export async function fetchTrassenscoutProject(
   slug: string,
-  baseUrl: string,
 ): Promise<TrassenscoutFeatureCollection> {
-  const cacheKey = `${baseUrl}/${slug}`
-  const cached = fetchCache.get(cacheKey)
+  const cached = fetchCache.get(slug)
   if (cached) return cached
 
-  const res = await fetch(`${baseUrl}/api/projects/${slug}.json`)
+  const res = await fetch(trassenscoutProjectApiUrl(slug))
   if (!res.ok) {
     throw new Error(`Trassenscout fetch failed for "${slug}": ${res.status} ${res.statusText}`)
   }
 
   const data = (await res.json()) as TrassenscoutFeatureCollection
-  fetchCache.set(cacheKey, data)
+  fetchCache.set(slug, data)
   return data
 }
 
 export async function fetchAndMergeTrassenscoutProjects(
   slugs: string[],
-  baseUrl: string = TRASSENSCOUT_API_BASE_URL,
 ): Promise<TrassenscoutFeatureCollection> {
-  const collections = await Promise.all(
-    slugs.map((slug) => fetchTrassenscoutProject(slug, baseUrl)),
-  )
+  const collections = await Promise.all(slugs.map((slug) => fetchTrassenscoutProject(slug)))
   return {
     type: 'FeatureCollection',
     features: collections.flatMap((collection) => collection.features),

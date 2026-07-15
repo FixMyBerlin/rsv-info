@@ -14,10 +14,10 @@ index cd5057dbbc0ef2e81ba0734ada85c549247a197f..31834406b1460bf74e03919ce25f0f9c
  }): Collection<Schema, SlugField & string>;
  export declare function singleton<Schema extends Record<string, ComponentSchema>>(collection: Singleton<Schema>): Singleton<Schema>;
 diff --git a/dist/index-a8452c26.js b/dist/index-a8452c26.js
-index 92ea45b9c884537767ee3bfda14c57c9a7e96ab0..0e98bd1df8892d5ea1e9a0bff6fe149eef908a25 100644
+index 92ea45b9c884537767ee3bfda14c57c9a7e96ab0..1852ad67f57f25d4f680f296bafb6b6daad0ac25 100644
 --- a/dist/index-a8452c26.js
 +++ b/dist/index-a8452c26.js
-@@ -5276,9 +5276,14 @@ function ArrayFieldListView(props) {
+@@ -5276,9 +5276,24 @@ function ArrayFieldListView(props) {
      children: item_0 => {
        var _props$schema$itemLab, _props$schema;
        const label = ((_props$schema$itemLab = (_props$schema = props.schema).itemLabel) === null || _props$schema$itemLab === void 0 ? void 0 : _props$schema$itemLab.call(_props$schema, item_0)) || `Item ${props.elements.indexOf(item_0) + 1}`;
@@ -29,6 +29,16 @@ index 92ea45b9c884537767ee3bfda14c57c9a7e96ab0..0e98bd1df8892d5ea1e9a0bff6fe149e
 +        children: [label.includes('<') ? /*#__PURE__*/jsx("span", {
 +          dangerouslySetInnerHTML: {
 +            __html: label
++          },
++          onClick: e => {
++            if (e.target instanceof HTMLAnchorElement) {
++              e.stopPropagation();
++            }
++          },
++          onPointerDown: e => {
++            if (e.target instanceof HTMLAnchorElement) {
++              e.stopPropagation();
++            }
 +          }
 +        }) : /*#__PURE__*/jsx(Text, {
            children: label
