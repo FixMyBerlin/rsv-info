@@ -5,6 +5,7 @@ import { contentViewImageDefaultDouble } from './keystatic/utils/contentViewImag
 import { contentViewImageHorizontal } from './keystatic/utils/contentViewImageHorizontal'
 import { contentViewImageSquare } from './keystatic/utils/contentViewImageSquare'
 import { contentViewImageVertical } from './keystatic/utils/contentViewImageVertical'
+import { trassenscoutSlugItemLabel } from './keystatic/utils/trassenscoutSlugItemLabel'
 
 const blogSchema = {
   title: fields.slug({
@@ -134,7 +135,7 @@ export default config({
           }),
           {
             label: 'Trassenscout',
-            itemLabel: (props) => props.value || 'Slug',
+            itemLabel: (props) => trassenscoutSlugItemLabel(props.value),
             description:
               'Trassenscout-Projekt-Slugs (URL-Pfad, Kleinbuchstaben), z. B. https://trassenscout.de/elmshorn-hamburg. Leer lassen, wenn noch kein Trassenscout-Projekt existiert.',
           },
