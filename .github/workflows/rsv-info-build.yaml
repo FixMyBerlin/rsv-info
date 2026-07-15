@@ -24,8 +24,8 @@ jobs:
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
-      # Steckbriefe geometry comes from checked-in src/data/trassenscout/*.json (no live API).
-      # Static map PNGs in public/rsv-map-images/ are committed via trassenscout:sync.
+      # Production uses `bun run build` (checked-in src/data/trassenscout/*.json only).
+      # Netlify CMS uses `bun run build:netlify` (syncs Trassenscout first) — see netlify.toml.
       - name: Install, build, and upload your site output
         uses: withastro/action@v3
         env:

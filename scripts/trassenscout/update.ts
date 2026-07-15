@@ -69,8 +69,11 @@ async function main() {
   )
 
   if (failures.length > 0) {
-    console.error(`FAILED: ${failures.join(', ')}`)
-    process.exit(1)
+    console.error(`FAILED (${failures.length}): ${failures.join(', ')}`)
+    if (updated === 0) {
+      process.exit(1)
+    }
+    console.warn('Continuing with partial Trassenscout sync (successful entries were written).')
   }
 }
 

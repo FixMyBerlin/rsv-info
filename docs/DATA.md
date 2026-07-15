@@ -34,13 +34,29 @@ flowchart LR
 | **Checked-in `src/data/trassenscout/{slug}.json`** | Normalized geometry, aggregated API fields (`operator`, `status`, `estimatedCompletionDate`), sync metadata |
 | **`public/rsv-map-images/`** | Static map PNGs for social sharing / teasers (regenerated on sync); `fallback.png` for Steckbriefe without Trassenscout geometry |
 
-The custom Astro loader in [`src/loaders/steckbriefeLoader.ts`](../src/loaders/steckbriefeLoader.ts) reads Keystatic via `createReader` and loads **checked-in** Trassenscout cache files only — no live API at build time. Steckbriefe without slugs are still published with an empty map. The sync script lives in [`scripts/trassenscout/update.ts`](../scripts/trassenscout/update.ts).
+The custom Astro loader in [`src/loaders/steckbriefeLoader.ts`](../src/loaders/steckbriefeLoader.ts) reads Keystatic via `createReader` and loads Trassenscout cache files from `src/data/trassenscout/` at build time (written during sync, not fetched live by the loader). Steckbriefe without slugs are still published with an empty map. The sync script lives in [`scripts/trassenscout/update.ts`](../scripts/trassenscout/update.ts).
+
+## When Trassenscout data is fetched
+
+| Environment | Build command | Trassenscout |
+|---|---|---|
+| **Netlify CMS / preview** | `bun run build:netlify` | Syncs fresh geometry before build |
+| **Production (IONOS / `main`)** | `bun run build` | Checked-in cache only |
+| **Weekly sync PR** | `bun run trassenscout:sync` | Updates cache on `main` for production |
+
+Netlify uses `build:netlify` (see [`netlify.toml`](../netlify.toml)). Production on IONOS uses plain `build`. Editorial changes in Keystatic on `develop` show maps on the next Netlify deploy without a separate sync commit; production picks up geometry when the weekly sync PR (or manual sync) is merged to `main`.
 
 Blog posts on `/planung` and `/kommunikation` remain in Keystatic / MDX collections and are unchanged.
 
 ## Syncing Trassenscout data
 
-Refresh checked-in geometry and map images locally:
+### Automatic (Netlify)
+
+Netlify runs `bun run build:netlify`, which syncs Trassenscout before `astro build`. Adding Trassenscout slugs in Keystatic is enough — the next deploy preview fetches geometry.
+
+### Production and manual sync
+
+Production (`bun run build` on IONOS) does **not** sync at build time. Data comes from git.
 
 ```bash
 bun run trassenscout:sync
@@ -48,7 +64,9 @@ bun run trassenscout:sync
 
 This runs `trassenscout:update` (fetch from Trassenscout, write `src/data/trassenscout/`) and `generate:map-images` (MapTiler PNGs into `public/rsv-map-images/` for routes with geometry, removes stale per-slug images, and refreshes `fallback.png` for the rest).
 
-A **weekly GitHub Action** (Monday 06:00 Europe/Berlin) runs the same sync and opens or updates a pull request titled **"Syncronisation mit Trassenscout"** when files change. Review the Netlify deploy preview on the PR, then merge to `main` for production (IONOS).
+A **weekly GitHub Action** (Monday 06:00 Europe/Berlin) runs the same sync on `main` and opens or updates a pull request titled **"Syncronisation mit Trassenscout"** when files change. Review the Netlify deploy preview on the PR, then merge to `main` for production (IONOS).
+
+**Rebuild required** after Keystatic editorial changes on production. Trassenscout geometry on production only changes after the weekly sync PR (or manual sync + commit) is merged. Netlify preview deploys use `build:netlify` and fetch Trassenscout automatically.
 
 ## What to edit where
 
@@ -56,13 +74,13 @@ A **weekly GitHub Action** (Monday 06:00 Europe/Berlin) runs the same sync and o
 |---|---|
 | Page title, Kurzfassung (RTE), from/to, length, stand, source, website, stakeholders, progress state, home teaser | **Keystatic → Steckbriefe** (`/keystatic`) |
 | Which Trassenscout projects appear on a page | **Keystatic → Steckbriefe → Trassenscout project slugs** |
-| Route geometry (lines on map) | **Trassenscout**, then run **`bun run trassenscout:sync`** (or wait for weekly PR) |
-| Subsection operator, status, completion date | **Trassenscout**, then sync |
+| Route geometry (lines on map) | **Trassenscout** — on Netlify preview: automatic on next build; on production: weekly sync PR or manual **`bun run trassenscout:sync`** + commit |
+| Subsection operator, status, completion date | **Trassenscout** — same as route geometry |
 | Blog posts Planung / Kommunikation | **Keystatic → Blog collections** |
 | Page URL slug | **Keystatic → Steckbriefe → Slug** (keep existing ids for URL continuity) |
 | Add a new Steckbrief | **Keystatic → Steckbriefe → New entry** (set Trassenscout slugs when geometry exists) |
 
-**Rebuild required** after Keystatic or checked-in Trassenscout data changes. Production builds do **not** need network access to Trassenscout.
+On **production**, rebuild after Keystatic or checked-in Trassenscout data changes. Use `bun run build` (no live Trassenscout fetch). Netlify uses `bun run build:netlify`.
 
 ## Trassenscout API fields
 

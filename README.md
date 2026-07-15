@@ -9,7 +9,7 @@ This site show's general information about Radschnellverbindungen (cycle highway
 
 Steckbrief editorial content is managed in **Keystatic** (`/keystatic` → Steckbriefe). Route geometry comes from **Trassenscout** when project slugs are configured on a Steckbrief.
 
-See **[docs/DATA.md](./docs/DATA.md)** for what to edit where, loader architecture, Trassenscout check-in/sync (`bun run trassenscout:sync`), and the weekly automation PR.
+See **[docs/DATA.md](./docs/DATA.md)** for what to edit where, loader architecture, Trassenscout sync (`build:netlify` on Netlify; weekly PR for production), and the weekly automation PR.
 
 ## 🧑‍💻 Developing
 

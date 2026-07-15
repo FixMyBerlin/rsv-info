@@ -25,7 +25,7 @@ export const RSVMap = ({ slug, geometry }: Props) => {
   const showMap = hasMapGeometry(geometry)
   const [consent, setConsent] = useState<boolean | null>(() => getOptInCookie())
   return (
-    <div className="relative max-h-full max-w-full bg-[#F9FAFC]">
+    <div className="relative h-full max-h-full w-full max-w-full bg-[#F9FAFC]">
       {showMap && consent === null && (
         <div className="absolute bottom-16 z-20 mx-2 translate-y-1 md:mx-5">
           <OptIn setConsent={setConsent} />
@@ -46,7 +46,7 @@ export const RSVMap = ({ slug, geometry }: Props) => {
           <img src={`/rsv-map-images/${slug}.png`} alt="Statische Karte" />
         </>
       ) : (
-        <div className="flex h-full min-h-[280px] items-center justify-center px-6 text-center text-sm text-slate-500">
+        <div className="flex h-full min-h-[280px] w-full items-center justify-center px-6 text-center text-sm text-slate-500">
           Karte folgt, sobald die Trasse in Trassenscout hinterlegt ist.
         </div>
       )}

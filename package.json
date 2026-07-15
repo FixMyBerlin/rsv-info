@@ -12,6 +12,7 @@
     "dev": "astro dev",
     "start": "bun run dev",
     "build": "astro build",
+    "build:netlify": "bun run trassenscout:sync && bun run build",
     "build:local": "ASTRO_OUTPUT_MODE=static astro build",
     "preview": "ASTRO_OUTPUT_MODE=static astro preview --open",
     "astro": "astro",
