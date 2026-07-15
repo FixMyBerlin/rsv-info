@@ -1,3 +1,9 @@
 # Require packages to be published at least 5 days before install (supply-chain posture).
 [install]
 minimumReleaseAge = 432000
+
+# Global virtual store — requires isolated linker. Reinstall after changing: rm -rf node_modules && bun install
+# Vite dev: server.fs.allow in astro.config.mjs (packages realpath into ~/.bun/install/cache/links/).
+# @see https://bun.com/docs/pm/global-store
+linker = "isolated"
+globalStore = true

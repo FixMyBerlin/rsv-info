@@ -1,3 +1,6 @@
+import { homedir } from 'node:os'
+import { join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import mdx from '@astrojs/mdx'
 import netlify from '@astrojs/netlify'
 import react from '@astrojs/react'
@@ -5,6 +8,8 @@ import sitemap from '@astrojs/sitemap'
 import keystatic from '@keystatic/astro'
 import tailwindcss from '@tailwindcss/vite'
 import { defineConfig, envField } from 'astro/config'
+
+const appRoot = fileURLToPath(new URL('.', import.meta.url))
 
 // ABOUT:
 // We have to fetch settings from `.env`
@@ -48,6 +53,16 @@ export default defineConfig({
   trailingSlash: 'never',
   vite: {
     plugins: [tailwindcss()],
+    server: {
+      // Bun globalStore (bunfig.toml) symlinks realpath outside the project (~/.bun/install/cache/links/).
+      // Extend (not replace) Vite's default fs.allow — setting allow alone drops the project root.
+      // Needed e.g. for @fontsource/overpass .woff2 files served from the global store in dev.
+      // @see https://bun.com/docs/pm/global-store
+      // @see https://vite.dev/config/server-options.html#server-fs-allow
+      fs: {
+        allow: [appRoot, join(homedir(), '.bun/install/cache/links')],
+      },
+    },
   },
   env: {
     schema: {
