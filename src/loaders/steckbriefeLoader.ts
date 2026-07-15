@@ -88,7 +88,11 @@ export function steckbriefeLoader(): Loader {
           id: entrySlug,
           data: parsedData,
           filePath: filePathRel,
-          digest: generateDigest(content),
+          digest: generateDigest({
+            content,
+            geometry: resolvedGeometry,
+            apiFields,
+          }),
         })
         published += 1
       }
