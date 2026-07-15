@@ -26,7 +26,7 @@ export const SteckbriefePageFilter = ({ currentFilter, federalStateOptions }: Pr
   return (
     <div className="mb-10 w-72">
       <Listbox value={currentFilter} onChange={(selected) => navigate(statePaths[selected])}>
-        {({ open }) => (
+        {({ open }: { open: boolean }) => (
           <>
             <Label className="block text-sm font-medium text-white">Filtern nach Bundesland</Label>
             <div className="relative mt-1">
@@ -53,7 +53,7 @@ export const SteckbriefePageFilter = ({ currentFilter, federalStateOptions }: Pr
                       }
                       value={option.state}
                     >
-                      {({ selected }) => (
+                      {({ selected }: { selected: boolean }) => (
                         <div
                           className={clsx(
                             selected ? 'font-semibold' : 'font-normal',

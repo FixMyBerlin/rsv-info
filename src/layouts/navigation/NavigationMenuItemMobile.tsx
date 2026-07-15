@@ -7,7 +7,7 @@ export const NavigationMenuItemMobile = ({ currentPage, name, to }: Props) => {
   const active = currentPage === to
 
   return (
-    <DisclosureButton
+    <DisclosureButton<'a'>
       as="a"
       href={to}
       className={clsx(

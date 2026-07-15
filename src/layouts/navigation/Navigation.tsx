@@ -15,56 +15,57 @@ export const Navigation = ({ path, fixed }: Props) => {
 
   return (
     // https://tailwindui.com/components/application-ui/navigation/navbars
-    <Disclosure
-      as="nav"
+    <nav
       className={clsx(
         fixed && 'fixed top-0 right-0 left-0',
         'z-20 mx-auto flex w-full flex-col bg-white shadow-md',
       )}
     >
-      {({ open }) => (
-        <>
-          <div className="px md:px-4">
-            <div className={clsx(navHeightClasssName, 'flex justify-between py-2')}>
-              <div className="flex w-full items-center justify-between">
-                <div className="w-36">
-                  {path === '/' ? (
-                    <RSVLogo />
-                  ) : (
-                    <a href="/">
+      <Disclosure>
+        {({ open }: { open: boolean }) => (
+          <>
+            <div className="px md:px-4">
+              <div className={clsx(navHeightClasssName, 'flex justify-between py-2')}>
+                <div className="flex w-full items-center justify-between">
+                  <div className="w-36">
+                    {path === '/' ? (
                       <RSVLogo />
-                    </a>
-                  )}
+                    ) : (
+                      <a href="/">
+                        <RSVLogo />
+                      </a>
+                    )}
+                  </div>
+                  <div className="hidden md:flex md:space-x-10">
+                    {navigationLinks.map((link) => (
+                      <NavigationMenuItemDesktop
+                        name={link.name}
+                        to={link.to}
+                        currentPage={path}
+                        key={link.to}
+                      />
+                    ))}
+                  </div>
                 </div>
-                <div className="hidden md:flex md:space-x-10">
-                  {navigationLinks.map((link) => (
-                    <NavigationMenuItemDesktop
-                      name={link.name}
-                      to={link.to}
-                      currentPage={path}
-                      key={link.to}
-                    />
-                  ))}
-                </div>
+                <NavigationMobileMenuButton open={open} />
               </div>
-              <NavigationMobileMenuButton open={open} />
             </div>
-          </div>
 
-          <DisclosurePanel className="md:hidden">
-            <nav className="space-y-1 pt-2 pb-3">
-              {navigationLinks.map((link) => (
-                <NavigationMenuItemMobile
-                  name={link.name}
-                  to={link.to}
-                  currentPage={path}
-                  key={link.to}
-                />
-              ))}
-            </nav>
-          </DisclosurePanel>
-        </>
-      )}
-    </Disclosure>
+            <DisclosurePanel className="md:hidden">
+              <nav className="space-y-1 pt-2 pb-3">
+                {navigationLinks.map((link) => (
+                  <NavigationMenuItemMobile
+                    name={link.name}
+                    to={link.to}
+                    currentPage={path}
+                    key={link.to}
+                  />
+                ))}
+              </nav>
+            </DisclosurePanel>
+          </>
+        )}
+      </Disclosure>
+    </nav>
   )
 }
