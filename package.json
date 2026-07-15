@@ -67,6 +67,7 @@
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "react-map-gl": "^8.1.1",
+    "sharp": "^0.35.3",
     "svg-to-jsx": "^1.0.4",
     "tailwindcss": "^4.3.0",
     "typescript": "^6.0.3",
