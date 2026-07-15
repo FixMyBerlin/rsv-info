@@ -3,41 +3,61 @@ import { bbox } from '@turf/turf'
 import type { GeometrySchema } from '../../types/geometry'
 import type { TrassenscoutFeatureCollection } from './fetchProject'
 
-function lineStringToMultiLineString(
+function getLineCoordinates(
   geometry: GeoJSON.LineString | GeoJSON.MultiLineString,
-): GeoJSON.MultiLineString {
-  if (geometry.type === 'MultiLineString') return geometry
-  return {
-    type: 'MultiLineString',
-    coordinates: [geometry.coordinates],
-  }
+): GeoJSON.Position[][] {
+  if (geometry.type === 'MultiLineString') return geometry.coordinates
+  return [geometry.coordinates]
 }
 
 export function normalizeTrassenscoutGeometry(
   collection: TrassenscoutFeatureCollection,
   pageId: string,
 ): GeometrySchema {
-  const features = collection.features.map((feature, index) => {
+  const grouped = new Map<
+    string,
+    {
+      type: 'Feature'
+      properties: GeometrySchema['features'][number]['properties']
+      geometry: GeoJSON.MultiLineString
+    }
+  >()
+
+  collection.features.forEach((feature, index) => {
     const projectSlug = feature.properties.projectSlug ?? 'unknown'
     const subsectionSlug = feature.properties.subsectionSlug ?? String(index)
     const featureId = `${projectSlug}-${subsectionSlug}`
     const status = feature.properties.status?.trim() ?? ''
     const isVariant = status.toLowerCase() === 'variant'
+    const variant = isVariant ? ('Alternative' as const) : ('Vorzugstrasse' as const)
+    const groupKey = `${featureId}:${variant}`
+    const lines = getLineCoordinates(
+      feature.geometry as GeoJSON.LineString | GeoJSON.MultiLineString,
+    )
 
-    return {
-      type: 'Feature' as const,
+    const existing = grouped.get(groupKey)
+    if (existing) {
+      existing.geometry.coordinates.push(...lines)
+      return
+    }
+
+    grouped.set(groupKey, {
+      type: 'Feature',
       properties: {
         id: featureId,
         id_rsv: pageId,
-        variant: isVariant ? ('Alternative' as const) : ('Vorzugstrasse' as const),
+        variant,
         discarded: false,
-        detail_level: 'approximated' as const,
+        detail_level: 'approximated',
       },
-      geometry: lineStringToMultiLineString(
-        feature.geometry as GeoJSON.LineString | GeoJSON.MultiLineString,
-      ),
-    }
+      geometry: {
+        type: 'MultiLineString',
+        coordinates: [...lines],
+      },
+    })
   })
+
+  const features = [...grouped.values()]
 
   const featureCollection: GeoJSON.FeatureCollection<GeoJSON.MultiLineString> = {
     type: 'FeatureCollection',

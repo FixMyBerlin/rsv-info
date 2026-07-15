@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-07-15T13:59:22.522Z",
+  "syncedAt": "2026-07-15T15:30:23.678Z",
   "projectSlugs": ["1-hamburg"],
   "geometry": {
     "id": "1-hamburg",
@@ -29,22 +29,7 @@
               [9.682521, 53.726609],
               [9.678787, 53.7332],
               [9.665391, 53.740198]
-            ]
-          ]
-        }
-      },
-      {
-        "type": "Feature",
-        "properties": {
-          "id": "1-hamburg-pa",
-          "id_rsv": "1-hamburg",
-          "variant": "Vorzugstrasse",
-          "discarded": false,
-          "detail_level": "approximated"
-        },
-        "geometry": {
-          "type": "MultiLineString",
-          "coordinates": [
+            ],
             [
               [9.932947, 53.567347],
               [9.900513, 53.578769],

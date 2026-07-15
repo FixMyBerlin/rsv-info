@@ -64,8 +64,12 @@ export const DynamicMap = ({ geometry }: Props) => {
         interactiveLayerIds={geometry.features.map(({ properties }) => properties.id)}
       >
         <FullscreenControl style={{ background: '#D9D9D9' }} />
-        {geometry.features.map((feature: GeometrySchema['features'][number]) => (
-          <RSVSegment key={feature.properties.id} feature={feature} selected={selected} />
+        {geometry.features.map((feature: GeometrySchema['features'][number], index) => (
+          <RSVSegment
+            key={`${feature.properties.id}-${index}`}
+            feature={feature}
+            selected={selected}
+          />
         ))}
         <NavigationControl showCompass={false} />
       </Map>
