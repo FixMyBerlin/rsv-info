@@ -28,7 +28,7 @@
     "updatePackages:minor": "bunx taze minor --includeLocked --maturity-period 5 --write && bun install",
     "generateTsxFromSvg": "bun ./scripts/svgToTsx/svgToTsx.ts && bun run format",
     "export:steckbriefe": "bun ./scripts/exportSteckbriefeCsv/exportSteckbriefeCsv.ts",
-    "trassenscout:update": "bun ./scripts/trassenscout/update.ts && bun run format",
+    "trassenscout:update": "bun ./scripts/trassenscout/update.ts",
     "generate:map-images": "bun ./scripts/staticMapImages/generateStaticMapImages.ts",
     "trassenscout:sync": "bun run trassenscout:update && bun run generate:map-images",
     "bleach": "rm -rf node_modules/.astro && rm -rf node_modules/.bin && rm -rf node_modules/.vite && rm -rf .astro/ && rm -rf .netlify/ && rm -rf dist/ && bun install && bun run bleach:info",
