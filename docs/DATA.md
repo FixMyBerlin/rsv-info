@@ -86,8 +86,6 @@ Blog posts on `/planung` and `/kommunikation` remain in Keystatic / MDX collecti
 
 Sync and the admin API use **`https://trassenscout.de`** by default. Override with `TRASSENSCOUT_API_BASE_URL` if needed.
 
-For the central **`rsv-d`** project only: if production returns an empty FeatureCollection, fetch falls back to **`https://staging.trassenscout.de`** until production is populated (see [`fetchProject.ts`](../src/lib/trassenscout/fetchProject.ts)).
-
 ## Syncing Trassenscout data
 
 ### Automatic (Netlify)

@@ -1,9 +1,4 @@
-import {
-  trassenscoutApiBaseUrl,
-  trassenscoutProjectApiUrl,
-  trassenscoutStagingApiBaseUrl,
-} from './apiUrl'
-import { RSV_D_PROJECT_SLUG } from './geometrySource'
+import { trassenscoutApiBaseUrl, trassenscoutProjectApiUrl } from './apiUrl'
 
 type TrassenscoutFeature = {
   type: 'Feature'
@@ -43,20 +38,7 @@ export async function fetchTrassenscoutProject(
   const cached = fetchCache.get(slug)
   if (cached) return cached
 
-  const primaryBase = trassenscoutApiBaseUrl()
-  let data = await fetchProjectFromBase(slug, primaryBase)
-
-  // Until production `rsv-d` is populated, fall back to staging when prod returns an empty collection.
-  if (
-    slug === RSV_D_PROJECT_SLUG &&
-    data.features.length === 0 &&
-    primaryBase !== trassenscoutStagingApiBaseUrl()
-  ) {
-    console.warn(
-      `Trassenscout "${slug}" empty at ${primaryBase}; falling back to ${trassenscoutStagingApiBaseUrl()}`,
-    )
-    data = await fetchProjectFromBase(slug, trassenscoutStagingApiBaseUrl())
-  }
+  const data = await fetchProjectFromBase(slug, trassenscoutApiBaseUrl())
 
   fetchCache.set(slug, data)
   return data

@@ -1,5 +1,4 @@
 const DEFAULT_TRASSENSCOUT_API_BASE_URL = 'https://trassenscout.de'
-const STAGING_TRASSENSCOUT_API_BASE_URL = 'https://staging.trassenscout.de'
 
 /** Production by default; override with TRASSENSCOUT_API_BASE_URL. */
 export function trassenscoutApiBaseUrl(): string {
@@ -8,10 +7,6 @@ export function trassenscoutApiBaseUrl(): string {
   return fromEnv && fromEnv.length > 0
     ? fromEnv.replace(/\/$/, '')
     : DEFAULT_TRASSENSCOUT_API_BASE_URL
-}
-
-export function trassenscoutStagingApiBaseUrl(): string {
-  return STAGING_TRASSENSCOUT_API_BASE_URL
 }
 
 export function trassenscoutProjectApiUrl(
