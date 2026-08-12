@@ -30,6 +30,7 @@ export function rsvDSubsectionsField({
     Input(props) {
       const selected = props.value
       const [options, setOptions] = useState<SubsectionOption[]>([])
+      const [subsectionOwners, setSubsectionOwners] = useState<Record<string, string[]>>({})
       const [syncedAt, setSyncedAt] = useState<string | null>(null)
       const [loading, setLoading] = useState(false)
       const [error, setError] = useState<string | null>(null)
@@ -45,6 +46,7 @@ export function rsvDSubsectionsField({
           }
           const data = (await res.json()) as RsvDSubsectionsResponse
           setOptions(data.subsections)
+          setSubsectionOwners(data.subsectionOwners)
           setSyncedAt(data.syncedAt)
           setLoadedOnce(true)
         } catch (err) {
@@ -70,6 +72,17 @@ export function rsvDSubsectionsField({
         }
       }
 
+      const renderOwnerWarning = (slug: string) => {
+        const owners = subsectionOwners[slug]
+        if (!owners || owners.length < 2) return null
+
+        return (
+          <span style={{ color: '#b00020', fontSize: 12 }}>
+            mehrfach vergeben: {owners.join(', ')}
+          </span>
+        )
+      }
+
       return (
         <div style={{ fontFamily: 'system-ui, sans-serif', fontSize: 14 }}>
           <div style={{ marginBottom: 8, fontWeight: 600 }}>{label}</div>
@@ -89,6 +102,12 @@ export function rsvDSubsectionsField({
           </div>
 
           {error ? <p style={{ color: '#b00020', margin: '0 0 12px' }}>{error}</p> : null}
+
+          {loadedOnce && selected.length === 0 ? (
+            <p style={{ color: '#9a6700', margin: '0 0 12px' }}>
+              Mindestens einen Teilabschnitt wählen.
+            </p>
+          ) : null}
 
           {missingSelected.length > 0 ? (
             <p style={{ color: '#9a6700', margin: '0 0 12px' }}>
@@ -131,13 +150,19 @@ export function rsvDSubsectionsField({
                   checked={selected.includes(option.slug)}
                   onChange={() => toggle(option.slug)}
                 />
-                <code>{option.label}</code>
+                <span style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                  <code>{option.label}</code>
+                  {renderOwnerWarning(option.slug)}
+                </span>
               </label>
             ))}
           </div>
 
           <p style={{ margin: '8px 0 0', color: '#666', fontSize: 12 }}>
             Ausgewählt: {selected.length}
+            {Object.keys(subsectionOwners).length > 0 ? (
+              <span> · Rot markierte Teilabschnitte sind mehreren Steckbriefen zugeordnet.</span>
+            ) : null}
           </p>
         </div>
       )

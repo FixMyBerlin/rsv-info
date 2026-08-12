@@ -1,4 +1,4 @@
-import { bbox, bboxPolygon, geojsonType, square, transformScale } from '@turf/turf'
+import { bbox, bboxPolygon, square, transformScale } from '@turf/turf'
 import maplibregl from 'maplibre-gl'
 
 import 'maplibre-gl/dist/maplibre-gl.css'
@@ -11,21 +11,15 @@ import { RSVSegment } from './RsvSegment'
 
 type BBox2d = [number, number, number, number]
 
-function assertFeatureCollection(
-  geojson: any,
-): asserts geojson is GeoJSON.FeatureCollection<GeoJSON.MultiLineString> {
-  geojsonType(geojson, 'FeatureCollection', 'DynamicMap')
-}
 type Props = {
   geometry: GeometrySchema
 }
 
 export const DynamicMap = ({ geometry }: Props) => {
-  assertFeatureCollection(geometry)
   // the factor by which the bbox is scaled to the viewport
   const scaleFactor = 4
   const bboxView = geometry.bbox
-    ? bbox(transformScale(bboxPolygon(square(geometry.bbox)), scaleFactor))
+    ? bbox(transformScale(bboxPolygon(square(geometry.bbox as BBox2d)), scaleFactor))
     : undefined
 
   const [selected] = useState(undefined)
@@ -61,12 +55,16 @@ export const DynamicMap = ({ geometry }: Props) => {
         maxBounds={bboxView as BBox2d}
         attributionControl={false}
         scrollZoom={isScreenHorizontal}
-        interactiveLayerIds={geometry.features.map(({ properties }) => properties.id)}
+        interactiveLayerIds={geometry.features.flatMap(({ properties, geometry: geom }) =>
+          geom.type === 'MultiPolygon'
+            ? [`${properties.id}-fill`, `${properties.id}-outline`]
+            : [properties.id],
+        )}
       >
         <FullscreenControl style={{ background: '#D9D9D9' }} />
-        {geometry.features.map((feature: GeometrySchema['features'][number], index) => (
+        {geometry.features.map((feature, index) => (
           <RSVSegment
-            key={`${feature.properties.id}-${index}`}
+            key={`${feature.properties.id}-${feature.geometry.type}-${index}`}
             feature={feature}
             selected={selected}
           />

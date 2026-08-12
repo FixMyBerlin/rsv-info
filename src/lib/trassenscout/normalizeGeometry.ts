@@ -1,6 +1,6 @@
 import { bbox } from '@turf/turf'
 
-import type { GeometrySchema } from '../../types/geometry'
+import type { GeometryFeature, GeometrySchema } from '../../types/geometry'
 import type { TrassenscoutFeatureCollection } from './fetchProject'
 
 function getLineCoordinates(
@@ -10,58 +10,127 @@ function getLineCoordinates(
   return [geometry.coordinates]
 }
 
+function getPolygonCoordinates(
+  geometry: GeoJSON.Polygon | GeoJSON.MultiPolygon,
+): GeoJSON.Position[][][] {
+  if (geometry.type === 'MultiPolygon') return geometry.coordinates
+  return [geometry.coordinates]
+}
+
+function getVariant(status: string | null | undefined): GeometryFeature['properties']['variant'] {
+  const normalized = status?.trim().toLowerCase() ?? ''
+  return normalized === 'variant' ? 'Alternative' : 'Vorzugstrasse'
+}
+
+function addLineFeature(
+  grouped: Map<string, GeometryFeature>,
+  groupKey: string,
+  featureId: string,
+  pageId: string,
+  variant: GeometryFeature['properties']['variant'],
+  lines: GeoJSON.Position[][],
+) {
+  const existing = grouped.get(groupKey)
+  if (existing?.geometry.type === 'MultiLineString') {
+    existing.geometry.coordinates.push(...lines)
+    return
+  }
+
+  grouped.set(groupKey, {
+    type: 'Feature',
+    properties: {
+      id: featureId,
+      id_rsv: pageId,
+      variant,
+      discarded: false,
+      detail_level: 'approximated',
+    },
+    geometry: {
+      type: 'MultiLineString',
+      coordinates: [...lines],
+    },
+  })
+}
+
+function addAreaFeature(
+  grouped: Map<string, GeometryFeature>,
+  groupKey: string,
+  featureId: string,
+  pageId: string,
+  variant: GeometryFeature['properties']['variant'],
+  polygons: GeoJSON.Position[][][],
+) {
+  const existing = grouped.get(groupKey)
+  if (existing?.geometry.type === 'MultiPolygon') {
+    existing.geometry.coordinates.push(...polygons)
+    return
+  }
+
+  grouped.set(groupKey, {
+    type: 'Feature',
+    properties: {
+      id: featureId,
+      id_rsv: pageId,
+      variant,
+      discarded: false,
+      detail_level: 'corridor',
+    },
+    geometry: {
+      type: 'MultiPolygon',
+      coordinates: [...polygons],
+    },
+  })
+}
+
 export function normalizeTrassenscoutGeometry(
   collection: TrassenscoutFeatureCollection,
   pageId: string,
 ): GeometrySchema {
-  const grouped = new Map<
-    string,
-    {
-      type: 'Feature'
-      properties: GeometrySchema['features'][number]['properties']
-      geometry: GeoJSON.MultiLineString
-    }
-  >()
+  const grouped = new Map<string, GeometryFeature>()
 
   collection.features.forEach((feature, index) => {
     const projectSlug = feature.properties.projectSlug ?? 'unknown'
     const subsectionSlug = feature.properties.subsectionSlug ?? String(index)
     const featureId = `${projectSlug}-${subsectionSlug}`
-    const status = feature.properties.status?.trim() ?? ''
-    const isVariant = status.toLowerCase() === 'variant'
-    const variant = isVariant ? ('Alternative' as const) : ('Vorzugstrasse' as const)
-    const groupKey = `${featureId}:${variant}`
-    const lines = getLineCoordinates(
-      feature.geometry as GeoJSON.LineString | GeoJSON.MultiLineString,
-    )
+    const variant = getVariant(feature.properties.status)
+    const geometry = feature.geometry
 
-    const existing = grouped.get(groupKey)
-    if (existing) {
-      existing.geometry.coordinates.push(...lines)
+    if (geometry.type === 'LineString' || geometry.type === 'MultiLineString') {
+      const groupKey = `${featureId}:${variant}:line`
+      addLineFeature(
+        grouped,
+        groupKey,
+        `${groupKey}`,
+        pageId,
+        variant,
+        getLineCoordinates(geometry),
+      )
       return
     }
 
-    grouped.set(groupKey, {
-      type: 'Feature',
-      properties: {
-        id: featureId,
-        id_rsv: pageId,
+    if (geometry.type === 'Polygon' || geometry.type === 'MultiPolygon') {
+      const groupKey = `${featureId}:${variant}:area`
+      addAreaFeature(
+        grouped,
+        groupKey,
+        `${groupKey}`,
+        pageId,
         variant,
-        discarded: false,
-        detail_level: 'approximated',
-      },
-      geometry: {
-        type: 'MultiLineString',
-        coordinates: [...lines],
-      },
-    })
+        getPolygonCoordinates(geometry),
+      )
+      return
+    }
+
+    throw new Error(
+      `Unsupported geometry type "${geometry.type}" for ${featureId} (expected LineString, MultiLineString, Polygon, or MultiPolygon)`,
+    )
   })
 
   const features = [...grouped.values()]
 
-  const featureCollection: GeoJSON.FeatureCollection<GeoJSON.MultiLineString> = {
+  const featureCollection: GeoJSON.FeatureCollection = {
     type: 'FeatureCollection',
-    features,
+    features: features as GeoJSON.Feature[],
   }
 
   const bounds = bbox(featureCollection)

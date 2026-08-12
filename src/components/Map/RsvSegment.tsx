@@ -1,53 +1,50 @@
-import { geojsonType } from '@turf/turf'
-import type { LineLayerSpecification } from 'maplibre-gl'
+import type { FillLayerSpecification, LineLayerSpecification } from 'maplibre-gl'
 import { Layer, Source } from 'react-map-gl/maplibre'
-import type { GeometrySchema } from 'src/types/geometry'
+import type { GeometryFeature } from 'src/types/geometry'
 import { segmentColor } from 'src/utils/mapColors'
 
-// const selectedColor = '#475569';
-
 type Props = {
-  // feature: GeoJSON.Feature<GeoJSON.MultiLineString>;
-  feature: GeometrySchema['features'][number]
+  feature: GeometryFeature
   selected?: number
 }
 
-function assertFeature(geojson: any): asserts geojson is GeoJSON.Feature<GeoJSON.MultiLineString> {
-  geojsonType(geojson, 'Feature', 'DynamicMap')
-}
+const FILL_OPACITY = 0.35
 
 export const RSVSegment = ({ feature }: Props) => {
-  assertFeature(feature)
+  const { id } = feature.properties
+  const color = segmentColor(feature.properties)
+  const geojson = feature as GeoJSON.Feature
+
+  if (feature.geometry.type === 'MultiPolygon') {
+    const fillPaint: FillLayerSpecification['paint'] = {
+      'fill-color': color,
+      'fill-opacity': FILL_OPACITY,
+    }
+    const outlinePaint: LineLayerSpecification['paint'] = {
+      'line-color': color,
+      'line-width': 2,
+    }
+
+    return (
+      <Source id={id} type="geojson" data={geojson}>
+        <Layer id={`${id}-fill`} type="fill" paint={fillPaint} beforeId="park-label" />
+        <Layer id={`${id}-outline`} type="line" paint={outlinePaint} beforeId="park-label" />
+      </Source>
+    )
+  }
+
   const layout: LineLayerSpecification['layout'] = {
     'line-cap': 'round',
     'line-join': 'round',
   }
-  const { id } = feature.properties
   const paint: LineLayerSpecification['paint'] = {
-    'line-color': segmentColor(feature.properties),
+    'line-color': color,
     'line-width': 4,
   }
-  // const paint =
-  //   selected === id
-  //     ? {
-  //         'line-color': selectedColor,
-  //         'line-width': 7,
-  //       }
-  //     : {
-  //         'line-color': stateColor[feature.properties.state],
-  //         'line-width': 6,
-  //       };
 
-  const layerStyle = {
-    id,
-    type: 'line',
-    layout,
-    paint,
-  }
   return (
-    <Source id={id} type="geojson" data={feature}>
-      {/* @ts-expect-error todo */}
-      <Layer {...layerStyle} beforeId="park-label" />
+    <Source id={id} type="geojson" data={geojson}>
+      <Layer id={id} type="line" layout={layout} paint={paint} beforeId="park-label" />
     </Source>
   )
 }

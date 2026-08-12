@@ -73,7 +73,7 @@ export function listSteckbriefeWithGeometry(steckbriefe: SteckbriefRef[]): Steck
   return steckbriefe.filter((entry) => hasGeometryConfig(entry.geometrySource))
 }
 
-export function findDuplicateRsvDSubsections(steckbriefe: SteckbriefRef[]): Map<string, string[]> {
+export function getRsvDSubsectionOwners(steckbriefe: SteckbriefRef[]): Map<string, string[]> {
   const owners = new Map<string, string[]>()
 
   for (const entry of steckbriefe) {
@@ -85,11 +85,5 @@ export function findDuplicateRsvDSubsections(steckbriefe: SteckbriefRef[]): Map<
     }
   }
 
-  const duplicates = new Map<string, string[]>()
-  for (const [subsectionSlug, slugs] of owners) {
-    if (slugs.length > 1) {
-      duplicates.set(subsectionSlug, slugs)
-    }
-  }
-  return duplicates
+  return owners
 }

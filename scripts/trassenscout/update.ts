@@ -14,11 +14,7 @@ import {
   trassenscoutCacheBodyEquals,
   TRASSENSCOUT_CACHE_DIR,
 } from '../../src/lib/trassenscout/loadTrassenscoutCache'
-import {
-  findDuplicateRsvDSubsections,
-  listSteckbriefe,
-  listSteckbriefeWithGeometry,
-} from '../../src/lib/trassenscout/listSteckbriefe'
+import { listSteckbriefe, listSteckbriefeWithGeometry } from '../../src/lib/trassenscout/listSteckbriefe'
 
 async function ensureCacheDir(cwd: string) {
   await fs.mkdir(path.join(cwd, TRASSENSCOUT_CACHE_DIR), { recursive: true })
@@ -62,15 +58,6 @@ async function main() {
   await ensureCacheDir(cwd)
 
   const steckbriefe = await listSteckbriefe(cwd)
-  const duplicates = findDuplicateRsvDSubsections(steckbriefe)
-  if (duplicates.size > 0) {
-    console.error('ERROR: RSV-D subsections assigned to more than one Steckbrief:')
-    for (const [subsectionSlug, owners] of duplicates) {
-      console.error(`  ${subsectionSlug}: ${owners.join(', ')}`)
-    }
-    process.exit(1)
-  }
-
   const withGeometry = listSteckbriefeWithGeometry(steckbriefe)
   const activeSlugs = new Set(withGeometry.map((entry) => entry.slug))
   const failures: string[] = []

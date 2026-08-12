@@ -1,5 +1,4 @@
-import type { GeometrySchema } from '../../src/types/geometry'
-import type { Feature } from 'maplibre-gl'
+import type { GeometryFeature, GeometrySchema } from '../../src/types/geometry'
 
 const pkg = require('@googlemaps/polyline-codec')
 const turf = require('@turf/turf')
@@ -13,20 +12,49 @@ const { simplify } = turf
 const outputDir = path.resolve('public/rsv-map-images')
 const steckbriefeDir = path.resolve('src/data/steckbriefe')
 const FALLBACK_FILENAME = 'fallback.png'
+const FILL_OPACITY = 0.35
 
-// @ts-expect-error
-const buildPaths = ({ properties, geometry: { coordinates } }: Feature) => {
-  const paint = { width: 5, stroke: segmentColor(properties) }
-  // @ts-expect-error
-  const paintArr = Object.keys(paint).map((key) => `${key}:${paint[key]}`)
+function hexToRgba(hex: string, alpha: number): string {
+  const normalized = hex.replace('#', '')
+  const r = Number.parseInt(normalized.slice(0, 2), 16)
+  const g = Number.parseInt(normalized.slice(2, 4), 16)
+  const b = Number.parseInt(normalized.slice(4, 6), 16)
+  return `rgba(${r},${g},${b},${alpha})`
+}
 
-  return (
-    coordinates
-      // @ts-expect-error
-      .map((linestring) => encode(linestring.map((position) => [...position].reverse())))
-      // @ts-expect-error
-      .map((polyline) => [...paintArr, `enc:${polyline}`].join('|'))
+function buildLinePaths(feature: GeometryFeature): string[] {
+  if (feature.geometry.type !== 'MultiLineString') return []
+
+  const stroke = segmentColor(feature.properties)
+  const paint = { width: 5, stroke, fill: 'none' }
+  const paintArr = Object.keys(paint).map((key) => `${key}:${paint[key as keyof typeof paint]}`)
+
+  return feature.geometry.coordinates
+    .map((linestring) => encode(linestring.map((position) => [...position].reverse())))
+    .map((polyline) => [...paintArr, `enc:${polyline}`].join('|'))
+}
+
+function buildPolygonPaths(feature: GeometryFeature): string[] {
+  if (feature.geometry.type !== 'MultiPolygon') return []
+
+  const stroke = segmentColor(feature.properties)
+  const fill = hexToRgba(stroke, FILL_OPACITY)
+  const paint = { width: 2, stroke, fill }
+  const paintArr = Object.keys(paint).map((key) => `${key}:${paint[key as keyof typeof paint]}`)
+
+  return feature.geometry.coordinates.flatMap((polygon) =>
+    polygon.map((ring) => {
+      const coordinates = ring.map(([lng, lat]) => `${lng},${lat}`).join('|')
+      return [...paintArr, coordinates].join('|')
+    }),
   )
+}
+
+function buildPaths(feature: GeometryFeature): string[] {
+  if (feature.geometry.type === 'MultiPolygon') {
+    return buildPolygonPaths(feature)
+  }
+  return buildLinePaths(feature)
 }
 
 type StaticMapRequestParams = {
@@ -43,7 +71,6 @@ const staticMapRequest = (
   url.searchParams.append('key', maptilerKey)
   url.searchParams.append('attribution', '0')
   features.forEach((feature) => {
-    // @ts-expect-error
     buildPaths(feature).forEach((path: string) => {
       url.searchParams.append('path', path)
     })
