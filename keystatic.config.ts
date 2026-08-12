@@ -1,6 +1,7 @@
 import { collection, config, fields } from '@keystatic/core'
 import { block } from '@keystatic/core/content-components'
 import { KEYSTATIC_STORAGE_KIND } from 'astro:env/client'
+import { rsvDSubsectionsField } from './keystatic/fields/rsvDSubsectionsField'
 import { contentViewImageDefaultDouble } from './keystatic/utils/contentViewImageDefaultDouble'
 import { contentViewImageHorizontal } from './keystatic/utils/contentViewImageHorizontal'
 import { contentViewImageSquare } from './keystatic/utils/contentViewImageSquare'
@@ -107,7 +108,7 @@ export default config({
       slugField: 'slug',
       path: 'src/data/steckbriefe/*/',
       format: { contentField: 'description' },
-      columns: ['visibility', 'title', 'trassenscoutProjectSlugs', 'lastCheckedDate'],
+      columns: ['visibility', 'title', 'lastCheckedDate'],
       schema: {
         visibility: fields.select({
           label: 'Sichtbarkeit',
@@ -127,17 +128,36 @@ export default config({
           label: 'Kurzfassung',
           options: { link: true },
         }),
-        trassenscoutProjectSlugs: fields.array(
-          fields.text({
-            label: 'Trassenscout slug',
-            description:
-              'Slug wie in der Trassenscout-URL (Kleinbuchstaben), z. B. https://trassenscout.de/elmshorn-hamburg',
+        geometrySource: fields.conditional(
+          fields.select({
+            label: 'Geometrie-Quelle',
+            options: [
+              { label: 'Kein Trassenscout', value: 'none' },
+              { label: 'Trassenscout-Projekte', value: 'projects' },
+              { label: 'RSV-D (zentrale Trasse)', value: 'rsv-d' },
+            ],
+            defaultValue: 'none',
           }),
           {
-            label: 'Trassenscout',
-            itemLabel: (props) => trassenscoutSlugItemLabel(props.value),
-            description:
-              'Trassenscout-Projekt-Slugs (URL-Pfad, Kleinbuchstaben), z. B. https://trassenscout.de/elmshorn-hamburg. Leer lassen, wenn noch kein Trassenscout-Projekt existiert.',
+            none: fields.empty(),
+            projects: fields.array(
+              fields.text({
+                label: 'Trassenscout slug',
+                description:
+                  'Slug wie in der Trassenscout-URL (Kleinbuchstaben), z. B. https://trassenscout.de/elmshorn-hamburg',
+              }),
+              {
+                label: 'Trassenscout-Projekte',
+                itemLabel: (props) => trassenscoutSlugItemLabel(props.value),
+                description:
+                  'Trassenscout-Projekt-Slugs (URL-Pfad, Kleinbuchstaben), z. B. https://trassenscout.de/elmshorn-hamburg.',
+              },
+            ),
+            'rsv-d': rsvDSubsectionsField({
+              label: 'RSV-D Teilabschnitte',
+              description:
+                'Aktualisieren lädt die Liste aus TrassenScout. Speichern committet die Auswahl. Jeder Teilabschnitt darf nur einem Steckbrief zugeordnet sein.',
+            }),
           },
         ),
         state: fields.select({

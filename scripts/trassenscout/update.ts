@@ -4,13 +4,21 @@ import path from 'node:path'
 import { buildTrassenscoutCacheEntry } from '../../src/lib/trassenscout/buildTrassenscoutCacheEntry'
 import { trassenscoutCacheSchema } from '../../src/lib/trassenscout/cacheSchema'
 import {
+  hasGeometryConfig,
+  type GeometrySourceWithData,
+} from '../../src/lib/trassenscout/geometrySource'
+import {
   formatExistingTrassenscoutCache,
   formatSerializedTrassenscoutCache,
   getTrassenscoutCachePath,
   trassenscoutCacheBodyEquals,
   TRASSENSCOUT_CACHE_DIR,
 } from '../../src/lib/trassenscout/loadTrassenscoutCache'
-import { listSteckbriefe } from '../../src/lib/trassenscout/listSteckbriefe'
+import {
+  findDuplicateRsvDSubsections,
+  listSteckbriefe,
+  listSteckbriefeWithGeometry,
+} from '../../src/lib/trassenscout/listSteckbriefe'
 
 async function ensureCacheDir(cwd: string) {
   await fs.mkdir(path.join(cwd, TRASSENSCOUT_CACHE_DIR), { recursive: true })
@@ -40,6 +48,13 @@ async function pruneOrphanCacheFiles(cwd: string, activeSlugs: Set<string>): Pro
   return removed
 }
 
+function describeGeometrySource(source: GeometrySourceWithData): string {
+  if (source.discriminant === 'projects') {
+    return `projects: ${source.value.join(', ')}`
+  }
+  return `rsv-d: ${source.value.join(', ')}`
+}
+
 async function main() {
   const cwd = process.cwd()
   console.log('STARTING trassenscout/update')
@@ -47,16 +62,26 @@ async function main() {
   await ensureCacheDir(cwd)
 
   const steckbriefe = await listSteckbriefe(cwd)
-  const withSlugs = steckbriefe.filter((entry) => entry.trassenscoutProjectSlugs.length > 0)
-  const activeSlugs = new Set(withSlugs.map((entry) => entry.slug))
+  const duplicates = findDuplicateRsvDSubsections(steckbriefe)
+  if (duplicates.size > 0) {
+    console.error('ERROR: RSV-D subsections assigned to more than one Steckbrief:')
+    for (const [subsectionSlug, owners] of duplicates) {
+      console.error(`  ${subsectionSlug}: ${owners.join(', ')}`)
+    }
+    process.exit(1)
+  }
+
+  const withGeometry = listSteckbriefeWithGeometry(steckbriefe)
+  const activeSlugs = new Set(withGeometry.map((entry) => entry.slug))
   const failures: string[] = []
   let updated = 0
 
-  for (const { slug, trassenscoutProjectSlugs } of withSlugs) {
+  for (const { slug, geometrySource } of withGeometry) {
+    if (!hasGeometryConfig(geometrySource) || geometrySource.discriminant === 'none') continue
     const filePath = getTrassenscoutCachePath(slug, cwd)
     try {
-      console.log(`  FETCHING ${slug} (${trassenscoutProjectSlugs.join(', ')})`)
-      const entry = await buildTrassenscoutCacheEntry(slug, trassenscoutProjectSlugs)
+      console.log(`  FETCHING ${slug} (${describeGeometrySource(geometrySource)})`)
+      const entry = await buildTrassenscoutCacheEntry(slug, geometrySource)
       trassenscoutCacheSchema.parse(entry)
 
       const formattedNext = await formatSerializedTrassenscoutCache(entry, slug, cwd)
@@ -89,7 +114,7 @@ async function main() {
   await pruneOrphanCacheFiles(cwd, activeSlugs)
 
   console.log(
-    `DONE: ${updated} cache file(s) written (${withSlugs.length} steckbriefe with Trassenscout slugs)`,
+    `DONE: ${updated} cache file(s) written (${withGeometry.length} steckbriefe with Trassenscout geometry)`,
   )
 
   if (failures.length > 0) {

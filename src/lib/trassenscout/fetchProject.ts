@@ -1,4 +1,9 @@
-import { trassenscoutProjectApiUrl } from './apiUrl'
+import {
+  trassenscoutApiBaseUrl,
+  trassenscoutProjectApiUrl,
+  trassenscoutStagingApiBaseUrl,
+} from './apiUrl'
+import { RSV_D_PROJECT_SLUG } from './geometrySource'
 
 type TrassenscoutFeature = {
   type: 'Feature'
@@ -19,18 +24,40 @@ export type TrassenscoutFeatureCollection = {
 
 const fetchCache = new Map<string, TrassenscoutFeatureCollection>()
 
+async function fetchProjectFromBase(
+  slug: string,
+  baseUrl: string,
+): Promise<TrassenscoutFeatureCollection> {
+  const res = await fetch(trassenscoutProjectApiUrl(slug, baseUrl))
+  if (!res.ok) {
+    throw new Error(
+      `Trassenscout fetch failed for "${slug}" at ${baseUrl}: ${res.status} ${res.statusText}`,
+    )
+  }
+  return (await res.json()) as TrassenscoutFeatureCollection
+}
+
 export async function fetchTrassenscoutProject(
   slug: string,
 ): Promise<TrassenscoutFeatureCollection> {
   const cached = fetchCache.get(slug)
   if (cached) return cached
 
-  const res = await fetch(trassenscoutProjectApiUrl(slug))
-  if (!res.ok) {
-    throw new Error(`Trassenscout fetch failed for "${slug}": ${res.status} ${res.statusText}`)
+  const primaryBase = trassenscoutApiBaseUrl()
+  let data = await fetchProjectFromBase(slug, primaryBase)
+
+  // Until production `rsv-d` is populated, fall back to staging when prod returns an empty collection.
+  if (
+    slug === RSV_D_PROJECT_SLUG &&
+    data.features.length === 0 &&
+    primaryBase !== trassenscoutStagingApiBaseUrl()
+  ) {
+    console.warn(
+      `Trassenscout "${slug}" empty at ${primaryBase}; falling back to ${trassenscoutStagingApiBaseUrl()}`,
+    )
+    data = await fetchProjectFromBase(slug, trassenscoutStagingApiBaseUrl())
   }
 
-  const data = (await res.json()) as TrassenscoutFeatureCollection
   fetchCache.set(slug, data)
   return data
 }

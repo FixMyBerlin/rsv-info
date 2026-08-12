@@ -10,7 +10,9 @@ export const steckbriefApiFieldsSchema = z.object({
 
 export const trassenscoutCacheSchema = z.object({
   syncedAt: z.string(),
+  geometrySource: z.enum(['projects', 'rsv-d']).optional(),
   projectSlugs: z.array(z.string()),
+  subsectionSlugs: z.array(z.string()).optional(),
   geometry: geometrySchema,
   apiFields: steckbriefApiFieldsSchema,
 })

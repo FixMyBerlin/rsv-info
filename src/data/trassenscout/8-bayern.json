@@ -1,0 +1,33 @@
+{
+  "syncedAt": "2026-08-12T12:09:45.813Z",
+  "geometrySource": "projects",
+  "projectSlugs": ["8-bayern"],
+  "geometry": {
+    "id": "8-bayern",
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "8-bayern-pa",
+          "id_rsv": "8-bayern",
+          "variant": "Vorzugstrasse",
+          "discarded": false,
+          "detail_level": "approximated"
+        },
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+            [
+              [11.082503, 49.455201],
+              [10.986104, 49.476605],
+              [10.985548, 49.476796]
+            ]
+          ]
+        }
+      }
+    ],
+    "bbox": [10.985548, 49.455201, 11.082503, 49.476796]
+  },
+  "apiFields": {}
+}

@@ -1,0 +1,46 @@
+{
+  "syncedAt": "2026-08-12T12:09:42.024Z",
+  "geometrySource": "projects",
+  "projectSlugs": ["9-bayern"],
+  "geometry": {
+    "id": "9-bayern",
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "9-bayern-pa",
+          "id_rsv": "9-bayern",
+          "variant": "Vorzugstrasse",
+          "discarded": false,
+          "detail_level": "approximated"
+        },
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+            [
+              [10.934548, 49.435346],
+              [10.948182, 49.434977],
+              [10.964373, 49.437748],
+              [10.977439, 49.438302],
+              [10.988517, 49.436824],
+              [11.000731, 49.439964],
+              [11.016353, 49.441626],
+              [11.029135, 49.441811],
+              [11.041633, 49.441442],
+              [11.049586, 49.442365],
+              [11.056972, 49.444581],
+              [11.066061, 49.445874]
+            ],
+            [
+              [10.994097, 49.438259],
+              [11.019265, 49.415994]
+            ]
+          ]
+        }
+      }
+    ],
+    "bbox": [10.934548, 49.415994, 11.066061, 49.445874]
+  },
+  "apiFields": {}
+}

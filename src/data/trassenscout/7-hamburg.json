@@ -1,0 +1,33 @@
+{
+  "syncedAt": "2026-08-12T12:09:44.252Z",
+  "geometrySource": "projects",
+  "projectSlugs": ["7-hamburg"],
+  "geometry": {
+    "id": "7-hamburg",
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "7-hamburg-pa",
+          "id_rsv": "7-hamburg",
+          "variant": "Vorzugstrasse",
+          "discarded": false,
+          "detail_level": "approximated"
+        },
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+            [
+              [9.712322, 53.28106],
+              [9.881339, 53.329238],
+              [10.017898, 53.437007]
+            ]
+          ]
+        }
+      }
+    ],
+    "bbox": [9.712322, 53.28106, 10.017898, 53.437007]
+  },
+  "apiFields": {}
+}

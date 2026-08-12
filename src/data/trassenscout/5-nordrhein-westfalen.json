@@ -1,0 +1,35 @@
+{
+  "syncedAt": "2026-08-12T12:09:44.037Z",
+  "geometrySource": "projects",
+  "projectSlugs": ["rvr-nrw"],
+  "geometry": {
+    "id": "5-nordrhein-westfalen",
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "rvr-nrw-pa",
+          "id_rsv": "5-nordrhein-westfalen",
+          "variant": "Vorzugstrasse",
+          "discarded": false,
+          "detail_level": "approximated"
+        },
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+            [
+              [6.445032, 51.195097],
+              [6.352078, 51.149625],
+              [6.275467, 51.141935],
+              [6.076278, 51.156673],
+              [5.98741, 51.191256]
+            ]
+          ]
+        }
+      }
+    ],
+    "bbox": [5.98741, 51.141935, 6.445032, 51.195097]
+  },
+  "apiFields": {}
+}

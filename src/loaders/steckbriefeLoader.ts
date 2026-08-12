@@ -7,10 +7,35 @@ import type { Loader } from 'astro/loaders'
 
 import keystaticConfig from '../../keystatic.config'
 import { emptyGeometry } from '../lib/trassenscout/emptyGeometry'
+import {
+  emptyGeometrySource,
+  hasGeometryConfig,
+  parseGeometrySource,
+  type GeometrySource,
+} from '../lib/trassenscout/geometrySource'
 import { loadTrassenscoutCacheSync } from '../lib/trassenscout/loadTrassenscoutCache'
 import type { SteckbriefApiFields } from '../types/steckbrief'
 
 const STECKBRIEFE_DIR = 'src/data/steckbriefe'
+
+function geometrySourceFromEntry(entry: {
+  geometrySource?: unknown
+  trassenscoutProjectSlugs?: unknown
+}): GeometrySource {
+  if (entry.geometrySource !== undefined) {
+    return parseGeometrySource(entry.geometrySource)
+  }
+
+  if (Array.isArray(entry.trassenscoutProjectSlugs)) {
+    const value = entry.trassenscoutProjectSlugs.filter(
+      (item): item is string => typeof item === 'string' && item.length > 0,
+    )
+    if (value.length === 0) return emptyGeometrySource()
+    return { discriminant: 'projects', value }
+  }
+
+  return emptyGeometrySource()
+}
 
 export function steckbriefeLoader(): Loader {
   return {
@@ -39,13 +64,13 @@ export function steckbriefeLoader(): Loader {
           continue
         }
 
-        const trassenscoutProjectSlugs = entry.trassenscoutProjectSlugs ?? []
-        const hasTrassenscoutSlugs = trassenscoutProjectSlugs.length > 0
+        const geometrySource = geometrySourceFromEntry(entry)
+        const hasTrassenscoutGeometry = hasGeometryConfig(geometrySource)
 
         let resolvedGeometry = emptyGeometry(entrySlug)
         let apiFields: SteckbriefApiFields = {}
 
-        if (hasTrassenscoutSlugs) {
+        if (hasTrassenscoutGeometry) {
           const cache = loadTrassenscoutCacheSync(entrySlug)
           if (cache) {
             resolvedGeometry = cache.geometry
@@ -75,7 +100,7 @@ export function steckbriefeLoader(): Loader {
             sourceUrl: entry.sourceUrl ?? undefined,
             website: entry.website ?? undefined,
             stakeholders: entry.stakeholders ?? [],
-            trassenscoutProjectSlugs,
+            geometrySource,
             showOnHome: entry.showOnHome ?? false,
             order: entry.order ?? 0,
             geometry: resolvedGeometry,

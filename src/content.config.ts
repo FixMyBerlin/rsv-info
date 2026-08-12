@@ -1,6 +1,7 @@
 import { glob } from 'astro/loaders'
 import { defineCollection, z, type SchemaContext } from 'astro:content'
 
+import { geometrySourceSchema } from './lib/trassenscout/geometrySourceSchema'
 import { steckbriefeLoader } from './loaders/steckbriefeLoader'
 import { geometrySchema } from './types/geometry'
 
@@ -54,7 +55,7 @@ const steckbriefe = defineCollection({
         }),
       )
       .optional(),
-    trassenscoutProjectSlugs: z.array(z.string()),
+    geometrySource: geometrySourceSchema,
     showOnHome: z.boolean(),
     order: z.number(),
     geometry: geometrySchema,

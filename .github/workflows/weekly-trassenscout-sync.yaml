@@ -47,7 +47,7 @@ jobs:
           body: |
             Automated weekly sync from Trassenscout.
 
-            - Checked-in geometry and API fields: `src/data/trassenscout/`
+            - Checked-in geometry and API fields (including RSV-D filtered caches): `src/data/trassenscout/`
             - Social sharing map images: `public/rsv-map-images/`
 
             Review the Netlify deploy preview, then merge to `main` for production (IONOS).

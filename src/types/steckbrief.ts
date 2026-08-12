@@ -1,3 +1,4 @@
+import type { GeometrySource } from '../lib/trassenscout/geometrySource'
 import type { GeometrySchema } from './geometry'
 
 export type ProgressState = 'idea' | 'agreement_process' | 'planning' | 'in_progress' | 'done'
@@ -31,7 +32,7 @@ export type SteckbriefEntry = {
   sourceUrl?: string
   website?: string
   stakeholders?: SteckbriefStakeholder[]
-  trassenscoutProjectSlugs: string[]
+  geometrySource: GeometrySource
   showOnHome: boolean
   order: number
   geometry: GeometrySchema

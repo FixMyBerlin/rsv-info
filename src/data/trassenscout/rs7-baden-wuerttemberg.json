@@ -1,0 +1,43 @@
+{
+  "syncedAt": "2026-08-12T12:09:43.329Z",
+  "geometrySource": "projects",
+  "projectSlugs": ["rs7-bw"],
+  "geometry": {
+    "id": "rs7-baden-wuerttemberg",
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "rs7-bw-pa1",
+          "id_rsv": "rs7-baden-wuerttemberg",
+          "variant": "Vorzugstrasse",
+          "discarded": false,
+          "detail_level": "approximated"
+        },
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+            [
+              [7.841829, 47.664074],
+              [7.840101, 47.659419],
+              [7.837336, 47.654996],
+              [7.828418, 47.648355],
+              [7.77864, 47.641468],
+              [7.70694, 47.637329],
+              [7.693234, 47.634977],
+              [7.679529, 47.629488],
+              [7.66885, 47.619714],
+              [7.661592, 47.608298],
+              [7.661419, 47.608414],
+              [7.659, 47.600258],
+              [7.656926, 47.595247]
+            ]
+          ]
+        }
+      }
+    ],
+    "bbox": [7.656926, 47.595247, 7.841829, 47.664074]
+  },
+  "apiFields": {}
+}
