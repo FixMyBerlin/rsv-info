@@ -6,10 +6,10 @@ import type { SteckbriefCollectionEntry } from 'src/lib/steckbrief/getSteckbrief
 import { getSteckbriefDisplayTitle } from 'src/lib/steckbrief/getSteckbriefTeasers'
 import type { SteckbriefApiFields } from 'src/types/steckbrief'
 
+import { SteckbriefPageFeedbackCallout } from './SteckbriefPageFeedbackCallout'
 import { SteckbriefPageProgressBar } from './SteckbriefPageProgressBar'
 
 type Props = {
-  setOverlay: (b: boolean) => void
   steckbrief: SteckbriefCollectionEntry['data']
   description?: ReactNode
 }
@@ -98,6 +98,9 @@ export const SteckbriefPage = ({ steckbrief, description }: Props) => {
             )}
             <TrassenscoutApiFields apiFields={apiFields} />
           </div>
+          <SteckbriefPageFeedbackCallout
+            geometryBbox={geometry.bbox as [number, number, number, number]}
+          />
           <div className="mt-12">
             <a href="/datenschutz/">Datenschutz</a>
             {' - '}

@@ -3,7 +3,12 @@ import maplibregl from 'maplibre-gl'
 
 import 'maplibre-gl/dist/maplibre-gl.css'
 import { useEffect, useState } from 'react'
-import Map, { FullscreenControl, NavigationControl } from 'react-map-gl/maplibre'
+import Map, {
+  FullscreenControl,
+  NavigationControl,
+  type ViewStateChangeEvent,
+} from 'react-map-gl/maplibre'
+import { useMapParam } from 'src/lib/routing/useMapParam'
 import type { GeometrySchema } from 'src/types/geometry'
 import { maptilerBaseUrl, maptilerKey } from 'src/utils/mapTiler.const'
 
@@ -16,6 +21,8 @@ type Props = {
 }
 
 export const DynamicMap = ({ geometry }: Props) => {
+  const { mapParam, setMapParam } = useMapParam()
+
   // the factor by which the bbox is scaled to the viewport
   const scaleFactor = 4
   const bboxView = geometry.bbox
@@ -41,20 +48,32 @@ export const DynamicMap = ({ geometry }: Props) => {
     }
   }, [])
 
+  const initialViewState = mapParam
+    ? {
+        longitude: mapParam.lng,
+        latitude: mapParam.lat,
+        zoom: mapParam.zoom,
+      }
+    : {
+        bounds: geometry.bbox as BBox2d,
+        fitBoundsOptions: {
+          padding: 20,
+        },
+      }
+
   return (
     <div className="relative h-full w-full">
       <Map
-        initialViewState={{
-          bounds: geometry.bbox as BBox2d,
-          fitBoundsOptions: {
-            padding: 20,
-          },
-        }}
+        initialViewState={initialViewState}
         mapLib={maplibregl}
         mapStyle={`${maptilerBaseUrl}/style.json?key=${maptilerKey}`}
         maxBounds={bboxView as BBox2d}
         attributionControl={false}
         scrollZoom={isScreenHorizontal}
+        onMoveEnd={(event: ViewStateChangeEvent) => {
+          const { latitude, longitude, zoom } = event.viewState
+          void setMapParam({ zoom, lat: latitude, lng: longitude }, { history: 'replace' })
+        }}
         interactiveLayerIds={geometry.features.flatMap(({ properties, geometry: geom }) =>
           geom.type === 'MultiPolygon'
             ? [`${properties.id}-fill`, `${properties.id}-outline`]
