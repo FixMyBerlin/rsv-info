@@ -34,9 +34,12 @@ async function fetchProjectFromBase(
 
 export async function fetchTrassenscoutProject(
   slug: string,
+  options?: { bypassCache?: boolean },
 ): Promise<TrassenscoutFeatureCollection> {
-  const cached = fetchCache.get(slug)
-  if (cached) return cached
+  if (!options?.bypassCache) {
+    const cached = fetchCache.get(slug)
+    if (cached) return cached
+  }
 
   const data = await fetchProjectFromBase(slug, trassenscoutApiBaseUrl())
 

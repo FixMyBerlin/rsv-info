@@ -1,8 +1,9 @@
 import type { BasicFormField, FormFieldStoredValue } from '@keystatic/core'
 import { useEffect, useState } from 'react'
 
-import { trassenscoutProjectApiUrl } from '../../src/lib/trassenscout/apiUrl'
+import { fetchTrassenscoutProject } from '../../src/lib/trassenscout/fetchProject'
 import { RSV_D_PROJECT_SLUG } from '../../src/lib/trassenscout/geometrySource'
+import { rsvDSubsectionSlugsFromCollection } from '../../src/lib/trassenscout/rsvDSubsections'
 
 function parseAsStringArray(value: FormFieldStoredValue): string[] {
   if (value === undefined || value === null) return []
@@ -15,25 +16,6 @@ function parseAsStringArray(value: FormFieldStoredValue): string[] {
 type SubsectionOption = {
   slug: string
   label: string
-}
-
-type TrassenscoutRsvDResponse = {
-  features?: Array<{
-    properties?: {
-      subsectionSlug?: string | null
-    }
-  }>
-}
-
-function subsectionsFromApi(data: TrassenscoutRsvDResponse): SubsectionOption[] {
-  const slugs = new Set<string>()
-  for (const feature of data.features ?? []) {
-    const subsectionSlug = feature.properties?.subsectionSlug?.trim()
-    if (subsectionSlug) {
-      slugs.add(subsectionSlug)
-    }
-  }
-  return [...slugs].sort((a, b) => a.localeCompare(b, 'de')).map((slug) => ({ slug, label: slug }))
 }
 
 export function rsvDSubsectionsField({
@@ -59,12 +41,12 @@ export function rsvDSubsectionsField({
         setLoading(true)
         setError(null)
         try {
-          const res = await fetch(trassenscoutProjectApiUrl(RSV_D_PROJECT_SLUG))
-          if (!res.ok) {
-            throw new Error(`${res.status} ${res.statusText}`)
-          }
-          const data = (await res.json()) as TrassenscoutRsvDResponse
-          setOptions(subsectionsFromApi(data))
+          const collection = await fetchTrassenscoutProject(RSV_D_PROJECT_SLUG, {
+            bypassCache: true,
+          })
+          setOptions(
+            rsvDSubsectionSlugsFromCollection(collection).map((slug) => ({ slug, label: slug })),
+          )
           setSyncedAt(new Date().toISOString())
           setLoadedOnce(true)
         } catch (err) {

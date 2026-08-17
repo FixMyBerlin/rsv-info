@@ -3,6 +3,7 @@ import type { TrassenscoutCacheEntry } from './cacheSchema'
 import { fetchAndMergeTrassenscoutProjects, fetchTrassenscoutProject } from './fetchProject'
 import { RSV_D_PROJECT_SLUG, type GeometrySourceWithData } from './geometrySource'
 import { normalizeTrassenscoutGeometry } from './normalizeGeometry'
+import { filterCollectionByRsvDSubsections } from './rsvDSubsections'
 
 export async function buildTrassenscoutCacheEntry(
   slug: string,
@@ -23,15 +24,8 @@ export async function buildTrassenscoutCacheEntry(
     }
   }
 
-  const selected = new Set(geometrySource.value)
   const rawCollection = await fetchTrassenscoutProject(RSV_D_PROJECT_SLUG)
-  const filteredCollection = {
-    type: 'FeatureCollection' as const,
-    features: rawCollection.features.filter((feature) => {
-      const subsectionSlug = feature.properties.subsectionSlug?.trim()
-      return subsectionSlug !== undefined && selected.has(subsectionSlug)
-    }),
-  }
+  const filteredCollection = filterCollectionByRsvDSubsections(rawCollection, geometrySource.value)
   const geometry = normalizeTrassenscoutGeometry(filteredCollection, slug)
   const apiFields = aggregateApiFields(filteredCollection.features)
 
