@@ -1,6 +1,10 @@
 # FMC Dependabot defaults (tech-stack), tuned for this Astro site.
 # Schedule: first Monday of each month, 07:00 Europe/Berlin.
 # See FixMyBerlin/fixmyskills tech-stack/references/dependabot.md
+#
+# Netlify Deploy Previews: skipped via netlify.toml ignore for dependabot/*
+# branches — do NOT put [skip netlify]/[skip ci] in commit-message.prefix;
+# rebase-merge would then skip Netlify builds on develop after merge.
 version: 2
 updates:
   - package-ecosystem: bun
@@ -15,6 +19,8 @@ updates:
     open-pull-requests-limit: 1
     exclude-paths:
       - .cursor/**
+    labels:
+      - dependencies
     commit-message:
       prefix: chore
       include: scope
@@ -95,6 +101,12 @@ updates:
     cooldown:
       default-days: 5
     open-pull-requests-limit: 1
+    labels:
+      - dependencies
+      - github_actions
+    commit-message:
+      prefix: chore
+      include: scope
     groups:
       actions-minor-patch:
         update-types:

@@ -13,6 +13,8 @@ on:
 jobs:
   retrieve-project:
     name: check readiness
+    # Dependabot PRs do not need IONOS Deploy Now builds.
+    if: ${{ github.actor != 'dependabot[bot]' }}
     runs-on: ubuntu-latest
     outputs:
       deployment-enabled: ${{ fromJson(steps.project.outputs.info).deployment-enabled }}

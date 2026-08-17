@@ -1,6 +1,10 @@
 [build]
   command = "bun run build:netlify"
   publish = "dist"
+  # Exit 0 = skip. Skip Dependabot Deploy Previews only (not develop/production).
+  # Do not put [skip netlify] in Dependabot commit messages — rebase-merge would
+  # skip Netlify on develop after merge.
+  ignore = "if [ \"$CONTEXT\" = \"deploy-preview\" ] && echo \"$HEAD$BRANCH\" | grep -qiE 'dependabot'; then exit 0; fi; git diff --quiet \"$CACHED_COMMIT_REF\" \"$COMMIT_REF\""
 
 [build.environment]
   BUN_VERSION = "1.3.13"
