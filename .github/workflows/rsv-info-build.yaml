@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout your repository using git
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       # Production uses `bun run build` (checked-in src/data/trassenscout/*.json only).
       # Netlify CMS uses `bun run build:netlify` (syncs Trassenscout first) — see netlify.toml.
       - name: Install, build, and upload your site output
