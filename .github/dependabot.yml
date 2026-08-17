@@ -1,0 +1,104 @@
+# FMC Dependabot defaults (tech-stack), tuned for this Astro site.
+# Schedule: first Monday of each month, 07:00 Europe/Berlin.
+# See FixMyBerlin/fixmyskills tech-stack/references/dependabot.md
+version: 2
+updates:
+  - package-ecosystem: bun
+    directories:
+      - /
+    schedule:
+      interval: cron
+      cronjob: '0 7 * * MON#1'
+      timezone: Europe/Berlin
+    cooldown:
+      default-days: 5
+    open-pull-requests-limit: 1
+    exclude-paths:
+      - .cursor/**
+    commit-message:
+      prefix: chore
+      include: scope
+    groups:
+      security-dev-tools:
+        applies-to: security-updates
+        patterns:
+          - 'oxlint*'
+          - 'oxfmt*'
+          - 'husky*'
+          - '@types/*'
+          - 'typescript'
+          - 'eslint*'
+          - 'babel-plugin-*'
+          - 'vite'
+
+      app-dev-minor-patch:
+        applies-to: version-updates
+        patterns:
+          - '@heroicons/*'
+          - 'babel-plugin-*'
+          - 'eslint-*'
+          - 'husky'
+          - 'oxfmt'
+          - 'oxlint*'
+          - 'sharp'
+          - 'vite'
+          - '@types/*'
+          - 'typescript'
+        update-types:
+          - minor
+          - patch
+
+      app-framework-minor-patch:
+        applies-to: version-updates
+        patterns:
+          - 'astro'
+          - '@astrojs/*'
+          - '@keystatic/*'
+          - '@tailwindcss/*'
+          - 'tailwindcss'
+          - '@turf/*'
+          - 'react'
+          - 'react-dom'
+          - '@types/react*'
+          - 'maplibre-gl'
+          - 'react-map-gl'
+          - 'nuqs'
+        update-types:
+          - minor
+          - patch
+
+      app-prod-misc-patch:
+        applies-to: version-updates
+        update-types:
+          - patch
+        patterns:
+          - '*'
+        exclude-patterns:
+          - 'astro'
+          - '@astrojs/*'
+          - '@keystatic/*'
+          - '@tailwindcss/*'
+          - 'tailwindcss'
+          - '@turf/*'
+          - 'react'
+          - 'react-dom'
+          - 'maplibre-gl'
+          - 'react-map-gl'
+          - 'nuqs'
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: cron
+      cronjob: '0 7 * * MON#1'
+      timezone: Europe/Berlin
+    cooldown:
+      default-days: 5
+    open-pull-requests-limit: 1
+    groups:
+      actions-minor-patch:
+        update-types:
+          - minor
+          - patch
+        patterns:
+          - '*'
