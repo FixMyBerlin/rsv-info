@@ -72,18 +72,3 @@ export async function listSteckbriefe(cwd = process.cwd()): Promise<SteckbriefRe
 export function listSteckbriefeWithGeometry(steckbriefe: SteckbriefRef[]): SteckbriefRef[] {
   return steckbriefe.filter((entry) => hasGeometryConfig(entry.geometrySource))
 }
-
-export function getRsvDSubsectionOwners(steckbriefe: SteckbriefRef[]): Map<string, string[]> {
-  const owners = new Map<string, string[]>()
-
-  for (const entry of steckbriefe) {
-    if (entry.geometrySource.discriminant !== 'rsv-d') continue
-    for (const subsectionSlug of entry.geometrySource.value) {
-      const existing = owners.get(subsectionSlug) ?? []
-      existing.push(entry.slug)
-      owners.set(subsectionSlug, existing)
-    }
-  }
-
-  return owners
-}

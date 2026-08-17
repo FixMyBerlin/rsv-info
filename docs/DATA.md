@@ -16,7 +16,7 @@ flowchart LR
   loader["steckbriefeLoader"]
   collection["getCollection steckbriefe"]
   ui[Steckbrief UI]
-  adminApi["GET /api/trassenscout/rsv-d-subsections"]
+  keystaticField["Keystatic RSV-D field\n(browser fetch)"]
 
   ksYaml --> reader --> loader
   ksYaml --> updateScript
@@ -26,7 +26,7 @@ flowchart LR
   cache --> loader
   pngs --> ui
   loader --> collection --> ui
-  adminApi --> tsApi
+  keystaticField --> tsApi
 ```
 
 | Source | What it holds |
@@ -35,7 +35,7 @@ flowchart LR
 | **Keystatic `geometrySource`** | Discriminated union: `none` \| `projects` (project slug list) \| `rsv-d` (selected RSV-D subsection slugs) |
 | **Checked-in `src/data/trassenscout/{slug}.json`** | Normalized geometry, aggregated API fields (`operator`, `status`, `estimatedCompletionDate`), sync metadata |
 | **`public/rsv-map-images/`** | Static map PNGs for social sharing / teasers (regenerated on sync); `fallback.png` for Steckbriefe without Trassenscout geometry |
-| **Netlify API `/api/trassenscout/rsv-d-subsections`** | Live RSV-D subsection list for the Keystatic custom field (CMS/server mode only) |
+| **Trassenscout `rsv-d` JSON API** | Live subsection list for the Keystatic RSV-D picker (fetched in the browser) |
 
 The custom Astro loader in [`src/loaders/steckbriefeLoader.ts`](../src/loaders/steckbriefeLoader.ts) reads Keystatic via `createReader` and loads Trassenscout cache files from `src/data/trassenscout/` at build time (written during sync, not fetched live by the loader). Steckbriefe with `geometrySource: none` (or empty selection) are still published with an empty map. The sync script lives in [`scripts/trassenscout/update.ts`](../scripts/trassenscout/update.ts).
 
@@ -65,9 +65,9 @@ geometrySource:
 
 ### Refreshing RSV-D options in Keystatic
 
-On Netlify (server mode), the Steckbrief form uses a custom field with **Teilabschnitte aktualisieren**. That button calls `/api/trassenscout/rsv-d-subsections`, which proxies the Trassenscout `rsv-d` JSON API. Saving the Steckbrief commits the **selection** via Keystatic/GitHub. Geometry for maps is still produced by `trassenscout:sync` on the next Netlify deploy (and by the weekly/manual sync PR for IONOS).
+On Netlify (server mode), the Steckbrief form uses a custom field with **Teilabschnitte aktualisieren**. That button fetches the Trassenscout `rsv-d` JSON API directly in the browser (same URL as build-time sync). Saving the Steckbrief commits the **selection** via Keystatic/GitHub. Geometry for maps is still produced by `trassenscout:sync` on the next Netlify deploy (and by the weekly/manual sync PR for IONOS).
 
-IONOS production is static: no `/keystatic`, no admin API route.
+IONOS production is static: no `/keystatic`.
 
 ## When Trassenscout data is fetched
 
@@ -76,7 +76,7 @@ IONOS production is static: no `/keystatic`, no admin API route.
 | **Netlify CMS / preview** | `bun run build:netlify` | Syncs fresh geometry before build |
 | **Production (IONOS / `main`)** | `bun run build` | Checked-in cache only |
 | **Weekly sync PR** | `bun run trassenscout:sync` | Updates cache on `main` for production |
-| **Keystatic RSV-D picker** | `GET /api/trassenscout/rsv-d-subsections` | Live subsection list for the admin UI |
+| **Keystatic RSV-D picker** | Browser fetch of Trassenscout `rsv-d` JSON | Live subsection list for the admin UI |
 
 Netlify uses `build:netlify` (see [`netlify.toml`](../netlify.toml)). Production on IONOS uses plain `build`. Editorial changes in Keystatic on `develop` show maps on the next Netlify deploy without a separate sync commit; production picks up geometry when the weekly sync PR (or manual sync) is merged to `main`.
 
@@ -84,7 +84,7 @@ Blog posts on `/planung` and `/kommunikation` remain in Keystatic / MDX collecti
 
 ### API base URL
 
-Sync and the admin API use **`https://trassenscout.de`** by default. Override with `TRASSENSCOUT_API_BASE_URL` if needed.
+Sync and the Keystatic RSV-D picker use **`https://trassenscout.de`** by default. Override with `TRASSENSCOUT_API_BASE_URL` at build/sync time if needed (the CMS field uses the same default production URL).
 
 ## Syncing Trassenscout data
 

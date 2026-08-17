@@ -1,7 +1,8 @@
 import type { BasicFormField, FormFieldStoredValue } from '@keystatic/core'
 import { useEffect, useState } from 'react'
 
-import type { RsvDSubsectionsResponse } from '../../src/lib/trassenscout/listRsvDSubsections'
+import { trassenscoutProjectApiUrl } from '../../src/lib/trassenscout/apiUrl'
+import { RSV_D_PROJECT_SLUG } from '../../src/lib/trassenscout/geometrySource'
 
 function parseAsStringArray(value: FormFieldStoredValue): string[] {
   if (value === undefined || value === null) return []
@@ -14,6 +15,25 @@ function parseAsStringArray(value: FormFieldStoredValue): string[] {
 type SubsectionOption = {
   slug: string
   label: string
+}
+
+type TrassenscoutRsvDResponse = {
+  features?: Array<{
+    properties?: {
+      subsectionSlug?: string | null
+    }
+  }>
+}
+
+function subsectionsFromApi(data: TrassenscoutRsvDResponse): SubsectionOption[] {
+  const slugs = new Set<string>()
+  for (const feature of data.features ?? []) {
+    const subsectionSlug = feature.properties?.subsectionSlug?.trim()
+    if (subsectionSlug) {
+      slugs.add(subsectionSlug)
+    }
+  }
+  return [...slugs].sort((a, b) => a.localeCompare(b, 'de')).map((slug) => ({ slug, label: slug }))
 }
 
 export function rsvDSubsectionsField({
@@ -30,7 +50,6 @@ export function rsvDSubsectionsField({
     Input(props) {
       const selected = props.value
       const [options, setOptions] = useState<SubsectionOption[]>([])
-      const [subsectionOwners, setSubsectionOwners] = useState<Record<string, string[]>>({})
       const [syncedAt, setSyncedAt] = useState<string | null>(null)
       const [loading, setLoading] = useState(false)
       const [error, setError] = useState<string | null>(null)
@@ -40,14 +59,13 @@ export function rsvDSubsectionsField({
         setLoading(true)
         setError(null)
         try {
-          const res = await fetch('/api/trassenscout/rsv-d-subsections')
+          const res = await fetch(trassenscoutProjectApiUrl(RSV_D_PROJECT_SLUG))
           if (!res.ok) {
             throw new Error(`${res.status} ${res.statusText}`)
           }
-          const data = (await res.json()) as RsvDSubsectionsResponse
-          setOptions(data.subsections)
-          setSubsectionOwners(data.subsectionOwners)
-          setSyncedAt(data.syncedAt)
+          const data = (await res.json()) as TrassenscoutRsvDResponse
+          setOptions(subsectionsFromApi(data))
+          setSyncedAt(new Date().toISOString())
           setLoadedOnce(true)
         } catch (err) {
           const message = err instanceof Error ? err.message : String(err)
@@ -70,17 +88,6 @@ export function rsvDSubsectionsField({
         } else {
           props.onChange([...selected, slug].sort((a, b) => a.localeCompare(b, 'de')))
         }
-      }
-
-      const renderOwnerWarning = (slug: string) => {
-        const owners = subsectionOwners[slug]
-        if (!owners || owners.length < 2) return null
-
-        return (
-          <span style={{ color: '#b00020', fontSize: 12 }}>
-            mehrfach vergeben: {owners.join(', ')}
-          </span>
-        )
       }
 
       return (
@@ -150,19 +157,13 @@ export function rsvDSubsectionsField({
                   checked={selected.includes(option.slug)}
                   onChange={() => toggle(option.slug)}
                 />
-                <span style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                  <code>{option.label}</code>
-                  {renderOwnerWarning(option.slug)}
-                </span>
+                <code>{option.label}</code>
               </label>
             ))}
           </div>
 
           <p style={{ margin: '8px 0 0', color: '#666', fontSize: 12 }}>
             Ausgewählt: {selected.length}
-            {Object.keys(subsectionOwners).length > 0 ? (
-              <span> · Rot markierte Teilabschnitte sind mehreren Steckbriefen zugeordnet.</span>
-            ) : null}
           </p>
         </div>
       )
