@@ -13,5 +13,9 @@ export default defineConfig({
     attributes: ['className', 'class', 'class:list'],
   },
   sortPackageJson: false,
-  ignorePatterns: ['**/*.astro'],
+  ignorePatterns: [
+    '**/*.astro',
+    // Keystatic CMS markdown — oxfmt rewrites hard breaks and nested links
+    '**/*.mdx',
+  ],
 })
