@@ -46,8 +46,8 @@ const steckbriefe = defineCollection({
     lengthKm: z.number().optional(),
     stand: z.string().optional(),
     lastCheckedDate: z.string().optional(),
-    sourceUrl: z.string().optional(),
-    website: z.string().optional(),
+    sourceUrl: z.url().optional(),
+    website: z.url().optional(),
     stakeholders: z
       .array(
         z.object({
