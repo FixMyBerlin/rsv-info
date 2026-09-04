@@ -26,8 +26,12 @@ jobs:
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: package.json
 
       - name: Install dependencies
+        env:
+          HUSKY: '0'
         run: bun install --frozen-lockfile
 
       - name: Sync Trassenscout cache and static map images
@@ -37,7 +41,7 @@ jobs:
 
       # Fixed branch name: create-pull-request updates the open PR instead of opening a second one.
       - name: Create or update pull request
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           branch: sync/trassenscout
           base: main

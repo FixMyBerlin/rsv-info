@@ -26,16 +26,23 @@ jobs:
         uses: actions/checkout@v7
       # Production uses `bun run build` (checked-in src/data/trassenscout/*.json only).
       # Netlify CMS uses `bun run build:netlify` (syncs Trassenscout first) — see netlify.toml.
-      - name: Install, build, and upload your site output
-        uses: withastro/action@v3
+      # Bun-only: withastro/action always installs Node (setup-node@v4 = Node 20 action runtime).
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: package.json
+      - name: Install dependencies
+        env:
+          HUSKY: '0'
+        run: bun install --frozen-lockfile
+      - name: Build site
         env:
           KEYSTATIC_STORAGE_KIND: "local"
           ASTRO_ENV: "production"
           ASTRO_OUTPUT_MODE: "static"
           ASTRO_USE_NETLIFY_ADAPTER: "false"
-        with:
-          node-version: 24
-          package-manager: bun
+          HUSKY: '0'
+        run: bun run build
 
 # Please do not touch the following action
       - name: Store deployment content
