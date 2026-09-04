@@ -85,6 +85,6 @@
     "vite": "^7.3.3"
   },
   "patchedDependencies": {
-    "@keystatic/core@0.5.50": "patches/@keystatic%2Fcore@0.5.50.patch"
+    "@keystatic/core@0.6.5": "patches/@keystatic%2Fcore@0.6.5.patch"
   }
 }
