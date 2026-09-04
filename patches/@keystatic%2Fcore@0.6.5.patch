@@ -13,11 +13,11 @@ index cd5057dbbc0ef2e81ba0734ada85c549247a197f..31834406b1460bf74e03919ce25f0f9c
      }[keyof Schema][];
  }): Collection<Schema, SlugField & string>;
  export declare function singleton<Schema extends Record<string, ComponentSchema>>(collection: Singleton<Schema>): Singleton<Schema>;
-diff --git a/dist/index-a8452c26.js b/dist/index-a8452c26.js
-index 92ea45b9c884537767ee3bfda14c57c9a7e96ab0..1852ad67f57f25d4f680f296bafb6b6daad0ac25 100644
---- a/dist/index-a8452c26.js
-+++ b/dist/index-a8452c26.js
-@@ -5276,9 +5276,24 @@ function ArrayFieldListView(props) {
+diff --git a/dist/index-15086783.js b/dist/index-15086783.js
+index a86693b79ed48616da1991826b7293c1a6fdedaa..bf664cc0e915a253b7e03c23ab5f6eb8c9a1c9ce 100644
+--- a/dist/index-15086783.js
++++ b/dist/index-15086783.js
+@@ -5282,9 +5282,24 @@ function ArrayFieldListView(props) {
      children: item_0 => {
        var _props$schema$itemLab, _props$schema;
        const label = ((_props$schema$itemLab = (_props$schema = props.schema).itemLabel) === null || _props$schema$itemLab === void 0 ? void 0 : _props$schema$itemLab.call(_props$schema, item_0)) || `Item ${props.elements.indexOf(item_0) + 1}`;
