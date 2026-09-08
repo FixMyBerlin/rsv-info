@@ -19,12 +19,12 @@ If you found any bugs feel free to create an issue.
 
 For starting developing, the following steps could be helpful for getting started:
 
-- Install [Bun](https://bun.sh/docs/installation) (pinned in `package.json` → `packageManager`, currently `bun@1.3.13`)
+- Install [Bun](https://bun.sh/docs/installation) (pinned in `package.json` → `packageManager`, currently `bun@1.4.0`; needs ≥ 1.3.14)
 - Install dependencies: `bun install`
 - Start the Astro dev server: `bun run dev` (or `bun start`)
 - Use `bun run` to see a list of commands
 
-We use [oxlint](https://oxc.rs/docs/guide/usage/linter.html) and [oxfmt](https://oxc.rs/docs/guide/usage/formatter.html) for linting and formatting (`src` and `keystatic`), and [React Compiler](https://react.dev/learn/react-compiler) via `babel-plugin-react-compiler` in the Astro React integration. Husky runs `bun run check` on pre-push (type-check, format, lint). `.astro` files are linted but not formatted yet (Oxfmt Astro support is pending).
+We use [oxlint](https://oxc.rs/docs/guide/usage/linter.html) and [oxfmt](https://oxc.rs/docs/guide/usage/formatter.html) for linting and formatting, and [React Compiler](https://react.dev/learn/react-compiler) via `babel-plugin-react-compiler` in the Astro React integration (Oxc compiler needs `@vitejs/plugin-react` ≥ 6.1, which Astro does not ship yet). TypeScript stays on 6.x until `astro check` supports TypeScript 7. Husky runs `bun run check-pre-push` on pre-push. CI runs `bun run check-ci`. `.astro` files are linted but not formatted yet (Oxfmt Astro support is pending).
 
 If pre-push hooks fail in a GUI Git client, ensure `bun` is on your `PATH`. See [Husky troubleshooting](https://typicode.github.io/husky/#/?id=command-not-found)
 

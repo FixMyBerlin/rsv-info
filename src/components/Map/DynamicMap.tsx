@@ -1,6 +1,5 @@
 import { bbox, bboxPolygon, square, transformScale } from '@turf/turf'
 import maplibregl from 'maplibre-gl'
-
 import 'maplibre-gl/dist/maplibre-gl.css'
 import { useEffect, useState } from 'react'
 import Map, {
@@ -11,7 +10,6 @@ import Map, {
 import { useMapParam } from 'src/lib/routing/useMapParam'
 import type { GeometrySchema } from 'src/types/geometry'
 import { maptilerBaseUrl, maptilerKey } from 'src/utils/mapTiler.const'
-
 import { RSVSegment } from './RsvSegment'
 
 type BBox2d = [number, number, number, number]

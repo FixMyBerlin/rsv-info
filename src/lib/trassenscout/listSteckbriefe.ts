@@ -1,8 +1,6 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
-
 import { parse as parseYaml } from 'yaml'
-
 import {
   emptyGeometrySource,
   hasGeometryConfig,

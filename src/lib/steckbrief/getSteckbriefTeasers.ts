@@ -1,5 +1,4 @@
 import { getCollection, type CollectionEntry } from 'astro:content'
-
 import type { GeometrySchema } from '../../types/geometry'
 import type { SteckbriefApiFields, SteckbriefTeaser } from '../../types/steckbrief'
 import { emptyGeometry } from '../trassenscout/emptyGeometry'

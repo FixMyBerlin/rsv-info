@@ -1,6 +1,5 @@
 import Link from '@components/links/Link'
 import { useState } from 'react'
-
 import { getOptInCookie, setOptInCookie } from './storage'
 
 export const OptOut = () => {

@@ -1,9 +1,17 @@
 # Require packages to be published at least 5 days before install (supply-chain posture).
+# typescript excludes are for when Astro supports TypeScript 7 (withastro/roadmap#1321).
+# @see https://bun.com/docs/runtime/bunfig#install-minimumreleaseage
 [install]
-minimumReleaseAge = 432000
+minimumReleaseAge = 432000 # 5 days
+minimumReleaseAgeExcludes = [
+  "typescript",
+  "@typescript/typescript-darwin-arm64",
+  "@typescript/typescript-linux-x64",
+]
 
 # Global virtual store — requires isolated linker. Reinstall after changing: rm -rf node_modules && bun install
 # Vite dev: server.fs.allow in astro.config.mjs (packages realpath into ~/.bun/install/cache/links/).
+# Phantom deps inside third-party packages: trustedDependencies / patch — @see tech-stack bun-install.md
 # @see https://bun.com/docs/pm/global-store
 linker = "isolated"
 globalStore = true

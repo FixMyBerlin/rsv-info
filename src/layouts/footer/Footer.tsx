@@ -1,5 +1,4 @@
 import Link from '@components/links/Link'
-
 import { FooterLinkList } from './FooterLinks/FooterLinkList'
 import { footerLinks } from './FooterLinks/footerLinks.const'
 import { FooterSocialIcons } from './FooterSocialIcons/FooterSocialIcons'

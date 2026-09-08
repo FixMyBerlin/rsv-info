@@ -2,7 +2,6 @@ import { spawnSync } from 'node:child_process'
 import fs from 'node:fs'
 import fsPromises from 'node:fs/promises'
 import path from 'node:path'
-
 import { type TrassenscoutCacheEntry, trassenscoutCacheSchema } from './cacheSchema'
 
 export const TRASSENSCOUT_CACHE_DIR = 'src/data/trassenscout'

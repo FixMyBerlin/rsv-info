@@ -1,21 +1,41 @@
 import { defineConfig } from 'oxfmt'
 
-/** @type {import('oxfmt').OxfmtConfig} */
+// FMC default — keep ignorePatterns in sync with oxlint.config.mjs where they overlap.
+// .astro / .mdx: oxfmt Astro support is pending; Keystatic markdown must not be rewritten.
 export default defineConfig({
+  useTabs: false,
+  tabWidth: 2,
   printWidth: 100,
-  semi: false,
   singleQuote: true,
+  jsxSingleQuote: false,
+  quoteProps: 'as-needed',
+  trailingComma: 'all',
+  semi: false,
   arrowParens: 'always',
-  sortImports: true,
+  bracketSameLine: false,
+  bracketSpacing: true,
+  endOfLine: 'lf',
+  sortImports: {
+    newlinesBetween: false,
+  },
   sortTailwindcss: {
-    stylesheet: './src/layouts/base.css',
-    functions: ['clsx'],
+    stylesheet: 'src/layouts/base.css',
+    functions: ['twMerge', 'twJoin', 'clsx'],
     attributes: ['className', 'class', 'class:list'],
   },
-  sortPackageJson: false,
+  sortPackageJson: true,
   ignorePatterns: [
+    '.agents/**',
+    '.cursor/**',
+    '.output/**',
+    'playwright-report/**',
+    'test-results/**',
     '**/*.astro',
-    // Keystatic CMS markdown — oxfmt rewrites hard breaks and nested links
+    '**/*.md',
     '**/*.mdx',
+    // IONOS Deploy Now — do not rewrite generated/managed workflow files
+    '.github/workflows/deploy-to-ionos.yaml',
+    '.github/workflows/rsv-info-build.yaml',
+    '.github/workflows/rsv-info-orchestration.yaml',
   ],
 })

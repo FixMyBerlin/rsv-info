@@ -21,3 +21,8 @@ pnpm-debug.log*
 .DS_Store
 
 .netlify/
+
+# test / agent scratch
+playwright-report/
+test-results/
+.agents/

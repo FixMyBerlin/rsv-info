@@ -1,7 +1,6 @@
 import { collection, config, fields } from '@keystatic/core'
 import { block } from '@keystatic/core/content-components'
 import { KEYSTATIC_STORAGE_KIND } from 'astro:env/client'
-
 import { rsvDSubsectionsField } from './keystatic/fields/rsvDSubsectionsField'
 import { contentViewImageDefaultDouble } from './keystatic/utils/contentViewImageDefaultDouble'
 import { contentViewImageHorizontal } from './keystatic/utils/contentViewImageHorizontal'

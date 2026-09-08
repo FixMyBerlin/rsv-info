@@ -1,5 +1,4 @@
 import { createParser, useQueryState } from 'nuqs'
-
 import { type MapParam, parseMapParam, serializeMapParam } from './mapParam'
 
 const mapParamParser = createParser({

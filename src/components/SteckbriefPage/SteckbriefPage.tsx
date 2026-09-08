@@ -5,7 +5,6 @@ import type { ReactNode } from 'react'
 import type { SteckbriefCollectionEntry } from 'src/lib/steckbrief/getSteckbriefTeasers'
 import { getSteckbriefDisplayTitle } from 'src/lib/steckbrief/getSteckbriefTeasers'
 import type { SteckbriefApiFields } from 'src/types/steckbrief'
-
 import { SteckbriefPageFeedbackCallout } from './SteckbriefPageFeedbackCallout'
 import { SteckbriefPageProgressBar } from './SteckbriefPageProgressBar'
 

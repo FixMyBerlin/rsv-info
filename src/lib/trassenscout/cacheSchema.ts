@@ -1,5 +1,4 @@
 import { z } from 'astro/zod'
-
 import { geometrySchema } from '../../types/geometry'
 
 export const steckbriefApiFieldsSchema = z.object({

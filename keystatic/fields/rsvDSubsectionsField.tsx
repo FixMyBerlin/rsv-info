@@ -1,6 +1,5 @@
 import type { BasicFormField, FormFieldStoredValue } from '@keystatic/core'
 import { useEffect, useState } from 'react'
-
 import { fetchTrassenscoutProject } from '../../src/lib/trassenscout/fetchProject'
 import { RSV_D_PROJECT_SLUG } from '../../src/lib/trassenscout/geometrySource'
 import { rsvDSubsectionSlugsFromCollection } from '../../src/lib/trassenscout/rsvDSubsections'

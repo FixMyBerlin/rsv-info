@@ -1,5 +1,4 @@
 import Link from '@components/links/Link'
-
 import { activeFooterSocialIcons } from './footerSocialIcons.const'
 
 export const FooterSocialIcons = () => {

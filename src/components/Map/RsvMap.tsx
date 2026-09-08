@@ -1,13 +1,11 @@
 import { OptIn } from '@components/CookieConsent/OptIn'
 import { getOptInCookie } from '@components/CookieConsent/storage'
 import { clsx } from 'clsx'
-
 import 'maplibre-gl/dist/maplibre-gl.css'
 import { useState } from 'react'
 import { navHeightClasssName } from 'src/layouts/navigation/Navigation'
 import { hasMapGeometry } from 'src/lib/trassenscout/emptyGeometry'
 import type { GeometrySchema } from 'src/types/geometry'
-
 import { Attribution } from './Attribution'
 import { DynamicMap } from './DynamicMap'
 import { Legend } from './Legend'
