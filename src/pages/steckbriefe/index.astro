@@ -1,13 +1,13 @@
 ---
 import SteckbriefePage from '@components/SteckbriefePage/SteckbriefePage.astro'
-import { getCollection } from 'astro:content'
 import LayoutPage from 'src/layouts/LayoutPage.astro'
 import {
   getFederalStateFilterData,
+  getPublishedSteckbriefe,
   getSteckbriefTeasers,
 } from 'src/lib/steckbrief/getSteckbriefTeasers'
 
-const steckbriefe = await getCollection('steckbriefe')
+const steckbriefe = await getPublishedSteckbriefe()
 const rsvTeasers = getSteckbriefTeasers(steckbriefe)
 const federalStateOptions = getFederalStateFilterData(steckbriefe)
 

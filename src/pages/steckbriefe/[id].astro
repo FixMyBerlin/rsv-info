@@ -2,12 +2,13 @@
 export const prerender = true
 
 import { Radschnellweg } from '@components/SteckbriefPage/Radschnellweg'
-import { getCollection, render } from 'astro:content'
+import { render } from 'astro:content'
 import Layout from 'src/layouts/Layout.astro'
+import { getPublishedSteckbriefe } from 'src/lib/steckbrief/getSteckbriefTeasers'
 import { getSteckbriefStaticMapImage } from 'src/lib/steckbrief/staticMapImage'
 
 export async function getStaticPaths() {
-  const steckbriefe = await getCollection('steckbriefe')
+  const steckbriefe = await getPublishedSteckbriefe()
   return steckbriefe.map((entry) => ({
     params: { id: entry.data.slug },
     props: { entry },

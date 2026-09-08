@@ -2,9 +2,16 @@ import { glob } from 'astro/loaders'
 import { z } from 'astro/zod'
 import { defineCollection, type SchemaContext } from 'astro:content'
 
+import { parseGeometrySource } from './lib/trassenscout/geometrySource'
 import { geometrySourceSchema } from './lib/trassenscout/geometrySourceSchema'
-import { steckbriefeLoader } from './loaders/steckbriefeLoader'
-import { geometrySchema } from './types/geometry'
+
+const yamlDateString = z
+  .union([z.string(), z.date()])
+  .optional()
+  .transform((value) => {
+    if (value instanceof Date) return value.toISOString().slice(0, 10)
+    return value
+  })
 
 const postsSchema = ({ image }: SchemaContext) =>
   z.object({
@@ -32,10 +39,13 @@ const communicationposts = defineCollection({
 })
 
 const steckbriefe = defineCollection({
-  loader: steckbriefeLoader(),
+  loader: glob({
+    pattern: '**/index.mdx',
+    base: './src/data/steckbriefe',
+  }),
   schema: z.object({
     visibility: z.enum(['visible', 'hidden']).default('visible'),
-    slug: z.string(),
+    slug: z.string().optional(),
     title: z.string(),
     ref: z.string().optional(),
     state: z.enum(['idea', 'agreement_process', 'planning', 'in_progress', 'done']),
@@ -44,8 +54,8 @@ const steckbriefe = defineCollection({
     toCity: z.string().optional(),
     toFederalState: z.string().optional(),
     lengthKm: z.number().optional(),
-    stand: z.string().optional(),
-    lastCheckedDate: z.string().optional(),
+    stand: yamlDateString,
+    lastCheckedDate: yamlDateString,
     sourceUrl: z.url().optional(),
     website: z.url().optional(),
     stakeholders: z
@@ -56,15 +66,9 @@ const steckbriefe = defineCollection({
         }),
       )
       .optional(),
-    geometrySource: geometrySourceSchema,
-    showOnHome: z.boolean(),
-    order: z.number(),
-    geometry: geometrySchema,
-    apiFields: z.object({
-      operator: z.string().optional(),
-      status: z.string().optional(),
-      estimatedCompletionDate: z.string().optional(),
-    }),
+    geometrySource: z.preprocess(parseGeometrySource, geometrySourceSchema),
+    showOnHome: z.boolean().default(false),
+    order: z.number().default(0),
   }),
 })
 

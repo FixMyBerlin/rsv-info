@@ -17,10 +17,17 @@ export type SteckbriefRef = {
   geometrySource: GeometrySource
 }
 
-function parseFrontmatter(content: string): Record<string, unknown> {
+export function parseSteckbriefFrontmatter(content: string): Record<string, unknown> {
   const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---/)
   if (!match) return {}
   return parseYaml(match[1]) as Record<string, unknown>
+}
+
+/** Frontmatter is authoritative; Keystatic `createReader()` can omit `visibility`. */
+export function parseSteckbriefVisibility(
+  frontmatter: Record<string, unknown>,
+): 'visible' | 'hidden' {
+  return frontmatter.visibility === 'hidden' ? 'hidden' : 'visible'
 }
 
 function geometrySourceFromFrontmatter(frontmatter: Record<string, unknown>): GeometrySource {
@@ -51,7 +58,7 @@ export async function listSteckbriefe(cwd = process.cwd()): Promise<SteckbriefRe
     const mdxPath = path.join(dir, entry.name, 'index.mdx')
     try {
       const content = await fs.readFile(mdxPath, 'utf8')
-      const frontmatter = parseFrontmatter(content)
+      const frontmatter = parseSteckbriefFrontmatter(content)
       const slug =
         typeof frontmatter.slug === 'string' && frontmatter.slug.length > 0
           ? frontmatter.slug

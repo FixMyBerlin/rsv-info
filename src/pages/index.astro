@@ -8,14 +8,14 @@ import Section from '@components/Section.astro'
 import { RsvStateLabel } from '@components/SteckbriefePage/RsvStateLabel'
 import TeaserCard from '@components/Teaser/TeaserCard.astro'
 import TeasersContainer from '@components/Teaser/TeasersContainer.astro'
-import { getCollection } from 'astro:content'
 import LayoutPage from 'src/layouts/LayoutPage.astro'
 import {
+  getPublishedSteckbriefe,
   getSteckbriefDisplayTitle,
   getSteckbriefTeasers,
 } from 'src/lib/steckbrief/getSteckbriefTeasers'
 
-const steckbriefe = await getCollection('steckbriefe')
+const steckbriefe = await getPublishedSteckbriefe()
 const homeSteckbriefe = steckbriefe.filter((entry) => entry.data.showOnHome)
 const rsvTeasers = getSteckbriefTeasers(homeSteckbriefe)
 ---

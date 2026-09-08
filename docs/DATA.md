@@ -6,38 +6,37 @@ Steckbrief pages combine **editorial content from Keystatic** with **route geome
 
 ```mermaid
 flowchart LR
-  ksYaml["Keystatic steckbriefe\n(editorial + geometrySource)"]
-  reader["createReader()"]
+  ksYaml["Keystatic steckbriefe MDX\n(editorial + geometrySource)"]
+  globMdx["glob() steckbriefe"]
   updateScript["trassenscout:update script"]
   tsApi["Trassenscout API"]
-  cache["src/data/trassenscout/*.json"]
+  json["src/data/trassenscout/*.json"]
   mapScript["generate:map-images"]
   pngs["public/rsv-map-images/"]
-  loader["steckbriefeLoader"]
-  collection["getCollection steckbriefe"]
+  join["getPublishedSteckbriefe()"]
   ui[Steckbrief UI]
   keystaticField["Keystatic RSV-D field\n(browser fetch)"]
 
-  ksYaml --> reader --> loader
+  ksYaml --> globMdx --> join
   ksYaml --> updateScript
   updateScript --> tsApi
-  updateScript --> cache
-  cache --> mapScript --> pngs
-  cache --> loader
+  updateScript --> json
+  json --> mapScript --> pngs
+  json --> join
   pngs --> ui
-  loader --> collection --> ui
+  join --> ui
   keystaticField --> tsApi
 ```
 
-| Source | What it holds |
-|---|---|
-| **Keystatic `steckbriefe`** (`src/data/steckbriefe/`) | Slug, title, description (RTE), planning state, from/to, length, stand, source, website, stakeholders, home teaser flags |
-| **Keystatic `geometrySource`** | Discriminated union: `none` \| `projects` (project slug list) \| `rsv-d` (selected RSV-D subsection slugs) |
-| **Checked-in `src/data/trassenscout/{slug}.json`** | Normalized geometry, aggregated API fields (`operator`, `status`, `estimatedCompletionDate`), sync metadata |
-| **`public/rsv-map-images/`** | Static map PNGs for social sharing / teasers (regenerated on sync); `fallback.png` for Steckbriefe without Trassenscout geometry |
-| **Trassenscout `rsv-d` JSON API** | Live subsection list for the Keystatic RSV-D picker (fetched in the browser) |
+| Source                                                | What it holds                                                                                                                    |
+| ----------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| **Keystatic `steckbriefe`** (`src/data/steckbriefe/`) | Slug, title, description (RTE), planning state, from/to, length, stand, source, website, stakeholders, home teaser flags         |
+| **Keystatic `geometrySource`**                        | Discriminated union: `none` \| `projects` (project slug list) \| `rsv-d` (selected RSV-D subsection slugs)                       |
+| **Checked-in `src/data/trassenscout/{slug}.json`**    | Normalized geometry, aggregated API fields (`operator`, `status`, `estimatedCompletionDate`), sync metadata                      |
+| **`public/rsv-map-images/`**                          | Static map PNGs for social sharing / teasers (regenerated on sync); `fallback.png` for Steckbriefe without Trassenscout geometry |
+| **Trassenscout `rsv-d` JSON API**                     | Live subsection list for the Keystatic RSV-D picker (fetched in the browser)                                                     |
 
-The custom Astro loader in [`src/loaders/steckbriefeLoader.ts`](../src/loaders/steckbriefeLoader.ts) reads Keystatic via `createReader` and loads Trassenscout cache files from `src/data/trassenscout/` at build time (written during sync, not fetched live by the loader). Steckbriefe with `geometrySource: none` (or empty selection) are still published with an empty map. The sync script lives in [`scripts/trassenscout/update.ts`](../scripts/trassenscout/update.ts).
+Keystatic writes Steckbrief MDX; Astro loads it with `glob()` (same pattern as blog posts and the RSV landing pages). [`getPublishedSteckbriefe()`](../src/lib/steckbrief/getSteckbriefTeasers.ts) skips `visibility: hidden` and attaches the matching checked-in Trassenscout JSON (`src/data/trassenscout/{slug}.json`) when it exists. Steckbriefe with `geometrySource: none` (or empty selection) are still published with an empty map. The sync script lives in [`scripts/trassenscout/update.ts`](../scripts/trassenscout/update.ts).
 
 ## Geometry source (`geometrySource`)
 
@@ -55,11 +54,11 @@ geometrySource:
   value: [hh-2, hh-3]
 ```
 
-| Discriminant | Meaning | Sync behaviour |
-|---|---|---|
-| `none` | No Trassenscout geometry | No cache file |
-| `projects` | One or more Trassenscout **project** URL slugs | Fetch/merge each project; keep all features |
-| `rsv-d` | Subsections from the central `rsv-d` project | Fetch `rsv-d`, **filter** to selected `subsectionSlug`s |
+| Discriminant | Meaning                                        | Sync behaviour                                          |
+| ------------ | ---------------------------------------------- | ------------------------------------------------------- |
+| `none`       | No Trassenscout geometry                       | No cache file                                           |
+| `projects`   | One or more Trassenscout **project** URL slugs | Fetch/merge each project; keep all features             |
+| `rsv-d`      | Subsections from the central `rsv-d` project   | Fetch `rsv-d`, **filter** to selected `subsectionSlug`s |
 
 **Uniqueness:** each RSV-D `subsectionSlug` may be assigned to at most one Steckbrief. `trassenscout:update` fails if the same subsection appears on two Steckbriefe.
 
@@ -71,12 +70,12 @@ IONOS production is static: no `/keystatic`.
 
 ## When Trassenscout data is fetched
 
-| Environment | Build command | Trassenscout |
-|---|---|---|
-| **Netlify CMS / preview** | `bun run build:netlify` | Syncs fresh geometry before build |
-| **Production (IONOS / `main`)** | `bun run build` | Checked-in cache only |
-| **Weekly sync PR** | `bun run trassenscout:sync` | Updates cache on `main` for production |
-| **Keystatic RSV-D picker** | Browser fetch of Trassenscout `rsv-d` JSON | Live subsection list for the admin UI |
+| Environment                     | Build command                              | Trassenscout                           |
+| ------------------------------- | ------------------------------------------ | -------------------------------------- |
+| **Netlify CMS / preview**       | `bun run build:netlify`                    | Syncs fresh geometry before build      |
+| **Production (IONOS / `main`)** | `bun run build`                            | Checked-in cache only                  |
+| **Weekly sync PR**              | `bun run trassenscout:sync`                | Updates cache on `main` for production |
+| **Keystatic RSV-D picker**      | Browser fetch of Trassenscout `rsv-d` JSON | Live subsection list for the admin UI  |
 
 Netlify uses `build:netlify` (see [`netlify.toml`](../netlify.toml)). Production on IONOS uses plain `build`. Editorial changes in Keystatic on `develop` show maps on the next Netlify deploy without a separate sync commit; production picks up geometry when the weekly sync PR (or manual sync) is merged to `main`.
 
@@ -108,27 +107,31 @@ A **weekly GitHub Action** (Monday 06:00 Europe/Berlin) runs the same sync on `m
 
 ## What to edit where
 
-| Want to change… | Edit in… |
-|---|---|
-| Page title, Kurzfassung (RTE), from/to, length, stand, source, website, stakeholders, progress state, home teaser | **Keystatic → Steckbriefe** (`/keystatic`) |
-| Geometry source / which Trassenscout projects or RSV-D subsections | **Keystatic → Steckbriefe → Geometrie-Quelle** |
-| RSV-D subsection option list in the admin UI | **Teilabschnitte aktualisieren** in the RSV-D field (Netlify/local server) |
-| Route geometry (lines on map) | **Trassenscout** — on Netlify preview: automatic on next build; on production: weekly sync PR or manual **`bun run trassenscout:sync`** + commit |
-| Subsection operator, status, completion date | **Trassenscout** — same as route geometry |
-| Blog posts Planung / Kommunikation | **Keystatic → Blog collections** |
-| Page URL slug | **Keystatic → Steckbriefe → Slug** (keep existing ids for URL continuity) |
-| Add a new Steckbrief | **Keystatic → Steckbriefe → New entry** (set geometry source when geometry exists) |
+| Want to change…                                                                                                   | Edit in…                                                                                                                                         |
+| ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Page title, Kurzfassung (RTE), from/to, length, stand, source, website, stakeholders, progress state, home teaser | **Keystatic → Steckbriefe** (`/keystatic`)                                                                                                       |
+| Geometry source / which Trassenscout projects or RSV-D subsections                                                | **Keystatic → Steckbriefe → Geometrie-Quelle**                                                                                                   |
+| RSV-D subsection option list in the admin UI                                                                      | **Teilabschnitte aktualisieren** in the RSV-D field (Netlify/local server)                                                                       |
+| Route geometry (lines on map)                                                                                     | **Trassenscout** — on Netlify preview: automatic on next build; on production: weekly sync PR or manual **`bun run trassenscout:sync`** + commit |
+| Subsection operator, status, completion date                                                                      | **Trassenscout** — same as route geometry                                                                                                        |
+| Blog posts Planung / Kommunikation                                                                                | **Keystatic → Blog collections**                                                                                                                 |
+| Page URL slug                                                                                                     | **Keystatic → Steckbriefe → Slug** (keep existing ids for URL continuity)                                                                        |
+| Add a new Steckbrief                                                                                              | **Keystatic → Steckbriefe → New entry** (set geometry source when geometry exists)                                                               |
+| Hide a Steckbrief from the website                                                                                | **Keystatic → Sichtbarkeit → Versteckt** — stays in the CMS; omitted from lists and detail pages after the next deploy                           |
+| Delete a Steckbrief                                                                                               | Keystatic entry menu → delete (removes `src/data/steckbriefe/<slug>/`). Prefer **Versteckt** unless it is a duplicate                            |
 
 On **production**, rebuild after Keystatic or checked-in Trassenscout data changes. Use `bun run build` (no live Trassenscout fetch). Netlify uses `bun run build:netlify`.
+
+**Visibility** is read from the MDX frontmatter (`visibility: hidden | visible`). Hidden entries are still synced from Trassenscout (cache + map images) but [`getPublishedSteckbriefe()`](../src/lib/steckbrief/getSteckbriefTeasers.ts) omits them, so they have no list card and no detail route. The Keystatic list always shows them so editors can switch them back.
 
 ## Trassenscout API fields
 
 Per feature, the sync script reads:
 
-| API property | UI label |
-|---|---|
-| `operator` | Betreiber |
-| `status` | Status (Teilabschnitt) |
+| API property                    | UI label                        |
+| ------------------------------- | ------------------------------- |
+| `operator`                      | Betreiber                       |
+| `status`                        | Status (Teilabschnitt)          |
 | `estimatedCompletionDateString` | Voraussichtliche Fertigstellung |
 
 For display, values from all merged features are collected, empty values dropped, deduplicated, sorted A–Z, and joined with `, `. A row is shown only when at least one non-empty value exists.
@@ -137,11 +140,11 @@ For display, values from all merged features are collected, empty values dropped
 
 These are **two separate fields** with no automatic mapping between them.
 
-| | **Keystatic `state`** (Planungsstand) | **Trassenscout `status`** (per subsection) |
-|---|---|---|
-| Source | Editorial, in Keystatic | Trassenscout API, per feature / Teilabschnitt |
+|        | **Keystatic `state`** (Planungsstand)                                      | **Trassenscout `status`** (per subsection)                        |
+| ------ | -------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| Source | Editorial, in Keystatic                                                    | Trassenscout API, per feature / Teilabschnitt                     |
 | Values | Fixed enum: `idea`, `agreement_process`, `planning`, `in_progress`, `done` | Free text from Trassenscout, e.g. `Idee`, `In Planung`, `variant` |
-| Scope | Whole RSV Steckbrief | Individual route subsections |
+| Scope  | Whole RSV Steckbrief                                                       | Individual route subsections                                      |
 
 **Keystatic `state`** drives the overall project UI:
 

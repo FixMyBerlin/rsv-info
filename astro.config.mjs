@@ -1,6 +1,7 @@
 import { homedir } from 'node:os'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
+
 import mdx from '@astrojs/mdx'
 import netlify from '@astrojs/netlify'
 import react from '@astrojs/react'
@@ -48,6 +49,7 @@ export default defineConfig({
   redirects: {
     'abstimmungen/abstimmungsprozesse':
       '/kommunikation/radschnellwegeplanung-als-zusammenspiel-vieler-akteur-innen',
+    'steckbriefe/3-sachsen': '/steckbriefe/sn-l-r3',
   },
   // Learn more at https://github.com/withastro/astro/issues/12532
   trailingSlash: 'never',

@@ -1,9 +1,43 @@
-import type { CollectionEntry } from 'astro:content'
+import { getCollection, type CollectionEntry } from 'astro:content'
 
-import type { SteckbriefTeaser } from '../../types/steckbrief'
+import type { GeometrySchema } from '../../types/geometry'
+import type { SteckbriefApiFields, SteckbriefTeaser } from '../../types/steckbrief'
+import { emptyGeometry } from '../trassenscout/emptyGeometry'
+import { loadTrassenscoutCacheSync } from '../trassenscout/loadTrassenscoutCache'
 import { getSteckbriefStaticMapImage } from './staticMapImage'
 
-export type SteckbriefCollectionEntry = CollectionEntry<'steckbriefe'>
+type SteckbriefEditorialEntry = CollectionEntry<'steckbriefe'>
+
+export type SteckbriefCollectionEntry = Omit<SteckbriefEditorialEntry, 'data'> & {
+  data: SteckbriefEditorialEntry['data'] & {
+    slug: string
+    geometry: GeometrySchema
+    apiFields: SteckbriefApiFields
+  }
+}
+
+export function isVisibleSteckbrief(entry: SteckbriefEditorialEntry): boolean {
+  return entry.data.visibility !== 'hidden'
+}
+
+/** Site pages must use this so `visibility: hidden` never gets a route or list card. */
+export async function getPublishedSteckbriefe(): Promise<SteckbriefCollectionEntry[]> {
+  const entries = await getCollection('steckbriefe', isVisibleSteckbrief)
+
+  return entries.map((entry) => {
+    const slug = entry.data.slug ?? entry.id
+    const trassenscout = loadTrassenscoutCacheSync(slug)
+    return {
+      ...entry,
+      data: {
+        ...entry.data,
+        slug,
+        geometry: trassenscout?.geometry ?? emptyGeometry(slug),
+        apiFields: trassenscout?.apiFields ?? {},
+      },
+    }
+  })
+}
 
 export type FederalStateFilterOption = {
   state: string

@@ -1,6 +1,7 @@
 import { collection, config, fields } from '@keystatic/core'
 import { block } from '@keystatic/core/content-components'
 import { KEYSTATIC_STORAGE_KIND } from 'astro:env/client'
+
 import { rsvDSubsectionsField } from './keystatic/fields/rsvDSubsectionsField'
 import { contentViewImageDefaultDouble } from './keystatic/utils/contentViewImageDefaultDouble'
 import { contentViewImageHorizontal } from './keystatic/utils/contentViewImageHorizontal'
@@ -112,6 +113,8 @@ export default config({
       schema: {
         visibility: fields.select({
           label: 'Sichtbarkeit',
+          description:
+            'Versteckt: bleibt im CMS bearbeitbar, erscheint aber nicht auf der Website (Listen, Karten, Detailseite). Speichern und auf den nächsten Deploy warten. Löschen geht über das Menü des Eintrags (nicht nur Verstecken).',
           options: [
             { label: 'Sichtbar', value: 'visible' },
             { label: 'Versteckt', value: 'hidden' },
