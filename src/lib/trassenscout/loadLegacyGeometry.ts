@@ -2,7 +2,7 @@ import { execFile } from 'node:child_process'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import { promisify } from 'node:util'
-import type { GeometrySchema } from '../../types/geometry'
+import { geometrySchema, type GeometrySchema } from '../../types/geometry'
 
 const execFileAsync = promisify(execFile)
 
@@ -13,7 +13,7 @@ function idToGeometryFilename(pageId: string): string {
 async function readLegacyGeometryFile(filePath: string): Promise<GeometrySchema | null> {
   try {
     const raw = await fs.readFile(filePath, 'utf8')
-    return JSON.parse(raw) as GeometrySchema
+    return geometrySchema.parse(JSON.parse(raw))
   } catch {
     return null
   }
@@ -29,7 +29,7 @@ async function readLegacyGeometryFromGit(
       cwd: process.cwd(),
       maxBuffer: 50 * 1024 * 1024,
     })
-    return JSON.parse(stdout) as GeometrySchema
+    return geometrySchema.parse(JSON.parse(stdout))
   } catch {
     return null
   }

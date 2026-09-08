@@ -120,19 +120,17 @@ export function normalizeTrassenscoutGeometry(
       return
     }
 
+    const unsupported: never = geometry
     throw new Error(
-      `Unsupported geometry type "${geometry.type}" for ${featureId} (expected LineString, MultiLineString, Polygon, or MultiPolygon)`,
+      `Unsupported geometry type "${unsupported}" for ${featureId} (expected LineString, MultiLineString, Polygon, or MultiPolygon)`,
     )
   })
 
   const features = [...grouped.values()]
-
-  const featureCollection: GeoJSON.FeatureCollection = {
+  const bounds = bbox({
     type: 'FeatureCollection',
     features: features as GeoJSON.Feature[],
-  }
-
-  const bounds = bbox(featureCollection)
+  })
 
   return {
     id: pageId,

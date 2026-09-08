@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
+import { z } from 'astro/zod'
 import { parse as parseYaml } from 'yaml'
 import {
   emptyGeometrySource,
@@ -10,36 +11,45 @@ import {
 
 const STECKBRIEFE_DIR = 'src/data/steckbriefe'
 
+const steckbriefFrontmatterSchema = z.object({
+  slug: z.string().min(1).optional(),
+  visibility: z.enum(['visible', 'hidden']).optional(),
+  geometrySource: z.unknown().optional(),
+  trassenscoutProjectSlugs: z.unknown().optional(),
+})
+
+const projectSlugListSchema = z.array(z.string().min(1))
+
+export type SteckbriefFrontmatter = z.infer<typeof steckbriefFrontmatterSchema>
+
 export type SteckbriefRef = {
   slug: string
   geometrySource: GeometrySource
 }
 
-export function parseSteckbriefFrontmatter(content: string): Record<string, unknown> {
+export function parseSteckbriefFrontmatter(content: string): SteckbriefFrontmatter {
   const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---/)
   if (!match) return {}
-  return parseYaml(match[1]) as Record<string, unknown>
+  const parsed = steckbriefFrontmatterSchema.safeParse(parseYaml(match[1]))
+  return parsed.success ? parsed.data : {}
 }
 
 /** Frontmatter is authoritative; Keystatic `createReader()` can omit `visibility`. */
 export function parseSteckbriefVisibility(
-  frontmatter: Record<string, unknown>,
+  frontmatter: SteckbriefFrontmatter,
 ): 'visible' | 'hidden' {
   return frontmatter.visibility === 'hidden' ? 'hidden' : 'visible'
 }
 
-function geometrySourceFromFrontmatter(frontmatter: Record<string, unknown>): GeometrySource {
-  if ('geometrySource' in frontmatter) {
+function geometrySourceFromFrontmatter(frontmatter: SteckbriefFrontmatter): GeometrySource {
+  if (frontmatter.geometrySource !== undefined) {
     return parseGeometrySource(frontmatter.geometrySource)
   }
 
   // Legacy: flat trassenscoutProjectSlugs array
-  if (Array.isArray(frontmatter.trassenscoutProjectSlugs)) {
-    const value = frontmatter.trassenscoutProjectSlugs.filter(
-      (item): item is string => typeof item === 'string' && item.length > 0,
-    )
-    if (value.length === 0) return emptyGeometrySource()
-    return { discriminant: 'projects', value }
+  const legacy = projectSlugListSchema.safeParse(frontmatter.trassenscoutProjectSlugs)
+  if (legacy.success && legacy.data.length > 0) {
+    return { discriminant: 'projects', value: legacy.data }
   }
 
   return emptyGeometrySource()
@@ -57,10 +67,7 @@ export async function listSteckbriefe(cwd = process.cwd()): Promise<SteckbriefRe
     try {
       const content = await fs.readFile(mdxPath, 'utf8')
       const frontmatter = parseSteckbriefFrontmatter(content)
-      const slug =
-        typeof frontmatter.slug === 'string' && frontmatter.slug.length > 0
-          ? frontmatter.slug
-          : entry.name
+      const slug = frontmatter.slug ?? entry.name
 
       result.push({
         slug,
