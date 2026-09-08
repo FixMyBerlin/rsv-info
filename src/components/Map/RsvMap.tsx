@@ -33,9 +33,11 @@ export const RSVMap = ({ geometry, staticMap }: Props) => {
       {showMap ? (
         <>
           <div className="absolute right-0 bottom-0 left-0 z-10">
-            <div className="mr-2 mb-2 translate-x-1 translate-y-1 text-xs">
-              <Attribution />
-            </div>
+            {consent !== true && (
+              <div className="mr-2 mb-2 translate-x-1 translate-y-1 text-xs">
+                <Attribution />
+              </div>
+            )}
             <Legend features={filteredGeometry.features} />
           </div>
 

@@ -148,7 +148,7 @@ Trassenscout sends no dedicated flags for variants or corridors. The sync derive
 
 | Trassenscout feature                                             | Stored as                                  | Map                                                | Legend        |
 | ---------------------------------------------------------------- | ------------------------------------------ | -------------------------------------------------- | ------------- |
-| `Polygon` or `MultiPolygon`, any status                          | `kind: area`                               | Semi-transparent fill                              | Fläche        |
+| `Polygon` or `MultiPolygon`, any status                          | `kind: area`                               | Semi-transparent fill                              | Trassenkorridor |
 | `LineString` with status `Korridor` or `corridor` (case-insensitive) | `kind: corridor`                       | Wide, rounded, semi-transparent line               | Korridor      |
 | `LineString` with status `variant`                               | `kind: route`, `variant: Alternative`      | 4px line in the alternative color                  | Variante      |
 | Any other `LineString`                                           | `kind: route`, `variant: Vorzugstrasse`    | 4px line in the main color                         | Vorzugstrasse |

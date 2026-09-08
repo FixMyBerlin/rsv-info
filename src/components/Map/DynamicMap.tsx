@@ -6,6 +6,7 @@ import maplibregl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import { useEffect, useState } from 'react'
 import Map, {
+  AttributionControl,
   FullscreenControl,
   NavigationControl,
   type ViewStateChangeEvent,
@@ -62,19 +63,21 @@ export const DynamicMap = ({ geometry }: Props) => {
       }
 
   return (
-    <div className="relative h-full w-full">
+    <div className="relative h-full w-full [&_.maplibregl-ctrl-bottom-left]:bottom-14">
       <Map
         initialViewState={initialViewState}
         mapLib={maplibregl}
         mapStyle={`${maptilerBaseUrl}/style.json?key=${maptilerKey}`}
         maxBounds={bboxView as BBox2d}
         attributionControl={false}
+        RTLTextPlugin={false}
         scrollZoom={isScreenHorizontal}
         onMoveEnd={(event: ViewStateChangeEvent) => {
           const { latitude, longitude, zoom } = event.viewState
           void setMapParam({ zoom, lat: latitude, lng: longitude }, { history: 'replace' })
         }}
       >
+        <AttributionControl compact position="bottom-left" />
         <FullscreenControl style={{ background: '#D9D9D9' }} />
         {sortFeaturesForMap(geometry.features).map((feature, index) => (
           <RSVSegment

@@ -48,7 +48,7 @@ export const Legend = ({ features }: Props) => {
     kinds.flaeche && (
       <LegendItem
         key="flaeche"
-        label="Fläche"
+        label="Trassenkorridor"
         swatch={
           <span
             className="h-4 w-8 rounded-sm border-2"
