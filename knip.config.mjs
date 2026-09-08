@@ -5,12 +5,6 @@
 export default {
   entry: ['keystatic.config.ts', 'keystatic/**/*.{ts,tsx}'],
   ignore: ['src/data/**'],
-  ignoreFiles: [
-    'src/assets/general/tsx/Bmdvlogo.tsx',
-    'src/components/CookieConsent/OptOut.tsx',
-    'src/lib/trassenscout/loadLegacyGeometry.ts',
-    'src/utils/isHome.ts',
-  ],
   ignoreDependencies: [
     'babel-plugin-react-compiler', // string plugin in astro.config.mjs
     '@types/geojson', // GeoJSON namespace used without a direct import

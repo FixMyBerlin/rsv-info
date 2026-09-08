@@ -7,7 +7,6 @@ import {
   hasGeometryConfig,
   parseGeometrySource,
   type GeometrySource,
-  type GeometrySourceProjects,
 } from './geometrySource'
 
 const STECKBRIEFE_DIR = 'src/data/steckbriefe'
@@ -16,10 +15,7 @@ const steckbriefFrontmatterSchema = z.object({
   slug: z.string().min(1).optional(),
   visibility: z.enum(['visible', 'hidden']).optional(),
   geometrySource: z.unknown().optional(),
-  trassenscoutProjectSlugs: z.unknown().optional(),
 })
-
-const projectSlugListSchema = z.array(z.string().min(1))
 
 export type SteckbriefFrontmatter = z.infer<typeof steckbriefFrontmatterSchema>
 
@@ -44,12 +40,6 @@ export function parseSteckbriefVisibility(frontmatter: SteckbriefFrontmatter) {
 function geometrySourceFromFrontmatter(frontmatter: SteckbriefFrontmatter) {
   if (frontmatter.geometrySource !== undefined) {
     return parseGeometrySource(frontmatter.geometrySource)
-  }
-
-  // Legacy: flat trassenscoutProjectSlugs array
-  const legacy = projectSlugListSchema.safeParse(frontmatter.trassenscoutProjectSlugs)
-  if (legacy.success && legacy.data.length > 0) {
-    return { discriminant: 'projects', value: legacy.data } satisfies GeometrySourceProjects
   }
 
   return emptyGeometrySource()
