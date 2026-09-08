@@ -30,8 +30,6 @@ export const DynamicMap = ({ geometry }: Props) => {
     ? bbox(transformScale(bboxPolygon(square(geometry.bbox)), scaleFactor))
     : undefined
 
-  const [selected] = useState(undefined)
-
   const [isScreenHorizontal, setIsScreenHorizontal] = useState(false)
 
   useEffect(() => {
@@ -75,18 +73,12 @@ export const DynamicMap = ({ geometry }: Props) => {
           const { latitude, longitude, zoom } = event.viewState
           void setMapParam({ zoom, lat: latitude, lng: longitude }, { history: 'replace' })
         }}
-        interactiveLayerIds={geometry.features.flatMap(({ properties, geometry: geom }) =>
-          geom.type === 'MultiPolygon'
-            ? [`${properties.id}-fill`, `${properties.id}-outline`]
-            : [properties.id],
-        )}
       >
         <FullscreenControl style={{ background: '#D9D9D9' }} />
         {geometry.features.map((feature, index) => (
           <RSVSegment
             key={`${feature.properties.id}-${feature.geometry.type}-${index}`}
             feature={feature}
-            selected={selected}
           />
         ))}
         <NavigationControl showCompass={false} />

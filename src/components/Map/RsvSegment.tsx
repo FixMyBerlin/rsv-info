@@ -5,7 +5,6 @@ import { segmentColor } from 'src/utils/mapColors'
 
 type Props = {
   feature: GeometryFeature
-  selected?: number
 }
 
 const FILL_OPACITY = 0.35
