@@ -1,7 +1,8 @@
 {
-  "syncedAt": "2026-08-12T12:09:42.024Z",
-  "geometrySource": "projects",
-  "projectSlugs": ["9-bayern"],
+  "syncedAt": "2026-09-08T15:10:37.577Z",
+  "geometrySource": "rsv-d",
+  "projectSlugs": ["rsv-d"],
+  "subsectionSlugs": ["by-9"],
   "geometry": {
     "id": "9-bayern",
     "type": "FeatureCollection",
@@ -9,10 +10,11 @@
       {
         "type": "Feature",
         "properties": {
-          "id": "9-bayern-pa",
+          "id": "rsv-d-by-9:Vorzugstrasse:route",
           "id_rsv": "9-bayern",
           "variant": "Vorzugstrasse",
           "discarded": false,
+          "kind": "route",
           "detail_level": "approximated"
         },
         "geometry": {

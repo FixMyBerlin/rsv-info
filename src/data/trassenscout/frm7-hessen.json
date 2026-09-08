@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-08-12T12:09:47.729Z",
+  "syncedAt": "2026-09-08T15:10:45.396Z",
   "geometrySource": "projects",
   "projectSlugs": ["frm7"],
   "geometry": {
@@ -9,40 +9,24 @@
       {
         "type": "Feature",
         "properties": {
-          "id": "frm7-pa8b",
+          "id": "frm7-pa-11:Vorzugstrasse:route",
           "id_rsv": "frm7-hessen",
           "variant": "Vorzugstrasse",
           "discarded": false,
+          "kind": "route",
           "detail_level": "approximated"
         },
         "geometry": {
           "type": "MultiLineString",
           "coordinates": [
             [
-              [8.763966, 50.133788],
-              [8.764388, 50.13367],
-              [8.765597, 50.134204],
-              [8.765217, 50.134552],
-              [8.765343, 50.13462]
-            ]
-          ]
-        }
-      },
-      {
-        "type": "Feature",
-        "properties": {
-          "id": "frm7-pa8a",
-          "id_rsv": "frm7-hessen",
-          "variant": "Vorzugstrasse",
-          "discarded": false,
-          "detail_level": "approximated"
-        },
-        "geometry": {
-          "type": "MultiLineString",
-          "coordinates": [
-            [
-              [8.765343, 50.13462],
-              [8.763942, 50.135774],
+              [8.776637, 50.137944],
+              [8.776183, 50.138161],
+              [8.772644, 50.136814],
+              [8.770771, 50.136096],
+              [8.76908, 50.135731],
+              [8.767335, 50.135799],
+              [8.764237, 50.135839],
               [8.763224, 50.135614]
             ]
           ]
@@ -51,121 +35,11 @@
       {
         "type": "Feature",
         "properties": {
-          "id": "frm7-pa1",
+          "id": "frm7-pa-12:Vorzugstrasse:route",
           "id_rsv": "frm7-hessen",
           "variant": "Vorzugstrasse",
           "discarded": false,
-          "detail_level": "approximated"
-        },
-        "geometry": {
-          "type": "MultiLineString",
-          "coordinates": [
-            [
-              [8.708271, 50.113604],
-              [8.708636, 50.113646],
-              [8.711084, 50.114597],
-              [8.713889, 50.11613],
-              [8.716559, 50.11761],
-              [8.717008, 50.11807],
-              [8.717581, 50.119085],
-              [8.718027, 50.120168],
-              [8.718579, 50.120544],
-              [8.718775, 50.121012],
-              [8.718775, 50.121549],
-              [8.719558, 50.123113],
-              [8.719595, 50.123304]
-            ]
-          ]
-        }
-      },
-      {
-        "type": "Feature",
-        "properties": {
-          "id": "frm7-pa3",
-          "id_rsv": "frm7-hessen",
-          "variant": "Vorzugstrasse",
-          "discarded": false,
-          "detail_level": "approximated"
-        },
-        "geometry": {
-          "type": "MultiLineString",
-          "coordinates": [
-            [
-              [8.720482, 50.12628],
-              [8.720988, 50.126362],
-              [8.723783, 50.127107]
-            ]
-          ]
-        }
-      },
-      {
-        "type": "Feature",
-        "properties": {
-          "id": "frm7-pa7a",
-          "id_rsv": "frm7-hessen",
-          "variant": "Vorzugstrasse",
-          "discarded": false,
-          "detail_level": "approximated"
-        },
-        "geometry": {
-          "type": "MultiLineString",
-          "coordinates": [
-            [
-              [8.763224, 50.135614],
-              [8.757545, 50.134747],
-              [8.753646, 50.133982],
-              [8.751261, 50.133697],
-              [8.749302, 50.133571],
-              [8.749514, 50.132325]
-            ]
-          ]
-        }
-      },
-      {
-        "type": "Feature",
-        "properties": {
-          "id": "frm7-pa9",
-          "id_rsv": "frm7-hessen",
-          "variant": "Vorzugstrasse",
-          "discarded": false,
-          "detail_level": "approximated"
-        },
-        "geometry": {
-          "type": "MultiLineString",
-          "coordinates": [
-            [
-              [8.765343, 50.13462],
-              [8.766709, 50.133486]
-            ]
-          ]
-        }
-      },
-      {
-        "type": "Feature",
-        "properties": {
-          "id": "frm7-pa10",
-          "id_rsv": "frm7-hessen",
-          "variant": "Vorzugstrasse",
-          "discarded": false,
-          "detail_level": "approximated"
-        },
-        "geometry": {
-          "type": "MultiLineString",
-          "coordinates": [
-            [
-              [8.766709, 50.133486],
-              [8.767094, 50.133167]
-            ]
-          ]
-        }
-      },
-      {
-        "type": "Feature",
-        "properties": {
-          "id": "frm7-pa-12",
-          "id_rsv": "frm7-hessen",
-          "variant": "Vorzugstrasse",
-          "discarded": false,
+          "kind": "route",
           "detail_level": "approximated"
         },
         "geometry": {
@@ -191,10 +65,11 @@
       {
         "type": "Feature",
         "properties": {
-          "id": "frm7-pa-ts2",
+          "id": "frm7-pa-ts2:Vorzugstrasse:route",
           "id_rsv": "frm7-hessen",
           "variant": "Vorzugstrasse",
           "discarded": false,
+          "kind": "route",
           "detail_level": "approximated"
         },
         "geometry": {
@@ -297,10 +172,11 @@
       {
         "type": "Feature",
         "properties": {
-          "id": "frm7-pa-ts3",
+          "id": "frm7-pa-ts3:Vorzugstrasse:route",
           "id_rsv": "frm7-hessen",
           "variant": "Vorzugstrasse",
           "discarded": false,
+          "kind": "route",
           "detail_level": "approximated"
         },
         "geometry": {
@@ -392,10 +268,62 @@
       {
         "type": "Feature",
         "properties": {
-          "id": "frm7-pa2",
+          "id": "frm7-pa1:Vorzugstrasse:route",
           "id_rsv": "frm7-hessen",
           "variant": "Vorzugstrasse",
           "discarded": false,
+          "kind": "route",
+          "detail_level": "approximated"
+        },
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+            [
+              [8.708271, 50.113604],
+              [8.708636, 50.113646],
+              [8.711084, 50.114597],
+              [8.713889, 50.11613],
+              [8.716559, 50.11761],
+              [8.717008, 50.11807],
+              [8.717581, 50.119085],
+              [8.718027, 50.120168],
+              [8.718579, 50.120544],
+              [8.718775, 50.121012],
+              [8.718775, 50.121549],
+              [8.719558, 50.123113],
+              [8.719595, 50.123304]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "frm7-pa10:Vorzugstrasse:route",
+          "id_rsv": "frm7-hessen",
+          "variant": "Vorzugstrasse",
+          "discarded": false,
+          "kind": "route",
+          "detail_level": "approximated"
+        },
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+            [
+              [8.766709, 50.133486],
+              [8.767094, 50.133167]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "frm7-pa2:Vorzugstrasse:route",
+          "id_rsv": "frm7-hessen",
+          "variant": "Vorzugstrasse",
+          "discarded": false,
+          "kind": "route",
           "detail_level": "approximated"
         },
         "geometry": {
@@ -412,21 +340,20 @@
       {
         "type": "Feature",
         "properties": {
-          "id": "frm7-pa6",
+          "id": "frm7-pa3:Vorzugstrasse:route",
           "id_rsv": "frm7-hessen",
           "variant": "Vorzugstrasse",
           "discarded": false,
+          "kind": "route",
           "detail_level": "approximated"
         },
         "geometry": {
           "type": "MultiLineString",
           "coordinates": [
             [
-              [8.739249, 50.131462],
-              [8.740167, 50.131589],
-              [8.741304, 50.131727],
-              [8.744538, 50.131993],
-              [8.749514, 50.132325]
+              [8.720482, 50.12628],
+              [8.720988, 50.126362],
+              [8.723783, 50.127107]
             ]
           ]
         }
@@ -434,10 +361,11 @@
       {
         "type": "Feature",
         "properties": {
-          "id": "frm7-pa4",
+          "id": "frm7-pa4:Vorzugstrasse:route",
           "id_rsv": "frm7-hessen",
           "variant": "Vorzugstrasse",
           "discarded": false,
+          "kind": "route",
           "detail_level": "approximated"
         },
         "geometry": {
@@ -455,10 +383,11 @@
       {
         "type": "Feature",
         "properties": {
-          "id": "frm7-pa5",
+          "id": "frm7-pa5:Vorzugstrasse:route",
           "id_rsv": "frm7-hessen",
           "variant": "Vorzugstrasse",
           "discarded": false,
+          "kind": "route",
           "detail_level": "approximated"
         },
         "geometry": {
@@ -487,10 +416,58 @@
       {
         "type": "Feature",
         "properties": {
-          "id": "frm7-pa7b",
+          "id": "frm7-pa6:Vorzugstrasse:route",
           "id_rsv": "frm7-hessen",
           "variant": "Vorzugstrasse",
           "discarded": false,
+          "kind": "route",
+          "detail_level": "approximated"
+        },
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+            [
+              [8.739249, 50.131462],
+              [8.740167, 50.131589],
+              [8.741304, 50.131727],
+              [8.744538, 50.131993],
+              [8.749514, 50.132325]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "frm7-pa7a:Vorzugstrasse:route",
+          "id_rsv": "frm7-hessen",
+          "variant": "Vorzugstrasse",
+          "discarded": false,
+          "kind": "route",
+          "detail_level": "approximated"
+        },
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+            [
+              [8.763224, 50.135614],
+              [8.757545, 50.134747],
+              [8.753646, 50.133982],
+              [8.751261, 50.133697],
+              [8.749302, 50.133571],
+              [8.749514, 50.132325]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "frm7-pa7b:Vorzugstrasse:route",
+          "id_rsv": "frm7-hessen",
+          "variant": "Vorzugstrasse",
+          "discarded": false,
+          "kind": "route",
           "detail_level": "approximated"
         },
         "geometry": {
@@ -514,24 +491,63 @@
       {
         "type": "Feature",
         "properties": {
-          "id": "frm7-pa-11",
+          "id": "frm7-pa8a:Vorzugstrasse:route",
           "id_rsv": "frm7-hessen",
           "variant": "Vorzugstrasse",
           "discarded": false,
+          "kind": "route",
           "detail_level": "approximated"
         },
         "geometry": {
           "type": "MultiLineString",
           "coordinates": [
             [
-              [8.776637, 50.137944],
-              [8.776183, 50.138161],
-              [8.772644, 50.136814],
-              [8.770771, 50.136096],
-              [8.76908, 50.135731],
-              [8.767335, 50.135799],
-              [8.764237, 50.135839],
+              [8.765343, 50.13462],
+              [8.763942, 50.135774],
               [8.763224, 50.135614]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "frm7-pa8b:Vorzugstrasse:route",
+          "id_rsv": "frm7-hessen",
+          "variant": "Vorzugstrasse",
+          "discarded": false,
+          "kind": "route",
+          "detail_level": "approximated"
+        },
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+            [
+              [8.763966, 50.133788],
+              [8.764388, 50.13367],
+              [8.765597, 50.134204],
+              [8.765217, 50.134552],
+              [8.765343, 50.13462]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "frm7-pa9:Vorzugstrasse:route",
+          "id_rsv": "frm7-hessen",
+          "variant": "Vorzugstrasse",
+          "discarded": false,
+          "kind": "route",
+          "detail_level": "approximated"
+        },
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+            [
+              [8.765343, 50.13462],
+              [8.766709, 50.133486]
             ]
           ]
         }

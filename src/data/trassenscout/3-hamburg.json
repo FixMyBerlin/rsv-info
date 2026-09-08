@@ -1,7 +1,8 @@
 {
-  "syncedAt": "2026-08-12T12:09:45.995Z",
-  "geometrySource": "projects",
-  "projectSlugs": ["3-hamburg"],
+  "syncedAt": "2026-09-08T15:10:43.918Z",
+  "geometrySource": "rsv-d",
+  "projectSlugs": ["rsv-d"],
+  "subsectionSlugs": ["hh-3"],
   "geometry": {
     "id": "3-hamburg",
     "type": "FeatureCollection",
@@ -9,10 +10,11 @@
       {
         "type": "Feature",
         "properties": {
-          "id": "3-hamburg-pa",
+          "id": "rsv-d-hh-3:Vorzugstrasse:route",
           "id_rsv": "3-hamburg",
           "variant": "Vorzugstrasse",
           "discarded": false,
+          "kind": "route",
           "detail_level": "approximated"
         },
         "geometry": {

@@ -1,7 +1,8 @@
 {
-  "syncedAt": "2026-08-12T12:09:41.834Z",
-  "geometrySource": "projects",
-  "projectSlugs": ["rsv6-berlin"],
+  "syncedAt": "2026-09-08T15:10:37.109Z",
+  "geometrySource": "rsv-d",
+  "projectSlugs": ["rsv-d"],
+  "subsectionSlugs": ["be-rsv6"],
   "geometry": {
     "id": "rsv6-berlin",
     "type": "FeatureCollection",
@@ -9,10 +10,11 @@
       {
         "type": "Feature",
         "properties": {
-          "id": "rsv6-berlin-pa",
+          "id": "rsv-d-be-rsv6:Vorzugstrasse:route",
           "id_rsv": "rsv6-berlin",
           "variant": "Vorzugstrasse",
           "discarded": false,
+          "kind": "route",
           "detail_level": "approximated"
         },
         "geometry": {

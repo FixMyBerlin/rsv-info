@@ -1,7 +1,8 @@
 {
-  "syncedAt": "2026-08-12T12:09:45.248Z",
-  "geometrySource": "projects",
-  "projectSlugs": ["rs2-nrw"],
+  "syncedAt": "2026-09-08T15:10:42.616Z",
+  "geometrySource": "rsv-d",
+  "projectSlugs": ["rsv-d"],
+  "subsectionSlugs": ["nrw-rs2"],
   "geometry": {
     "id": "rs2-nordrhein-westfalen",
     "type": "FeatureCollection",
@@ -9,10 +10,11 @@
       {
         "type": "Feature",
         "properties": {
-          "id": "rs2-nrw-pa",
+          "id": "rsv-d-nrw-rs2:Vorzugstrasse:route",
           "id_rsv": "rs2-nordrhein-westfalen",
           "variant": "Vorzugstrasse",
           "discarded": false,
+          "kind": "route",
           "detail_level": "approximated"
         },
         "geometry": {

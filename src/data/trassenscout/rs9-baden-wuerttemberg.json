@@ -1,7 +1,8 @@
 {
-  "syncedAt": "2026-08-12T12:09:41.050Z",
-  "geometrySource": "projects",
-  "projectSlugs": ["rs9-bw"],
+  "syncedAt": "2026-09-08T15:10:36.948Z",
+  "geometrySource": "rsv-d",
+  "projectSlugs": ["rsv-d"],
+  "subsectionSlugs": ["bw-rs9"],
   "geometry": {
     "id": "rs9-baden-wuerttemberg",
     "type": "FeatureCollection",
@@ -9,10 +10,11 @@
       {
         "type": "Feature",
         "properties": {
-          "id": "rs9-bw-pa1",
+          "id": "rsv-d-bw-rs9:Vorzugstrasse:route",
           "id_rsv": "rs9-baden-wuerttemberg",
           "variant": "Vorzugstrasse",
           "discarded": false,
+          "kind": "route",
           "detail_level": "approximated"
         },
         "geometry": {

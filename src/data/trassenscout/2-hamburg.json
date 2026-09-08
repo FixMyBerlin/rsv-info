@@ -1,7 +1,8 @@
 {
-  "syncedAt": "2026-08-12T12:09:47.122Z",
-  "geometrySource": "projects",
-  "projectSlugs": ["2-hamburg"],
+  "syncedAt": "2026-09-08T15:10:45.007Z",
+  "geometrySource": "rsv-d",
+  "projectSlugs": ["rsv-d"],
+  "subsectionSlugs": ["hh-2"],
   "geometry": {
     "id": "2-hamburg",
     "type": "FeatureCollection",
@@ -9,10 +10,11 @@
       {
         "type": "Feature",
         "properties": {
-          "id": "2-hamburg-pa-v1",
+          "id": "rsv-d-hh-2:Vorzugstrasse:route",
           "id_rsv": "2-hamburg",
-          "variant": "Alternative",
+          "variant": "Vorzugstrasse",
           "discarded": false,
+          "kind": "route",
           "detail_level": "approximated"
         },
         "geometry": {
@@ -81,22 +83,7 @@
               [9.999067, 53.787222],
               [9.989996, 53.788166],
               [9.990016, 53.788179]
-            ]
-          ]
-        }
-      },
-      {
-        "type": "Feature",
-        "properties": {
-          "id": "2-hamburg-pa",
-          "id_rsv": "2-hamburg",
-          "variant": "Vorzugstrasse",
-          "discarded": false,
-          "detail_level": "approximated"
-        },
-        "geometry": {
-          "type": "MultiLineString",
-          "coordinates": [
+            ],
             [
               [10.024966, 53.610574],
               [10.020562, 53.615047],
@@ -232,7 +219,5 @@
     ],
     "bbox": [9.878213, 53.610574, 10.029679, 53.916752]
   },
-  "apiFields": {
-    "status": "variant"
-  }
+  "apiFields": {}
 }

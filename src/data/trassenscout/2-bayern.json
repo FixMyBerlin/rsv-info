@@ -1,0 +1,48 @@
+{
+  "syncedAt": "2026-09-08T15:10:46.583Z",
+  "geometrySource": "rsv-d",
+  "projectSlugs": ["rsv-d"],
+  "subsectionSlugs": ["by-2"],
+  "geometry": {
+    "id": "2-bayern",
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "rsv-d-by-2:Vorzugstrasse:route",
+          "id_rsv": "2-bayern",
+          "variant": "Vorzugstrasse",
+          "discarded": false,
+          "kind": "route",
+          "detail_level": "approximated"
+        },
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+            [
+              [11.582757, 48.141932],
+              [11.598398, 48.140938],
+              [11.601377, 48.149221],
+              [11.611308, 48.150877],
+              [11.619998, 48.150711],
+              [11.630425, 48.148724],
+              [11.639114, 48.148392],
+              [11.647804, 48.150877],
+              [11.653017, 48.150049],
+              [11.66121, 48.148724],
+              [11.66841, 48.146239],
+              [11.704657, 48.152202],
+              [11.725884, 48.157171],
+              [11.73296, 48.162719],
+              [11.73656, 48.162719],
+              [11.750711, 48.169922]
+            ]
+          ]
+        }
+      }
+    ],
+    "bbox": [11.582757, 48.140938, 11.750711, 48.169922]
+  },
+  "apiFields": {}
+}

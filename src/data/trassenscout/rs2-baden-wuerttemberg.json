@@ -1,7 +1,8 @@
 {
-  "syncedAt": "2026-08-12T12:09:45.661Z",
-  "geometrySource": "projects",
-  "projectSlugs": ["rs2"],
+  "syncedAt": "2026-09-08T15:10:43.532Z",
+  "geometrySource": "rsv-d",
+  "projectSlugs": ["rsv-d"],
+  "subsectionSlugs": ["bw-rs2"],
   "geometry": {
     "id": "rs2-baden-wuerttemberg",
     "type": "FeatureCollection",
@@ -9,10 +10,11 @@
       {
         "type": "Feature",
         "properties": {
-          "id": "rs2-pa1",
+          "id": "rsv-d-bw-rs2:Vorzugstrasse:route",
           "id_rsv": "rs2-baden-wuerttemberg",
           "variant": "Vorzugstrasse",
           "discarded": false,
+          "kind": "route",
           "detail_level": "approximated"
         },
         "geometry": {
@@ -585,8 +587,5 @@
     ],
     "bbox": [8.46543, 49.40886, 8.6919, 49.49362]
   },
-  "apiFields": {
-    "operator": "Verband Region Rhein-Neckar",
-    "estimatedCompletionDate": "2030-12"
-  }
+  "apiFields": {}
 }

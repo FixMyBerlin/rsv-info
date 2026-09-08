@@ -1,0 +1,37 @@
+{
+  "syncedAt": "2026-09-08T15:10:44.488Z",
+  "geometrySource": "rsv-d",
+  "projectSlugs": ["rsv-d"],
+  "subsectionSlugs": ["bw-25"],
+  "geometry": {
+    "id": "25-baden-wuerttemberg",
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "rsv-d-bw-25:Vorzugstrasse:route",
+          "id_rsv": "25-baden-wuerttemberg",
+          "variant": "Vorzugstrasse",
+          "discarded": false,
+          "kind": "route",
+          "detail_level": "approximated"
+        },
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+            [
+              [7.865893, 48.334514],
+              [7.77868, 48.248055],
+              [7.7662, 48.188787],
+              [7.785525, 48.148967],
+              [7.845645, 48.117106]
+            ]
+          ]
+        }
+      }
+    ],
+    "bbox": [7.7662, 48.117106, 7.865893, 48.334514]
+  },
+  "apiFields": {}
+}
