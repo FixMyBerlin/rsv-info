@@ -1,27 +1,13 @@
-import fs from 'node:fs/promises'
-import path from 'node:path'
+import { Glob } from 'bun'
 
-const allowedFile = path.join('src', 'lib', 'steckbrief', 'getSteckbriefTeasers.ts')
+const allowedFile = 'src/lib/steckbrief/getSteckbriefTeasers.ts'
 const directLoad = /get(?:Collection|Entry)\(\s*['"]steckbriefe['"]/
 
-async function walk(dir: string): Promise<string[]> {
-  const entries = await fs.readdir(dir, { withFileTypes: true })
-  const files: string[] = []
-  for (const entry of entries) {
-    const fullPath = path.join(dir, entry.name)
-    if (entry.isDirectory()) {
-      files.push(...(await walk(fullPath)))
-      continue
-    }
-    if (/\.(ts|tsx|astro)$/.test(entry.name)) files.push(fullPath)
-  }
-  return files
-}
-
 const hits: string[] = []
-for (const file of await walk('src')) {
+
+for await (const file of new Glob('src/**/*.{ts,tsx,astro}').scan('.')) {
   if (file === allowedFile) continue
-  const source = await fs.readFile(file, 'utf8')
+  const source = await Bun.file(file).text()
   if (directLoad.test(source)) hits.push(file)
 }
 

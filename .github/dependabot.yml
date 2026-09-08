@@ -45,6 +45,7 @@ updates:
           - 'eslint*'
           - 'babel-plugin-*'
           - 'browserslist*'
+          - 'bun-types'
           - 'vite'
 
       app-dev-minor-patch:
@@ -65,6 +66,7 @@ updates:
           - 'typescript'
           - 'browserslist'
           - 'browserslist-to-esbuild'
+          - 'bun-types'
         update-types:
           - minor
           - patch
