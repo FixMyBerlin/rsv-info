@@ -21,16 +21,21 @@ export type GeometrySource = GeometrySourceNone | GeometrySourceProjects | Geome
 
 export type GeometrySourceWithData = GeometrySourceProjects | GeometrySourceRsvD
 
-export function emptyGeometrySource(): GeometrySourceNone {
-  return { discriminant: 'none', value: null }
+export function emptyGeometrySource() {
+  return { discriminant: 'none', value: null } satisfies GeometrySourceNone
 }
 
-export function hasGeometryConfig(source: GeometrySource): boolean {
-  if (source.discriminant === 'none') return false
-  return source.value.length > 0
+export function hasGeometryConfig(source: GeometrySource) {
+  switch (source.discriminant) {
+    case 'none':
+      return false
+    case 'projects':
+    case 'rsv-d':
+      return source.value.length > 0
+  }
 }
 
-export function parseGeometrySource(raw: unknown): GeometrySource {
+export function parseGeometrySource(raw: unknown) {
   const parsed = geometrySourceSchema.safeParse(raw)
   if (!parsed.success) return emptyGeometrySource()
   return parsed.data

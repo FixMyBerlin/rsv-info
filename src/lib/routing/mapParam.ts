@@ -27,11 +27,11 @@ export const roundPositionForURL = (lat: number, lng: number, zoom: number) => {
   return [lat, lng, zoom] as const
 }
 
-export const parseMapParam = (query: string): MapParam | null => {
+export const parseMapParam = (query: string) => {
   const parsed = MapParamSchema.safeParse(query.split('/'))
   if (!parsed.success) return null
   const [zoom, lat, lng] = parsed.data
-  return { zoom, lat, lng }
+  return { zoom, lat, lng } satisfies MapParam
 }
 
 export const serializeMapParam = ({ zoom, lat, lng }: MapParam) => {

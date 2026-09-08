@@ -2,15 +2,15 @@ import { execFile } from 'node:child_process'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import { promisify } from 'node:util'
-import { geometrySchema, type GeometrySchema } from '../../types/geometry'
+import { geometrySchema } from '../../types/geometry'
 
 const execFileAsync = promisify(execFile)
 
-function idToGeometryFilename(pageId: string): string {
+function idToGeometryFilename(pageId: string) {
   return `${pageId.replace(/-/g, '_')}.json`
 }
 
-async function readLegacyGeometryFile(filePath: string): Promise<GeometrySchema | null> {
+async function readLegacyGeometryFile(filePath: string) {
   try {
     const raw = await fs.readFile(filePath, 'utf8')
     return geometrySchema.parse(JSON.parse(raw))
@@ -19,10 +19,7 @@ async function readLegacyGeometryFile(filePath: string): Promise<GeometrySchema 
   }
 }
 
-async function readLegacyGeometryFromGit(
-  pageId: string,
-  gitRef = 'HEAD',
-): Promise<GeometrySchema | null> {
+async function readLegacyGeometryFromGit(pageId: string, gitRef = 'HEAD') {
   const gitPath = `src/content/geometries/${idToGeometryFilename(pageId)}`
   try {
     const { stdout } = await execFileAsync('git', ['show', `${gitRef}:${gitPath}`], {
@@ -36,10 +33,7 @@ async function readLegacyGeometryFromGit(
 }
 
 /** Loads legacy GeoJSON from disk or git (when files were removed from the working tree). */
-export async function loadLegacyGeometry(
-  pageId: string,
-  options?: { gitRef?: string },
-): Promise<GeometrySchema | null> {
+export async function loadLegacyGeometry(pageId: string, options?: { gitRef?: string }) {
   const filePath = path.join(process.cwd(), 'src/content/geometries', idToGeometryFilename(pageId))
   const fromDisk = await readLegacyGeometryFile(filePath)
   if (fromDisk) return fromDisk

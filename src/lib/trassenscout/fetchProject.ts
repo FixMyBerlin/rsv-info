@@ -43,10 +43,7 @@ export type TrassenscoutFeatureCollection = z.infer<typeof trassenscoutFeatureCo
 
 const fetchCache = new Map<string, TrassenscoutFeatureCollection>()
 
-async function fetchProjectFromBase(
-  slug: string,
-  baseUrl: string,
-): Promise<TrassenscoutFeatureCollection> {
+async function fetchProjectFromBase(slug: string, baseUrl: string) {
   const res = await fetch(trassenscoutProjectApiUrl(slug, baseUrl))
   if (!res.ok) {
     throw new Error(
@@ -63,10 +60,7 @@ async function fetchProjectFromBase(
   return parsed.data
 }
 
-export async function fetchTrassenscoutProject(
-  slug: string,
-  options?: { bypassCache?: boolean },
-): Promise<TrassenscoutFeatureCollection> {
+export async function fetchTrassenscoutProject(slug: string, options?: { bypassCache?: boolean }) {
   if (!options?.bypassCache) {
     const cached = fetchCache.get(slug)
     if (cached) return cached
@@ -78,12 +72,10 @@ export async function fetchTrassenscoutProject(
   return data
 }
 
-export async function fetchAndMergeTrassenscoutProjects(
-  slugs: string[],
-): Promise<TrassenscoutFeatureCollection> {
+export async function fetchAndMergeTrassenscoutProjects(slugs: string[]) {
   const collections = await Promise.all(slugs.map((slug) => fetchTrassenscoutProject(slug)))
   return {
     type: 'FeatureCollection',
     features: collections.flatMap((collection) => collection.features),
-  }
+  } satisfies TrassenscoutFeatureCollection
 }

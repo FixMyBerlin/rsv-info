@@ -97,9 +97,7 @@ export const SteckbriefPage = ({ steckbrief, description }: Props) => {
             )}
             <TrassenscoutApiFields apiFields={apiFields} />
           </div>
-          <SteckbriefPageFeedbackCallout
-            geometryBbox={geometry.bbox as [number, number, number, number]}
-          />
+          <SteckbriefPageFeedbackCallout geometryBbox={geometry.bbox} />
           <div className="mt-12">
             <a href="/datenschutz/">Datenschutz</a>
             {' - '}

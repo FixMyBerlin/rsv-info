@@ -11,7 +11,7 @@ type FeatureWithApiProps = {
 function aggregateField(
   features: FeatureWithApiProps[],
   key: 'operator' | 'status' | 'estimatedCompletionDateString',
-): string | undefined {
+) {
   const values = new Set<string>()
 
   for (const feature of features) {
@@ -25,7 +25,7 @@ function aggregateField(
   return [...values].sort((a, b) => a.localeCompare(b, 'de')).join(', ')
 }
 
-export function aggregateApiFields(features: FeatureWithApiProps[]): SteckbriefApiFields {
+export function aggregateApiFields(features: FeatureWithApiProps[]) {
   const operator = aggregateField(features, 'operator')
   const status = aggregateField(features, 'status')
   const estimatedCompletionDate = aggregateField(features, 'estimatedCompletionDateString')
@@ -34,5 +34,5 @@ export function aggregateApiFields(features: FeatureWithApiProps[]): SteckbriefA
     ...(operator ? { operator } : {}),
     ...(status ? { status } : {}),
     ...(estimatedCompletionDate ? { estimatedCompletionDate } : {}),
-  }
+  } satisfies SteckbriefApiFields
 }

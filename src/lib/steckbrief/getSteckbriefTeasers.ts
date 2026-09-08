@@ -15,12 +15,12 @@ export type SteckbriefCollectionEntry = Omit<SteckbriefEditorialEntry, 'data'> &
   }
 }
 
-export function isVisibleSteckbrief(entry: SteckbriefEditorialEntry): boolean {
+export function isVisibleSteckbrief(entry: SteckbriefEditorialEntry) {
   return entry.data.visibility !== 'hidden'
 }
 
 /** Site pages must use this so `visibility: hidden` never gets a route or list card. */
-export async function getPublishedSteckbriefe(): Promise<SteckbriefCollectionEntry[]> {
+export async function getPublishedSteckbriefe() {
   const entries = await getCollection('steckbriefe', isVisibleSteckbrief)
 
   return entries.map((entry) => {
@@ -34,7 +34,7 @@ export async function getPublishedSteckbriefe(): Promise<SteckbriefCollectionEnt
         geometry: trassenscout?.geometry ?? emptyGeometry(slug),
         apiFields: trassenscout?.apiFields ?? {},
       },
-    }
+    } satisfies SteckbriefCollectionEntry
   })
 }
 
@@ -44,7 +44,7 @@ export type FederalStateFilterOption = {
   path: string
 }
 
-function federalStateSlug(state: string): string {
+function federalStateSlug(state: string) {
   return state
     .toLocaleLowerCase()
     .replace(/ä/g, 'ae')
@@ -53,9 +53,7 @@ function federalStateSlug(state: string): string {
     .replace(/ß/g, 'ss')
 }
 
-export function getFederalStateFilterData(
-  entries: SteckbriefCollectionEntry[],
-): FederalStateFilterOption[] {
+export function getFederalStateFilterData(entries: SteckbriefCollectionEntry[]) {
   const stateCount: Record<string, number> = {}
 
   const addState = (state?: string) => {
@@ -73,26 +71,32 @@ export function getFederalStateFilterData(
 
   const options = Object.keys(stateCount)
     .sort()
-    .map((state) => ({
-      state,
-      count: stateCount[state],
-      path: `/steckbriefe/${federalStateSlug(state)}`,
-    }))
+    .map(
+      (state) =>
+        ({
+          state,
+          count: stateCount[state],
+          path: `/steckbriefe/${federalStateSlug(state)}`,
+        }) satisfies FederalStateFilterOption,
+    )
 
   return [{ state: 'Alle anzeigen', count: entries.length, path: '/steckbriefe' }, ...options]
 }
 
-export function getSteckbriefTeasers(entries: SteckbriefCollectionEntry[]): SteckbriefTeaser[] {
-  return entries.map((entry) => ({
-    slug: entry.data.slug,
-    title: entry.data.title,
-    ref: entry.data.ref,
-    state: entry.data.state,
-    staticMap: getSteckbriefStaticMapImage(entry.data.slug, entry.data.geometry),
-  }))
+export function getSteckbriefTeasers(entries: SteckbriefCollectionEntry[]) {
+  return entries.map(
+    (entry) =>
+      ({
+        slug: entry.data.slug,
+        title: entry.data.title,
+        ref: entry.data.ref,
+        state: entry.data.state,
+        staticMap: getSteckbriefStaticMapImage(entry.data.slug, entry.data.geometry),
+      }) satisfies SteckbriefTeaser,
+  )
 }
 
-export function getSteckbriefDisplayTitle(entry: SteckbriefCollectionEntry['data']): string {
+export function getSteckbriefDisplayTitle(entry: SteckbriefCollectionEntry['data']) {
   if (entry.ref && Number.isNaN(parseFloat(entry.ref))) {
     return `${entry.ref}: ${entry.title}`
   }

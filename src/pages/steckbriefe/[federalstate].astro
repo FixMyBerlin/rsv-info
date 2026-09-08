@@ -16,7 +16,7 @@ export async function getStaticPaths() {
     new Set(
       steckbriefe.flatMap((entry) => [entry.data.fromFederalState, entry.data.toFederalState]),
     ),
-  ).filter(Boolean) as string[]
+  ).filter((state): state is string => Boolean(state))
 
   return uniqueFederalStates.map((state) => {
     const filtered = steckbriefe.filter(

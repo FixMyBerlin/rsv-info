@@ -7,6 +7,7 @@ import {
   hasGeometryConfig,
   parseGeometrySource,
   type GeometrySource,
+  type GeometrySourceProjects,
 } from './geometrySource'
 
 const STECKBRIEFE_DIR = 'src/data/steckbriefe'
@@ -27,21 +28,20 @@ export type SteckbriefRef = {
   geometrySource: GeometrySource
 }
 
-export function parseSteckbriefFrontmatter(content: string): SteckbriefFrontmatter {
+export function parseSteckbriefFrontmatter(content: string) {
   const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---/)
-  if (!match) return {}
+  const empty: SteckbriefFrontmatter = {}
+  if (!match) return empty
   const parsed = steckbriefFrontmatterSchema.safeParse(parseYaml(match[1]))
-  return parsed.success ? parsed.data : {}
+  return parsed.success ? parsed.data : empty
 }
 
 /** Frontmatter is authoritative; Keystatic `createReader()` can omit `visibility`. */
-export function parseSteckbriefVisibility(
-  frontmatter: SteckbriefFrontmatter,
-): 'visible' | 'hidden' {
+export function parseSteckbriefVisibility(frontmatter: SteckbriefFrontmatter) {
   return frontmatter.visibility === 'hidden' ? 'hidden' : 'visible'
 }
 
-function geometrySourceFromFrontmatter(frontmatter: SteckbriefFrontmatter): GeometrySource {
+function geometrySourceFromFrontmatter(frontmatter: SteckbriefFrontmatter) {
   if (frontmatter.geometrySource !== undefined) {
     return parseGeometrySource(frontmatter.geometrySource)
   }
@@ -49,13 +49,13 @@ function geometrySourceFromFrontmatter(frontmatter: SteckbriefFrontmatter): Geom
   // Legacy: flat trassenscoutProjectSlugs array
   const legacy = projectSlugListSchema.safeParse(frontmatter.trassenscoutProjectSlugs)
   if (legacy.success && legacy.data.length > 0) {
-    return { discriminant: 'projects', value: legacy.data }
+    return { discriminant: 'projects', value: legacy.data } satisfies GeometrySourceProjects
   }
 
   return emptyGeometrySource()
 }
 
-export async function listSteckbriefe(cwd = process.cwd()): Promise<SteckbriefRef[]> {
+export async function listSteckbriefe(cwd = process.cwd()) {
   const dir = path.join(cwd, STECKBRIEFE_DIR)
   const entries = await fs.readdir(dir, { withFileTypes: true })
   const result: SteckbriefRef[] = []
@@ -81,6 +81,6 @@ export async function listSteckbriefe(cwd = process.cwd()): Promise<SteckbriefRe
   return result
 }
 
-export function listSteckbriefeWithGeometry(steckbriefe: SteckbriefRef[]): SteckbriefRef[] {
+export function listSteckbriefeWithGeometry(steckbriefe: SteckbriefRef[]) {
   return steckbriefe.filter((entry) => hasGeometryConfig(entry.geometrySource))
 }

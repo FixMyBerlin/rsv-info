@@ -1,9 +1,7 @@
 import type { TrassenscoutFeatureCollection } from './fetchProject'
 
 /** Unique, German-sorted RSV-D `subsectionSlug` values from a Trassenscout FeatureCollection. */
-export function rsvDSubsectionSlugsFromCollection(
-  collection: TrassenscoutFeatureCollection,
-): string[] {
+export function rsvDSubsectionSlugsFromCollection(collection: TrassenscoutFeatureCollection) {
   const slugs = new Set<string>()
   for (const feature of collection.features) {
     const subsectionSlug = feature.properties.subsectionSlug?.trim()
@@ -18,7 +16,7 @@ export function rsvDSubsectionSlugsFromCollection(
 export function filterCollectionByRsvDSubsections(
   collection: TrassenscoutFeatureCollection,
   selected: Iterable<string>,
-): TrassenscoutFeatureCollection {
+) {
   const selectedSet = selected instanceof Set ? selected : new Set(selected)
   return {
     type: 'FeatureCollection',
@@ -26,5 +24,5 @@ export function filterCollectionByRsvDSubsections(
       const subsectionSlug = feature.properties.subsectionSlug?.trim()
       return subsectionSlug !== undefined && selectedSet.has(subsectionSlug)
     }),
-  }
+  } satisfies TrassenscoutFeatureCollection
 }

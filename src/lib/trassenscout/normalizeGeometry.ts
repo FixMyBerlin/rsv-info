@@ -2,21 +2,17 @@ import { bbox } from '@turf/turf'
 import type { GeometryFeature, GeometrySchema } from '../../types/geometry'
 import type { TrassenscoutFeatureCollection } from './fetchProject'
 
-function getLineCoordinates(
-  geometry: GeoJSON.LineString | GeoJSON.MultiLineString,
-): GeoJSON.Position[][] {
+function getLineCoordinates(geometry: GeoJSON.LineString | GeoJSON.MultiLineString) {
   if (geometry.type === 'MultiLineString') return geometry.coordinates
   return [geometry.coordinates]
 }
 
-function getPolygonCoordinates(
-  geometry: GeoJSON.Polygon | GeoJSON.MultiPolygon,
-): GeoJSON.Position[][][] {
+function getPolygonCoordinates(geometry: GeoJSON.Polygon | GeoJSON.MultiPolygon) {
   if (geometry.type === 'MultiPolygon') return geometry.coordinates
   return [geometry.coordinates]
 }
 
-function getVariant(status: string | null | undefined): GeometryFeature['properties']['variant'] {
+function getVariant(status: string | null | undefined) {
   const normalized = status?.trim().toLowerCase() ?? ''
   return normalized === 'variant' ? 'Alternative' : 'Vorzugstrasse'
 }
@@ -84,7 +80,7 @@ function addAreaFeature(
 export function normalizeTrassenscoutGeometry(
   collection: TrassenscoutFeatureCollection,
   pageId: string,
-): GeometrySchema {
+) {
   const grouped = new Map<string, GeometryFeature>()
 
   collection.features.forEach((feature, index) => {
@@ -94,36 +90,34 @@ export function normalizeTrassenscoutGeometry(
     const variant = getVariant(feature.properties.status)
     const geometry = feature.geometry
 
-    if (geometry.type === 'LineString' || geometry.type === 'MultiLineString') {
-      const groupKey = `${featureId}:${variant}:line`
-      addLineFeature(
-        grouped,
-        groupKey,
-        `${groupKey}`,
-        pageId,
-        variant,
-        getLineCoordinates(geometry),
-      )
-      return
+    switch (geometry.type) {
+      case 'LineString':
+      case 'MultiLineString': {
+        const groupKey = `${featureId}:${variant}:line`
+        addLineFeature(
+          grouped,
+          groupKey,
+          `${groupKey}`,
+          pageId,
+          variant,
+          getLineCoordinates(geometry),
+        )
+        return
+      }
+      case 'Polygon':
+      case 'MultiPolygon': {
+        const groupKey = `${featureId}:${variant}:area`
+        addAreaFeature(
+          grouped,
+          groupKey,
+          `${groupKey}`,
+          pageId,
+          variant,
+          getPolygonCoordinates(geometry),
+        )
+        return
+      }
     }
-
-    if (geometry.type === 'Polygon' || geometry.type === 'MultiPolygon') {
-      const groupKey = `${featureId}:${variant}:area`
-      addAreaFeature(
-        grouped,
-        groupKey,
-        `${groupKey}`,
-        pageId,
-        variant,
-        getPolygonCoordinates(geometry),
-      )
-      return
-    }
-
-    const unsupported: never = geometry
-    throw new Error(
-      `Unsupported geometry type "${unsupported}" for ${featureId} (expected LineString, MultiLineString, Polygon, or MultiPolygon)`,
-    )
   })
 
   const features = [...grouped.values()]
@@ -136,6 +130,6 @@ export function normalizeTrassenscoutGeometry(
     id: pageId,
     type: 'FeatureCollection',
     features,
-    bbox: bounds,
-  }
+    bbox: bounds as GeometrySchema['bbox'],
+  } satisfies GeometrySchema
 }

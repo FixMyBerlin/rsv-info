@@ -32,7 +32,7 @@ export const geometryFeatureSchema = z.object({
     multiLineStringGeometrySchema,
     multiPolygonGeometrySchema,
   ]),
-  bbox: z.array(z.number()).min(4).max(4).optional(),
+  bbox: z.tuple([z.number(), z.number(), z.number(), z.number()]).optional(),
 })
 
 export const geometrySchema = z.object({
@@ -45,7 +45,7 @@ export const geometrySchema = z.object({
     .optional(),
   type: z.literal('FeatureCollection'),
   features: z.array(geometryFeatureSchema),
-  bbox: z.array(z.number()).min(4).max(4),
+  bbox: z.tuple([z.number(), z.number(), z.number(), z.number()]),
 })
 
 export type GeometrySchema = z.infer<typeof geometrySchema>

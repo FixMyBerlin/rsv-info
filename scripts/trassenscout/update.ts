@@ -22,7 +22,7 @@ async function ensureCacheDir(cwd: string) {
   await fs.mkdir(path.join(cwd, TRASSENSCOUT_CACHE_DIR), { recursive: true })
 }
 
-async function pruneOrphanCacheFiles(cwd: string, activeSlugs: Set<string>): Promise<number> {
+async function pruneOrphanCacheFiles(cwd: string, activeSlugs: Set<string>) {
   const cacheDir = path.join(cwd, TRASSENSCOUT_CACHE_DIR)
   let entries: string[]
   try {
@@ -46,11 +46,13 @@ async function pruneOrphanCacheFiles(cwd: string, activeSlugs: Set<string>): Pro
   return removed
 }
 
-function describeGeometrySource(source: GeometrySourceWithData): string {
-  if (source.discriminant === 'projects') {
-    return `projects: ${source.value.join(', ')}`
+function describeGeometrySource(source: GeometrySourceWithData) {
+  switch (source.discriminant) {
+    case 'projects':
+      return `projects: ${source.value.join(', ')}`
+    case 'rsv-d':
+      return `rsv-d: ${source.value.join(', ')}`
   }
-  return `rsv-d: ${source.value.join(', ')}`
 }
 
 async function main() {

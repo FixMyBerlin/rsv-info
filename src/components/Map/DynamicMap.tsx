@@ -24,7 +24,7 @@ export const DynamicMap = ({ geometry }: Props) => {
   // the factor by which the bbox is scaled to the viewport
   const scaleFactor = 4
   const bboxView = geometry.bbox
-    ? bbox(transformScale(bboxPolygon(square(geometry.bbox as BBox2d)), scaleFactor))
+    ? bbox(transformScale(bboxPolygon(square(geometry.bbox)), scaleFactor))
     : undefined
 
   const [selected] = useState(undefined)
@@ -53,7 +53,7 @@ export const DynamicMap = ({ geometry }: Props) => {
         zoom: mapParam.zoom,
       }
     : {
-        bounds: geometry.bbox as BBox2d,
+        bounds: geometry.bbox,
         fitBoundsOptions: {
           padding: 20,
         },
