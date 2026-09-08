@@ -10,7 +10,7 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { navigate } from 'astro:transitions/client'
 import { clsx } from 'clsx'
 import { Fragment } from 'react'
-import type { FederalStateFilterOption } from 'src/lib/steckbrief/getSteckbriefTeasers'
+import type { FederalStateFilterOption } from 'src/types/steckbrief'
 
 type Props = {
   currentFilter: string

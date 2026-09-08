@@ -11,11 +11,11 @@ import { DynamicMap } from './DynamicMap'
 import { Legend } from './Legend'
 
 type Props = {
-  slug: string
   geometry: GeometrySchema
+  staticMap: string
 }
 
-export const RSVMap = ({ slug, geometry }: Props) => {
+export const RSVMap = ({ geometry, staticMap }: Props) => {
   const filteredGeometry = {
     ...geometry,
     features: geometry.features.filter((feature) => !feature.properties.discarded),
@@ -41,7 +41,7 @@ export const RSVMap = ({ slug, geometry }: Props) => {
 
           <div className={clsx(navHeightClasssName, 'hidden lg:block')} />
           {consent && <DynamicMap geometry={filteredGeometry} />}
-          <img src={`/rsv-map-images/${slug}.png`} alt="Statische Karte" />
+          <img src={staticMap} alt="Statische Karte" />
         </>
       ) : (
         <div className="flex h-full min-h-[280px] w-full items-center justify-center px-6 text-center text-sm text-slate-500">

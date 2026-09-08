@@ -113,12 +113,33 @@ async function writeFallbackImage(): Promise<void> {
   console.log(`Fallback image saved to ${outputFilePath}`)
 }
 
-const processSteckbrief = async (slug: string) => {
+type ProcessResult = 'saved' | 'skipped' | 'error'
+
+const MAP_IMAGE_CONCURRENCY = 4
+
+async function mapPool<T, R>(items: T[], concurrency: number, fn: (item: T) => Promise<R>) {
+  const results: R[] = Array.from({ length: items.length })
+  let nextIndex = 0
+
+  async function worker() {
+    while (nextIndex < items.length) {
+      const index = nextIndex
+      nextIndex += 1
+      results[index] = await fn(items[index])
+    }
+  }
+
+  const workerCount = Math.min(concurrency, items.length)
+  await Promise.all(Array.from({ length: workerCount }, () => worker()))
+  return results
+}
+
+const processSteckbrief = async (slug: string): Promise<ProcessResult> => {
   try {
     const data = loadGeometryFromCache(slug)
     if (!data || !hasRenderableMapFeatures(data)) {
       console.log(`Skipping ${slug}: no Trassenscout geometry`)
-      return false
+      return 'skipped'
     }
 
     const filteredData = {
@@ -140,21 +161,21 @@ const processSteckbrief = async (slug: string) => {
     fs.writeFileSync(outputFilePath, buffer)
 
     console.log(`Image saved to ${outputFilePath}`)
-    return true
+    return 'saved'
   } catch (error) {
     console.error(`Error processing ${slug}:`, error)
-    return false
+    return 'error'
   }
 }
 
-function pruneStaleMapImages(activeSlugs: Set<string>, slugsWithGeometry: Set<string>) {
+function pruneStaleMapImages(activeSlugs: Set<string>, slugsWithoutGeometry: Set<string>) {
   if (!fs.existsSync(outputDir)) return
 
   for (const file of fs.readdirSync(outputDir)) {
     if (!file.endsWith('.png') || file === FALLBACK_FILENAME) continue
 
     const slug = file.replace(/\.png$/, '')
-    if (!activeSlugs.has(slug) || !slugsWithGeometry.has(slug)) {
+    if (!activeSlugs.has(slug) || slugsWithoutGeometry.has(slug)) {
       const filePath = path.resolve(outputDir, file)
       fs.unlinkSync(filePath)
       console.log(`Removed stale map image ${filePath}`)
@@ -172,15 +193,18 @@ const processFiles = async () => {
 
   await writeFallbackImage()
 
-  const results = await Promise.all(slugs.map((slug: string) => processSteckbrief(slug)))
-  const slugsWithGeometry = new Set<string>(
-    slugs.filter((_: string, index: number) => results[index]),
+  const results = await mapPool(slugs, MAP_IMAGE_CONCURRENCY, processSteckbrief)
+  const slugsWithoutGeometry = new Set<string>(
+    slugs.filter((_: string, index: number) => results[index] === 'skipped'),
   )
-  pruneStaleMapImages(new Set<string>(slugs), slugsWithGeometry)
+  pruneStaleMapImages(new Set<string>(slugs), slugsWithoutGeometry)
 
-  const withoutGeometry = slugs.length - slugsWithGeometry.size
+  const saved = results.filter((result) => result === 'saved').length
+  const failed = results.filter((result) => result === 'error').length
+  const skipped = slugsWithoutGeometry.size
   console.log(
-    `${slugsWithGeometry.size} route map image(s) saved, ${withoutGeometry} steckbrief(e) use fallback`,
+    `${saved} route map image(s) saved, ${skipped} steckbrief(e) use fallback` +
+      (failed ? `, ${failed} failed (existing images kept)` : ''),
   )
 }
 

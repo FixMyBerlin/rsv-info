@@ -30,7 +30,7 @@ One-off commands run directly. Use kebab-case, no colon:
 
 `type-check` runs `type-check:astro` (`astro check`) and then `type-check:tsc` with `--sequential`. Keep TypeScript 6 until `astro check` supports TypeScript 7.
 
-`lint` and `lint-check` each have two steps: oxlint and `lint:steckbriefe` / `lint-check:steckbriefe` (guards that pages load Steckbriefe only through `getPublishedSteckbriefe()`).
+`lint` and `lint-check` each have three steps: oxlint, `lint:steckbriefe` / `lint-check:steckbriefe` (pages load Steckbriefe only through `getPublishedSteckbriefe()`), and `lint:map-images` / `lint-check:map-images` (every Trassenscout geometry has a committed `public/rsv-map-images/<slug>.png`).
 
 ## Prefer parallel groups over `&&`
 

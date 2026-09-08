@@ -1,11 +1,11 @@
 import { NuqsAdapter } from 'nuqs/adapters/react'
 import type { ReactNode } from 'react'
 import { LayoutSteckbrief } from 'src/layouts/LayoutSteckbrief'
-import type { SteckbriefCollectionEntry } from 'src/lib/steckbrief/getSteckbriefTeasers'
+import type { PublishedSteckbriefData } from 'src/types/steckbrief'
 import { SteckbriefPage } from './SteckbriefPage'
 
 type Props = {
-  steckbrief: SteckbriefCollectionEntry['data']
+  steckbrief: PublishedSteckbriefData
   children?: ReactNode
 }
 

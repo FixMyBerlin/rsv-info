@@ -39,6 +39,16 @@ export type SteckbriefEntry = {
   apiFields: SteckbriefApiFields
 }
 
+export type PublishedSteckbriefData = SteckbriefEntry & {
+  staticMap: string
+}
+
+export type FederalStateFilterOption = {
+  state: string
+  count: number
+  path: string
+}
+
 export type SteckbriefTeaser = {
   slug: string
   title: string

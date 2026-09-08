@@ -2,14 +2,13 @@ import Link from '@components/links/Link'
 import { RSVMap } from '@components/Map/RsvMap'
 import { H1, H4 } from '@components/Text/Headings'
 import type { ReactNode } from 'react'
-import type { SteckbriefCollectionEntry } from 'src/lib/steckbrief/getSteckbriefTeasers'
-import { getSteckbriefDisplayTitle } from 'src/lib/steckbrief/getSteckbriefTeasers'
-import type { SteckbriefApiFields } from 'src/types/steckbrief'
+import { getSteckbriefDisplayTitle } from 'src/lib/steckbrief/getSteckbriefDisplayTitle'
+import type { PublishedSteckbriefData, SteckbriefApiFields } from 'src/types/steckbrief'
 import { SteckbriefPageFeedbackCallout } from './SteckbriefPageFeedbackCallout'
 import { SteckbriefPageProgressBar } from './SteckbriefPageProgressBar'
 
 type Props = {
-  steckbrief: SteckbriefCollectionEntry['data']
+  steckbrief: PublishedSteckbriefData
   description?: ReactNode
 }
 
@@ -98,11 +97,6 @@ export const SteckbriefPage = ({ steckbrief, description }: Props) => {
             <TrassenscoutApiFields apiFields={apiFields} />
           </div>
           <SteckbriefPageFeedbackCallout geometryBbox={geometry.bbox} />
-          <div className="mt-12">
-            <a href="/datenschutz/">Datenschutz</a>
-            {' - '}
-            <a href="/impressum/">Impressum</a>
-          </div>
           {steckbrief.lastCheckedDate ? (
             <p className="mt-4 text-right text-sm text-slate-500">
               Zuletzt geprüft am{' '}
@@ -114,10 +108,15 @@ export const SteckbriefPage = ({ steckbrief, description }: Props) => {
               })}
             </p>
           ) : null}
+          <div className="mt-12">
+            <a href="/datenschutz/">Datenschutz</a>
+            {' - '}
+            <a href="/impressum/">Impressum</a>
+          </div>
         </div>
       </div>
       <div className="mx-auto flex aspect-square max-h-[860px] translate-x-1 overflow-hidden overscroll-none md:max-w-[860px] lg:fixed lg:bottom-0 lg:left-0 lg:z-10 lg:mx-0 lg:h-full lg:max-h-full lg:w-[48vw] lg:max-w-[48vw] lg:items-stretch">
-        <RSVMap slug={steckbrief.slug} geometry={geometry} />
+        <RSVMap geometry={geometry} staticMap={steckbrief.staticMap} />
       </div>
     </div>
   )

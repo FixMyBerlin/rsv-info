@@ -1,6 +1,10 @@
 import { getCollection, type CollectionEntry } from 'astro:content'
 import type { GeometrySchema } from '../../types/geometry'
-import type { SteckbriefApiFields, SteckbriefTeaser } from '../../types/steckbrief'
+import type {
+  FederalStateFilterOption,
+  SteckbriefApiFields,
+  SteckbriefTeaser,
+} from '../../types/steckbrief'
 import { emptyGeometry } from '../trassenscout/emptyGeometry'
 import { getSteckbriefStaticMapImage } from './staticMapImage'
 
@@ -11,6 +15,7 @@ export type SteckbriefCollectionEntry = Omit<SteckbriefEditorialEntry, 'data'> &
     slug: string
     geometry: GeometrySchema
     apiFields: SteckbriefApiFields
+    staticMap: string
   }
 }
 
@@ -29,22 +34,18 @@ export async function getPublishedSteckbriefe() {
   return entries.map((entry) => {
     const slug = entry.data.slug ?? entry.id
     const trassenscout = cacheBySlug.get(slug)
+    const geometry = trassenscout?.geometry ?? emptyGeometry(slug)
     return {
       ...entry,
       data: {
         ...entry.data,
         slug,
-        geometry: trassenscout?.geometry ?? emptyGeometry(slug),
+        geometry,
         apiFields: trassenscout?.apiFields ?? {},
+        staticMap: getSteckbriefStaticMapImage(slug, geometry),
       },
     } satisfies SteckbriefCollectionEntry
   })
-}
-
-export type FederalStateFilterOption = {
-  state: string
-  count: number
-  path: string
 }
 
 function federalStateSlug(state: string) {
@@ -94,14 +95,7 @@ export function getSteckbriefTeasers(entries: SteckbriefCollectionEntry[]) {
         title: entry.data.title,
         ref: entry.data.ref,
         state: entry.data.state,
-        staticMap: getSteckbriefStaticMapImage(entry.data.slug, entry.data.geometry),
+        staticMap: entry.data.staticMap,
       }) satisfies SteckbriefTeaser,
   )
-}
-
-export function getSteckbriefDisplayTitle(entry: SteckbriefCollectionEntry['data']) {
-  if (entry.ref && Number.isNaN(parseFloat(entry.ref))) {
-    return `${entry.ref}: ${entry.title}`
-  }
-  return entry.title
 }

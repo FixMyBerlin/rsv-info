@@ -5,7 +5,6 @@ import { Radschnellweg } from '@components/SteckbriefPage/Radschnellweg'
 import { render } from 'astro:content'
 import Layout from 'src/layouts/Layout.astro'
 import { getPublishedSteckbriefe } from 'src/lib/steckbrief/getSteckbriefTeasers'
-import { getSteckbriefStaticMapImage } from 'src/lib/steckbrief/staticMapImage'
 
 export async function getStaticPaths() {
   const steckbriefe = await getPublishedSteckbriefe()
@@ -21,7 +20,7 @@ const { Content: DescriptionContent } = await render(entry)
 
 <Layout
   title={'Steckbrief ' + entry.data.title}
-  image={getSteckbriefStaticMapImage(entry.data.slug, entry.data.geometry)}
+  image={entry.data.staticMap}
   description={entry.data.title}
 >
   <Radschnellweg client:load steckbrief={entry.data}>
