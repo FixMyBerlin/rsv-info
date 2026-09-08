@@ -1,31 +1,37 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect, useRef } from 'react'
 
 type Props = {
-  data: any
+  data: ArrayBuffer | globalThis.Uint8Array
 }
 
 export const Uint8Array = ({ data }: Props) => {
-  const imageUrl = useMemo(() => {
-    const blob = new Blob([data], { type: 'image/jpeg' })
-    return URL.createObjectURL(blob)
-  }, [data])
+  const imageRef = useRef<HTMLImageElement>(null)
 
-  useEffect(() => {
-    return () => {
-      URL.revokeObjectURL(imageUrl)
-    }
-  }, [imageUrl])
+  useEffect(
+    function createImageObjectUrl() {
+      const blob = new Blob([new globalThis.Uint8Array(data)], { type: 'image/jpeg' })
+      const objectUrl = URL.createObjectURL(blob)
+      const image = imageRef.current
+      if (image) {
+        image.src = objectUrl
+      }
+      return function revokeImageObjectUrl() {
+        URL.revokeObjectURL(objectUrl)
+      }
+    },
+    [data],
+  )
 
-  return imageUrl ? (
+  return (
     <img
+      ref={imageRef}
       style={{
         height: '100%',
         width: '100%',
         overflow: 'hidden',
         objectFit: 'cover',
       }}
-      src={imageUrl}
       alt="Image Preview"
     />
-  ) : null
+  )
 }
