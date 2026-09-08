@@ -117,12 +117,12 @@ A **weekly GitHub Action** (Monday 06:00 Europe/Berlin) runs the same sync on `m
 | Blog posts Planung / Kommunikation                                                                                | **Keystatic → Blog collections**                                                                                                                 |
 | Page URL slug                                                                                                     | **Keystatic → Steckbriefe → Slug** (keep existing ids for URL continuity)                                                                        |
 | Add a new Steckbrief                                                                                              | **Keystatic → Steckbriefe → New entry** (set geometry source when geometry exists)                                                               |
-| Hide a Steckbrief from the website                                                                                | **Keystatic → Sichtbarkeit → Versteckt** — stays in the CMS; omitted from lists and detail pages after the next deploy                           |
+| Hide a Steckbrief from the website                                                                                | **Keystatic → Sichtbarkeit → Versteckt**. Stays in the CMS; omitted from lists and detail pages after the next deploy                           |
 | Delete a Steckbrief                                                                                               | Keystatic entry menu → delete (removes `src/data/steckbriefe/<slug>/`). Prefer **Versteckt** unless it is a duplicate                            |
 
 On **production**, rebuild after Keystatic or checked-in Trassenscout data changes. Use `bun run build` (no live Trassenscout fetch). Netlify uses `bun run build:netlify`.
 
-**Visibility** is read from the MDX frontmatter (`visibility: hidden | visible`). Hidden entries are still synced from Trassenscout (cache + map images) but [`getPublishedSteckbriefe()`](../src/lib/steckbrief/getSteckbriefTeasers.ts) omits them, so they have no list card and no detail route. The Keystatic list always shows them so editors can switch them back.
+Visibility is read from the MDX frontmatter (`visibility: hidden | visible`). Hidden entries are still synced from Trassenscout (cache + map images) but [`getPublishedSteckbriefe()`](../src/lib/steckbrief/getSteckbriefTeasers.ts) omits them, so they have no list card and no detail route. The Keystatic list always shows them so editors can switch them back.
 
 ## Trassenscout API fields
 

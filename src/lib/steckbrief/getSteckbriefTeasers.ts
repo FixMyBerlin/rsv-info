@@ -19,7 +19,7 @@ export function isVisibleSteckbrief(entry: SteckbriefEditorialEntry) {
   return entry.data.visibility !== 'hidden'
 }
 
-/** Site pages must use this so `visibility: hidden` never gets a route or list card. */
+/** Do not call `getCollection('steckbriefe')` from pages. Hidden entries (`visibility: hidden`) must not get a route or list card. */
 export async function getPublishedSteckbriefe() {
   const entries = await getCollection('steckbriefe', isVisibleSteckbrief)
 

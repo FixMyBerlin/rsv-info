@@ -32,7 +32,6 @@ export function parseSteckbriefFrontmatter(content: string) {
   return parsed.success ? parsed.data : empty
 }
 
-/** Frontmatter is authoritative; Keystatic `createReader()` can omit `visibility`. */
 export function parseSteckbriefVisibility(frontmatter: SteckbriefFrontmatter) {
   return frontmatter.visibility === 'hidden' ? 'hidden' : 'visible'
 }

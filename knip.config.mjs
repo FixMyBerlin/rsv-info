@@ -1,7 +1,7 @@
 /** @type {import('knip').KnipConfig} */
 // Astro site. Content collections are data, not import graphs.
-// Unused exports/types stay off until the public module surface is cleaned up;
-// files + declared deps stay strict (phantom-dep catch).
+// Unused exports and types stay off until unused-export cleanup.
+// `files` and declared deps stay strict (phantom-dep catch).
 export default {
   entry: ['keystatic.config.ts', 'keystatic/**/*.{ts,tsx}'],
   ignore: ['src/data/**'],

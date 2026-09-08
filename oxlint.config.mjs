@@ -1,7 +1,7 @@
 import { defineConfig } from 'oxlint'
 
-// FMC default — Astro site (no TanStack Start jsPlugins).
-// ignorePatterns: keep generated/tool paths in sync with oxfmt.config.mjs.
+// Astro site. No TanStack Start jsPlugins.
+// Keep ignorePatterns in sync with oxfmt.config.mjs for generated and tool paths.
 export default defineConfig({
   plugins: ['eslint', 'typescript', 'unicorn', 'oxc', 'react'],
   options: { typeAware: true },

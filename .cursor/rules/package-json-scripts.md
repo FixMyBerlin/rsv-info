@@ -1,10 +1,8 @@
 ---
-description: package.json scripts naming — colons only for parallel/sequential groups
+description: package.json scripts naming. Colons only for parallel/sequential groups
 globs: **/package.json
 alwaysApply: false
 ---
-
-<!-- Copy to .cursor/rules/package-json-scripts.md on scaffold — @see tech-stack references/package-json-scripts.md -->
 
 # package.json script names
 
@@ -18,7 +16,7 @@ Use `:` only for **step scripts** that belong to a group run via `bun run --para
 
 ## Standalone scripts (no `:`)
 
-One-off commands run directly — use kebab-case, no colon:
+One-off commands run directly. Use kebab-case, no colon:
 
 - `type-check`, `lint-check`, `format-check`, `check-pre-push`
 
@@ -26,11 +24,11 @@ One-off commands run directly — use kebab-case, no colon:
 
 | Script | Role |
 | --- | --- |
-| `check` | finish-work — `--parallel type-check lint format test-run knip-warn` |
-| `check-ci` | Read-only CI — `--parallel type-check lint-check format-check test-run` |
-| `check-pre-push` | husky — parallel leaves including strict `knip` |
+| `check` | finish-work. `--parallel type-check lint format test-run knip-warn` |
+| `check-ci` | Read-only CI. `--parallel type-check lint-check format-check test-run` |
+| `check-pre-push` | husky. Parallel leaves including strict `knip` |
 
-This is an Astro site: `type-check` runs `type-check:astro` (`astro check`) then `type-check:tsc`. Keep TypeScript 6 until Astro supports TypeScript 7.
+This site is Astro, so `type-check` runs `type-check:astro` (`astro check`) then `type-check:tsc`. Keep TypeScript 6 until Astro supports TypeScript 7.
 
 ## Prefer parallel groups over `&&`
 

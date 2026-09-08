@@ -1,7 +1,7 @@
 import { defineConfig } from 'oxfmt'
 
-// FMC default — keep ignorePatterns in sync with oxlint.config.mjs where they overlap.
-// .astro / .mdx: oxfmt Astro support is pending; Keystatic markdown must not be rewritten.
+// Keep ignorePatterns in sync with oxlint.config.mjs where they overlap.
+// oxfmt cannot format .astro yet. Do not rewrite Keystatic markdown (.md / .mdx).
 export default defineConfig({
   useTabs: false,
   tabWidth: 2,
