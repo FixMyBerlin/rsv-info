@@ -1,6 +1,6 @@
 import Link from '@components/links/Link'
 import { RSVMap } from '@components/Map/RsvMap'
-import { H1, H4 } from '@components/Text'
+import { H1, H4 } from '@components/Text/Headings'
 import type { ReactNode } from 'react'
 import type { SteckbriefCollectionEntry } from 'src/lib/steckbrief/getSteckbriefTeasers'
 import { getSteckbriefDisplayTitle } from 'src/lib/steckbrief/getSteckbriefTeasers'
