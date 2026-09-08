@@ -12,6 +12,7 @@ import Map, {
 } from 'react-map-gl/maplibre'
 import { useMapParam } from 'src/lib/routing/useMapParam'
 import type { GeometrySchema } from 'src/types/geometry'
+import { sortFeaturesForMap } from 'src/utils/geometryKind'
 import { maptilerBaseUrl, maptilerKey } from 'src/utils/mapTiler.const'
 import { RSVSegment } from './RsvSegment'
 
@@ -75,7 +76,7 @@ export const DynamicMap = ({ geometry }: Props) => {
         }}
       >
         <FullscreenControl style={{ background: '#D9D9D9' }} />
-        {geometry.features.map((feature, index) => (
+        {sortFeaturesForMap(geometry.features).map((feature, index) => (
           <RSVSegment
             key={`${feature.properties.id}-${feature.geometry.type}-${index}`}
             feature={feature}

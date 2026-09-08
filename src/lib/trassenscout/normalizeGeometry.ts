@@ -1,5 +1,6 @@
 import { bbox } from '@turf/bbox'
-import type { GeometryFeature, GeometrySchema } from '../../types/geometry'
+import type { GeometryFeature, GeometryKind, GeometrySchema } from '../../types/geometry'
+import { isCorridorStatus } from '../../utils/geometryKind'
 import type { TrassenscoutFeatureCollection } from './fetchProject'
 
 function getLineCoordinates(geometry: GeoJSON.LineString | GeoJSON.MultiLineString) {
@@ -17,12 +18,19 @@ function getVariant(status: string | null | undefined) {
   return normalized === 'variant' ? 'Alternative' : 'Vorzugstrasse'
 }
 
+function detailLevelForKind(kind: GeometryKind): GeometryFeature['properties']['detail_level'] {
+  if (kind === 'corridor') return 'corridor'
+  if (kind === 'area') return 'area'
+  return 'approximated'
+}
+
 function addLineFeature(
   grouped: Map<string, GeometryFeature>,
   groupKey: string,
   featureId: string,
   pageId: string,
   variant: GeometryFeature['properties']['variant'],
+  kind: Extract<GeometryKind, 'route' | 'corridor'>,
   lines: GeoJSON.Position[][],
 ) {
   const existing = grouped.get(groupKey)
@@ -38,7 +46,8 @@ function addLineFeature(
       id_rsv: pageId,
       variant,
       discarded: false,
-      detail_level: 'approximated',
+      kind,
+      detail_level: detailLevelForKind(kind),
     },
     geometry: {
       type: 'MultiLineString',
@@ -68,7 +77,8 @@ function addAreaFeature(
       id_rsv: pageId,
       variant,
       discarded: false,
-      detail_level: 'corridor',
+      kind: 'area',
+      detail_level: 'area',
     },
     geometry: {
       type: 'MultiPolygon',
@@ -93,13 +103,15 @@ export function normalizeTrassenscoutGeometry(
     switch (geometry.type) {
       case 'LineString':
       case 'MultiLineString': {
-        const groupKey = `${featureId}:${variant}:line`
+        const kind = isCorridorStatus(feature.properties.status) ? 'corridor' : 'route'
+        const groupKey = `${featureId}:${variant}:${kind}`
         addLineFeature(
           grouped,
           groupKey,
           `${groupKey}`,
           pageId,
           variant,
+          kind,
           getLineCoordinates(geometry),
         )
         return

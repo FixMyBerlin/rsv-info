@@ -1,17 +1,17 @@
 import type { GeometryFeature, GeometrySchema } from '../../src/types/geometry'
+import { geometryKind, sortFeaturesForMap } from '../../src/utils/geometryKind'
+import { mapPaint, segmentColor } from '../../src/utils/mapColors'
 
 const pkg = require('@googlemaps/polyline-codec')
 const { simplify } = require('@turf/simplify')
 const fs = require('fs')
 const path = require('path')
-const { segmentColor } = require('./mapColors.js')
 const { maptilerBaseUrl, maptilerKey } = require('./mapTiler.const.js')
 const { encode } = pkg
 
 const outputDir = path.resolve('public/rsv-map-images')
 const steckbriefeDir = path.resolve('src/data/steckbriefe')
 const FALLBACK_FILENAME = 'fallback.png'
-const FILL_OPACITY = 0.35
 
 function hexToRgba(hex: string, alpha: number): string {
   const normalized = hex.replace('#', '')
@@ -24,8 +24,15 @@ function hexToRgba(hex: string, alpha: number): string {
 function buildLinePaths(feature: GeometryFeature): string[] {
   if (feature.geometry.type !== 'MultiLineString') return []
 
-  const stroke = segmentColor(feature.properties)
-  const paint = { width: 5, stroke, fill: 'none' }
+  const kind = geometryKind(feature)
+  const color = segmentColor(feature.properties)
+  const isCorridor = kind === 'corridor'
+  const stroke = isCorridor ? hexToRgba(color, mapPaint.corridorLineOpacity) : color
+  const paint = {
+    width: isCorridor ? mapPaint.corridorLineWidth : mapPaint.routeLineWidth,
+    stroke,
+    fill: 'none',
+  }
   const paintArr = Object.keys(paint).map((key) => `${key}:${paint[key as keyof typeof paint]}`)
 
   return feature.geometry.coordinates
@@ -37,8 +44,8 @@ function buildPolygonPaths(feature: GeometryFeature): string[] {
   if (feature.geometry.type !== 'MultiPolygon') return []
 
   const stroke = segmentColor(feature.properties)
-  const fill = hexToRgba(stroke, FILL_OPACITY)
-  const paint = { width: 2, stroke, fill }
+  const fill = hexToRgba(stroke, mapPaint.areaFillOpacity)
+  const paint = { width: mapPaint.areaOutlineWidth, stroke, fill }
   const paintArr = Object.keys(paint).map((key) => `${key}:${paint[key as keyof typeof paint]}`)
 
   return feature.geometry.coordinates.flatMap((polygon) =>
@@ -69,7 +76,7 @@ const staticMapRequest = (
   const url = new URL(`${maptilerBaseUrl}/static/${bbox.toString()}/${dims}`)
   url.searchParams.append('key', maptilerKey)
   url.searchParams.append('attribution', '0')
-  features.forEach((feature) => {
+  sortFeaturesForMap(features).forEach((feature) => {
     buildPaths(feature).forEach((path: string) => {
       url.searchParams.append('path', path)
     })

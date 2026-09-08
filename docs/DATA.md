@@ -155,7 +155,7 @@ These are **two separate fields** with no automatic mapping between them.
 **Trassenscout `status`** is used in two ways:
 
 1. **Projektdetails** — aggregated across all linked subsections and shown as **Status (Teilabschnitt)** (see table above)
-2. **Map styling** — only when `status === "variant"`: line is drawn as an alternative route (see below). All other TS status values do not affect map colours.
+2. **Map styling** — `status === "variant"` draws an alternative route; `status === "Korridor"` (or `"corridor"`) draws a wide transparent corridor line. Polygon subsections are **Fläche** regardless of status.
 
 Saving in Keystatic updates `state` immediately on rebuild. Trassenscout `status` only changes after `bun run trassenscout:sync` (or the weekly PR).
 
@@ -170,9 +170,21 @@ When Trassenscout returns `status: "variant"` on a feature, it is treated as an 
 - The value `variant` may still appear in **Status (Teilabschnitt)** if Trassenscout returns it
 - All other statuses: `variant: 'Vorzugstrasse'`, `discarded: false`
 
+### Map styling: Korridor and Fläche
+
+Trassenscout's public GeoJSON does not send a dedicated corridor flag. Kind is derived from geometry and subsection status:
+
+| Source | Internal `kind` | Map |
+| --- | --- | --- |
+| `Polygon` / `MultiPolygon` | `area` | Semi-transparent fill (**Fläche**) |
+| `LineString` with `status` `Korridor` or `corridor` | `corridor` | Wide, rounded, semi-transparent line (**Korridor**) |
+| Other `LineString` | `route` | 4px route (Vorzugstrasse / Variante) |
+
+The map legend only lists **Korridor** or **Fläche** when that kind is present on the Steckbrief. To show a line as a corridor, set the Trassenscout subsection status title to `Korridor` (same pattern as `variant`).
+
 ### Geometry normalization
 
-- `LineString` → `MultiLineString` for MapLibre
+- `LineString` → `MultiLineString` for MapLibre; `Polygon` → `MultiPolygon`
 - Feature id: `${projectSlug}-${subsectionSlug}`
 - `bbox` computed via `@turf/bbox`
 

@@ -36,7 +36,7 @@ export const RSVMap = ({ slug, geometry }: Props) => {
             <div className="mr-2 mb-2 translate-x-1 translate-y-1 text-xs">
               <Attribution />
             </div>
-            <Legend />
+            <Legend features={filteredGeometry.features} />
           </div>
 
           <div className={clsx(navHeightClasssName, 'hidden lg:block')} />

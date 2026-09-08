@@ -12,9 +12,12 @@ const multiPolygonGeometrySchema = z.object({
   coordinates: z.array(z.array(z.array(positionSchema).min(4))),
 })
 
+export const geometryKindSchema = z.enum(['route', 'corridor', 'area'])
+
 export const geometryFeaturePropertiesSchema = z.object({
   id: z.string(),
-  detail_level: z.enum(['exact', 'rough', 'corridor', 'approximated']).optional(),
+  kind: geometryKindSchema.optional(),
+  detail_level: z.enum(['exact', 'rough', 'corridor', 'approximated', 'area']).optional(),
   state: z.enum(['idea', 'agreement_process', 'planning', 'in_progress', 'done']).optional(),
   id_rsv: z.string().optional(),
   planning_phase: z.any().optional(),
@@ -50,3 +53,4 @@ export const geometrySchema = z.object({
 
 export type GeometrySchema = z.infer<typeof geometrySchema>
 export type GeometryFeature = z.infer<typeof geometryFeatureSchema>
+export type GeometryKind = z.infer<typeof geometryKindSchema>

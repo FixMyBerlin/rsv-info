@@ -6,6 +6,14 @@ export const mapColors = {
   discarded: '#5B5C5D',
 }
 
+export const mapPaint = {
+  routeLineWidth: 4,
+  corridorLineWidth: 18,
+  corridorLineOpacity: 0.4,
+  areaFillOpacity: 0.35,
+  areaOutlineWidth: 2,
+}
+
 export const segmentColor = (properties: GeometrySchema['features'][number]['properties']) => {
   if (properties.discarded) return mapColors.discarded
   if (properties.variant === 'Vorzugstrasse') return mapColors.main

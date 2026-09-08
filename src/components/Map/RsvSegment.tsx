@@ -1,27 +1,27 @@
 import type { FillLayerSpecification, LineLayerSpecification } from 'maplibre-gl'
 import { Layer, Source } from 'react-map-gl/maplibre'
 import type { GeometryFeature } from 'src/types/geometry'
-import { segmentColor } from 'src/utils/mapColors'
+import { geometryKind } from 'src/utils/geometryKind'
+import { mapPaint, segmentColor } from 'src/utils/mapColors'
 
 type Props = {
   feature: GeometryFeature
 }
 
-const FILL_OPACITY = 0.35
-
 export const RSVSegment = ({ feature }: Props) => {
   const { id } = feature.properties
   const color = segmentColor(feature.properties)
   const geojson = feature as GeoJSON.Feature
+  const kind = geometryKind(feature)
 
-  if (feature.geometry.type === 'MultiPolygon') {
+  if (kind === 'area') {
     const fillPaint: FillLayerSpecification['paint'] = {
       'fill-color': color,
-      'fill-opacity': FILL_OPACITY,
+      'fill-opacity': mapPaint.areaFillOpacity,
     }
     const outlinePaint: LineLayerSpecification['paint'] = {
       'line-color': color,
-      'line-width': 2,
+      'line-width': mapPaint.areaOutlineWidth,
     }
 
     return (
@@ -36,10 +36,17 @@ export const RSVSegment = ({ feature }: Props) => {
     'line-cap': 'round',
     'line-join': 'round',
   }
-  const paint: LineLayerSpecification['paint'] = {
-    'line-color': color,
-    'line-width': 4,
-  }
+  const paint: LineLayerSpecification['paint'] =
+    kind === 'corridor'
+      ? {
+          'line-color': color,
+          'line-width': mapPaint.corridorLineWidth,
+          'line-opacity': mapPaint.corridorLineOpacity,
+        }
+      : {
+          'line-color': color,
+          'line-width': mapPaint.routeLineWidth,
+        }
 
   return (
     <Source id={id} type="geojson" data={geojson}>
