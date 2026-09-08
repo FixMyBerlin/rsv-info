@@ -12,7 +12,8 @@
     "paths": {
       "@components/*": ["./src/components/*"],
       "@assets/*": ["./src/assets/*"],
-      "src/*": ["./src/*"]
+      "src/*": ["./src/*"],
+      "cms/*": ["./cms/*"]
     }
   },
   "exclude": ["dist"]

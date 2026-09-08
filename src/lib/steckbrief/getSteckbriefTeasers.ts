@@ -2,7 +2,6 @@ import { getCollection, type CollectionEntry } from 'astro:content'
 import type { GeometrySchema } from '../../types/geometry'
 import type { SteckbriefApiFields, SteckbriefTeaser } from '../../types/steckbrief'
 import { emptyGeometry } from '../trassenscout/emptyGeometry'
-import { loadTrassenscoutCacheSync } from '../trassenscout/loadTrassenscoutCache'
 import { getSteckbriefStaticMapImage } from './staticMapImage'
 
 type SteckbriefEditorialEntry = CollectionEntry<'steckbriefe'>
@@ -21,11 +20,15 @@ export function isVisibleSteckbrief(entry: SteckbriefEditorialEntry) {
 
 /** Do not call `getCollection('steckbriefe')` from pages. Hidden entries (`visibility: hidden`) must not get a route or list card. */
 export async function getPublishedSteckbriefe() {
-  const entries = await getCollection('steckbriefe', isVisibleSteckbrief)
+  const [entries, caches] = await Promise.all([
+    getCollection('steckbriefe', isVisibleSteckbrief),
+    getCollection('trassenscout'),
+  ])
+  const cacheBySlug = new Map(caches.map((cache) => [cache.id, cache.data]))
 
   return entries.map((entry) => {
     const slug = entry.data.slug ?? entry.id
-    const trassenscout = loadTrassenscoutCacheSync(slug)
+    const trassenscout = cacheBySlug.get(slug)
     return {
       ...entry,
       data: {

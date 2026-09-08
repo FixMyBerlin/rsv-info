@@ -11,6 +11,7 @@ flowchart LR
   updateScript["trassenscout:update script"]
   tsApi["Trassenscout API"]
   json["src/data/trassenscout/*.json"]
+  globCache["glob() trassenscout JSON"]
   mapScript["generate:map-images"]
   pngs["public/rsv-map-images/"]
   join["getPublishedSteckbriefe()"]
@@ -22,7 +23,7 @@ flowchart LR
   updateScript --> tsApi
   updateScript --> json
   json --> mapScript --> pngs
-  json --> join
+  json --> globCache --> join
   pngs --> ui
   join --> ui
   keystaticField --> tsApi
@@ -36,7 +37,7 @@ flowchart LR
 | **`public/rsv-map-images/`**                          | Static map PNGs for social sharing / teasers (regenerated on sync); `fallback.png` for Steckbriefe without Trassenscout geometry |
 | **Trassenscout `rsv-d` JSON API**                     | Live subsection list for the Keystatic RSV-D picker (fetched in the browser)                                                     |
 
-Keystatic writes Steckbrief MDX; Astro loads it with `glob()` (same pattern as blog posts and the RSV landing pages). [`getPublishedSteckbriefe()`](../src/lib/steckbrief/getSteckbriefTeasers.ts) skips `visibility: hidden` and attaches the matching checked-in Trassenscout JSON (`src/data/trassenscout/{slug}.json`) when it exists. Steckbriefe with `geometrySource: none` (or empty selection) are still published with an empty map. The sync script lives in [`scripts/trassenscout/update.ts`](../scripts/trassenscout/update.ts).
+Keystatic writes Steckbrief MDX; Astro loads it with `glob()` (same pattern as blog posts). Checked-in Trassenscout JSON is a separate Content Layer collection (`trassenscout`), not a Keystatic collection. [`getPublishedSteckbriefe()`](../src/lib/steckbrief/getSteckbriefTeasers.ts) skips `visibility: hidden` and joins the matching cache entry by slug. Steckbriefe with `geometrySource: none` (or empty selection) are still published with an empty map. The sync script lives in [`scripts/trassenscout/update.ts`](../scripts/trassenscout/update.ts).
 
 ## Geometry source (`geometrySource`)
 

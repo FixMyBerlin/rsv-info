@@ -2,10 +2,6 @@
 export const prerender = true
 //
 import Divider from '@components/Divider.astro'
-import ImageDouble from '@components/ImageComponents/ImageDouble.astro'
-import ImageSingleHorizontal from '@components/ImageComponents/ImageSingleHorizontal.astro'
-import ImageSingleSquare from '@components/ImageComponents/ImageSingleSquare.astro'
-import ImageSingleVertical from '@components/ImageComponents/ImageSingleVertical.astro'
 import PageHeader from '@components/PageHeader.astro'
 import ProseMarkdown from '@components/ProseMarkdown.astro'
 import Section from '@components/Section.astro'
@@ -13,7 +9,8 @@ import { H4 } from '@components/Text/Headings'
 import { buttonStylesForWhiteLinkElement } from '@components/links/styles'
 import { ArrowUpRightIcon } from '@heroicons/react/20/solid'
 import { Image } from 'astro:assets'
-import { getCollection, render } from 'astro:content'
+import { getCollection } from 'astro:content'
+import MdxBlogContent from 'cms/components/MdxBlogContent.astro'
 import LayoutPage from 'src/layouts/LayoutPage.astro'
 
 export async function getStaticPaths() {
@@ -27,7 +24,6 @@ export async function getStaticPaths() {
 const { entry } = Astro.props
 const { title, subTitle, type, date, preview, teaserImage, imageCopyright, uploads } = entry.data
 
-const { Content } = await render(entry)
 ---
 
 <LayoutPage title={`${type}: ${title}`} noindex={preview}>
@@ -61,14 +57,7 @@ const { Content } = await render(entry)
       }
     </figure>
     <ProseMarkdown>
-      <Content
-        components={{
-          ImageSingleHorizontal,
-          ImageSingleSquare,
-          ImageSingleVertical,
-          ImageDouble,
-        }}
-      />
+      <MdxBlogContent entry={entry} />
     </ProseMarkdown>
     {
       !!uploads?.length && (
