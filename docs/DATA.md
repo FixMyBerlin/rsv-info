@@ -173,6 +173,6 @@ When Trassenscout returns `status: "variant"` on a feature, it is treated as an 
 
 - `LineString` → `MultiLineString` for MapLibre
 - Feature id: `${projectSlug}-${subsectionSlug}`
-- `bbox` computed via `@turf/turf`
+- `bbox` computed via `@turf/bbox`
 
 If no cache file exists for a Steckbrief with configured geometry, the build continues with an empty map and a warning in the build log.

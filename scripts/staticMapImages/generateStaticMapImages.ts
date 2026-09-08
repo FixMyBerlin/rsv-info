@@ -1,13 +1,12 @@
 import type { GeometryFeature, GeometrySchema } from '../../src/types/geometry'
 
 const pkg = require('@googlemaps/polyline-codec')
-const turf = require('@turf/turf')
+const { simplify } = require('@turf/simplify')
 const fs = require('fs')
 const path = require('path')
 const { segmentColor } = require('./mapColors.js')
 const { maptilerBaseUrl, maptilerKey } = require('./mapTiler.const.js')
 const { encode } = pkg
-const { simplify } = turf
 
 const outputDir = path.resolve('public/rsv-map-images')
 const steckbriefeDir = path.resolve('src/data/steckbriefe')

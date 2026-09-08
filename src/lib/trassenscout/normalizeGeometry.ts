@@ -1,4 +1,4 @@
-import { bbox } from '@turf/turf'
+import { bbox } from '@turf/bbox'
 import type { GeometryFeature, GeometrySchema } from '../../types/geometry'
 import type { TrassenscoutFeatureCollection } from './fetchProject'
 
