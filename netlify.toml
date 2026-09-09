@@ -8,4 +8,4 @@ ignore = "if [ \"$CONTEXT\" = \"deploy-preview\" ] && echo \"$HEAD$BRANCH\" | gr
 
 [build.environment]
 BUN_VERSION = "1.4.0"
-BUN_FLAGS = "--frozen-lockfile"
+BUN_FLAGS = "--frozen-lockfile --config=bunfig.netlify.toml"

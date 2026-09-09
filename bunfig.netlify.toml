@@ -1,0 +1,4 @@
+# Netlify `bun install` (`BUN_FLAGS --config` in netlify.toml).
+# Replaces bunfig.toml so isolated linker / globalStore stay local-only.
+# NFT cannot copy packages that realpath outside the project into the SSR zip.
+[install]

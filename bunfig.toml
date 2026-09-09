@@ -9,7 +9,8 @@ minimumReleaseAgeExcludes = [
   "@typescript/typescript-linux-x64",
 ]
 
-# Global virtual store — requires isolated linker. Reinstall after changing: rm -rf node_modules && bun install
+# Isolated linker + global virtual store — local/dev only (Netlify: bunfig.netlify.toml).
+# Reinstall after changing: rm -rf node_modules && bun install
 # Vite dev: server.fs.allow in astro.config.mjs (packages realpath into ~/.bun/install/cache/links/).
 # Phantom deps inside third-party packages: trustedDependencies / patch — @see tech-stack bun-install.md
 # @see https://bun.com/docs/pm/global-store
