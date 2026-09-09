@@ -96,7 +96,7 @@ export const SteckbriefPage = ({ steckbrief, description }: Props) => {
             )}
             <TrassenscoutApiFields apiFields={apiFields} />
           </div>
-          <SteckbriefPageFeedbackCallout geometryBbox={geometry.bbox} />
+          <SteckbriefPageFeedbackCallout displayTitle={displayTitle} />
           {steckbrief.lastCheckedDate ? (
             <p className="mt-4 text-right text-sm text-slate-500">
               Zuletzt geprüft am{' '}

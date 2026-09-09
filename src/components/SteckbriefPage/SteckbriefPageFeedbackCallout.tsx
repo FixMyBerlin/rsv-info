@@ -1,17 +1,15 @@
 import Link from '@components/links/Link'
-import { mapParamFromBbox } from 'src/lib/routing/mapParamFromBbox'
-import { useMapParam } from 'src/lib/routing/useMapParam'
-import { buildRsvDFeedbackUrl } from 'src/lib/trassenscout/feedbackUrl'
-
-type BBox2d = [number, number, number, number]
 
 type Props = {
-  geometryBbox: BBox2d
+  displayTitle: string
 }
 
-export const SteckbriefPageFeedbackCallout = ({ geometryBbox }: Props) => {
-  const { mapParam } = useMapParam()
-  const feedbackUrl = buildRsvDFeedbackUrl(mapParam ?? mapParamFromBbox(geometryBbox))
+const FEEDBACK_EMAIL = 'feedback@fixmycity.de'
+
+export const SteckbriefPageFeedbackCallout = ({ displayTitle }: Props) => {
+  const mailtoHref = `mailto:${FEEDBACK_EMAIL}?subject=${encodeURIComponent(
+    `Änderungen Radschnellverbindung ${displayTitle}`,
+  )}`
 
   return (
     <aside className="mt-10 rounded-xl border border-emerald-500/70 bg-emerald-50 px-6 py-6 sm:px-8 sm:py-7">
@@ -19,14 +17,17 @@ export const SteckbriefPageFeedbackCallout = ({ geometryBbox }: Props) => {
         Sind die Daten veraltet oder der Streckenverlauf nicht korrekt?
       </p>
       <p className="mt-3 text-base text-slate-800">
-        Wenn Sie in der Verwaltung oder Planung dieser Radschnellverbindung tätig sind, können Sie
-        uns über unser <strong>Trassenscout-Formular</strong> die aktuellen Informationen schnell
-        und einfach melden. Wir aktualisieren kostenlos für Sie die Veränderungen zu Geometrien und
-        Planungsstand direkt im System. Die Änderungen sind spätestens nach zwei Wochen für alle
-        sichtbar.
+        Wenn Sie in der zuständigen Verwaltung arbeiten oder an der Planung dieser
+        Radschnellverbindung beteiligt sind, können Sie uns aktuelle Informationen einfach per
+        E-Mail an{' '}
+        <Link href={mailtoHref} className="font-medium">
+          {FEEDBACK_EMAIL}
+        </Link>{' '}
+        mitteilen. Wir aktualisieren die Geometrien und den Planungsstand kostenlos für Sie direkt
+        im System. Die Änderungen sind spätestens nach zwei Wochen für alle sichtbar.
       </p>
       <div className="mt-5">
-        <Link blank button="dark" href={feedbackUrl}>
+        <Link button="dark" href={mailtoHref}>
           Änderungen melden
         </Link>
       </div>
