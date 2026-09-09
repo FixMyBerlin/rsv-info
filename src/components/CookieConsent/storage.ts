@@ -1,17 +1,28 @@
 const OPTIN_KEY = 'fmc.maptiler-optin'
 
-export const getOptInCookie = () => {
+const canUseLocalStorage = () =>
+  typeof window !== 'undefined' && typeof localStorage?.getItem === 'function'
+
+export const getOptInCookie = (): boolean | null => {
+  if (!canUseLocalStorage()) {
+    return null
+  }
   switch (localStorage.getItem(OPTIN_KEY)) {
     case 'true':
       return true
     case 'false':
       return false
+    case null:
+      return null
     default:
       return null
   }
 }
 
 export const setOptInCookie = (val: boolean) => {
+  if (!canUseLocalStorage()) {
+    return
+  }
   if (val == null) {
     localStorage.removeItem(OPTIN_KEY)
   }

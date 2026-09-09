@@ -11,7 +11,7 @@ We can not import SVGs as components (yet: https://github.com/withastro/roadmap/
 
 ## General process
 
-1.  When you added or updated a svg file in the src/assets/svg folder run `npm run generateTsxFromSvg`
+1.  When you added or updated a svg file in the src/assets/svg folder run `bun run generateTsxFromSvg`
 
 ## What it does
 

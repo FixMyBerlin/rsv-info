@@ -5,7 +5,7 @@ export const markdownProseClasses = clsx(
   'max-w-full', // We always wrap Prose in Section containers, which bring their own max-width
   'text-black',
   'prose-headings:font-bold', // headings font weight
-  'prose-headings:mb-2 prose-headings:mt-1', // headings spacing
+  'prose-headings:mt-1 prose-headings:mb-2', // headings spacing
   'prose-h1:font-serif prose-h1:text-xl md:prose-h1:text-3xl', // h1 size --> entspricht H3 (nicht markdown)
   'prose-h2: prose-h2:text-base md:prose-h2:text-lg', // h2 size
   'prose-h3:text-sm md:prose-h3:text-base', // h3 size

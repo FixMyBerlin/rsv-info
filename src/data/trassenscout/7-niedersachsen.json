@@ -1,0 +1,44 @@
+{
+  "syncedAt": "2026-09-08T15:10:38.053Z",
+  "geometrySource": "rsv-d",
+  "projectSlugs": ["rsv-d"],
+  "subsectionSlugs": ["ni-7"],
+  "geometry": {
+    "id": "7-niedersachsen",
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "rsv-d-ni-7:Vorzugstrasse:route",
+          "id_rsv": "7-niedersachsen",
+          "variant": "Vorzugstrasse",
+          "discarded": false,
+          "kind": "route",
+          "detail_level": "approximated"
+        },
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+            [
+              [10.747852, 52.420854],
+              [10.747064, 52.401872],
+              [10.720673, 52.368694],
+              [10.692311, 52.366049],
+              [10.683646, 52.344637],
+              [10.66592, 52.327307],
+              [10.650951, 52.31551],
+              [10.623772, 52.310453],
+              [10.61747, 52.301301],
+              [10.589502, 52.284918],
+              [10.543809, 52.276242],
+              [10.518993, 52.274796]
+            ]
+          ]
+        }
+      }
+    ],
+    "bbox": [10.518993, 52.274796, 10.747852, 52.420854]
+  },
+  "apiFields": {}
+}

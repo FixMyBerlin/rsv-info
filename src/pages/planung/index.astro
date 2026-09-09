@@ -33,7 +33,7 @@ const sortedplanningposts = planningposts
             const { title, type, teaserText, teaserImage, imageCopyright } = post.data
             return (
               <TeaserCard
-                href={post.slug}
+                href={`/planung/${post.id}`}
                 title={title}
                 description={teaserText}
                 tag={type}

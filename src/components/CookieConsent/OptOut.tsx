@@ -1,11 +1,10 @@
 import Link from '@components/links/Link'
-import { useEffect, useState } from 'react'
+import { buttonStylesForGreenLinkElement } from '@components/links/styles'
+import { useState } from 'react'
 import { getOptInCookie, setOptInCookie } from './storage'
 
-export const OptOut: React.FC = () => {
-  const [consent, setConsent] = useState(false)
-  // @ts-expect-error todo
-  useEffect(() => setConsent(getOptInCookie()))
+export const OptOut = () => {
+  const [consent, setConsent] = useState<boolean | null>(() => getOptInCookie())
   if (!consent) {
     if (consent == null) {
       return (
@@ -20,11 +19,12 @@ export const OptOut: React.FC = () => {
           Sie haben die{' '}
           <Link href="https://www.maptiler.com/privacy-policy/">
             Datenschutzbestimmungen von MapTiler
-          </Link>
+          </Link>{' '}
           und diese Datenschutzerklärung abgelehnt. Hier können Sie zustimmen.
         </p>
         <button
-          // outline todo buttonstyles
+          className={buttonStylesForGreenLinkElement}
+          type="button"
           onClick={() => {
             setConsent(true)
             setOptInCookie(true)
@@ -45,7 +45,8 @@ export const OptOut: React.FC = () => {
         und dieser Datenschutzerklärung zugestimmt. Hier können Sie Ihre Einwilligung zurückziehen.
       </p>
       <button
-        // outline todo buttonstyles
+        className={buttonStylesForGreenLinkElement}
+        type="button"
         onClick={() => {
           setConsent(false)
           setOptInCookie(false)

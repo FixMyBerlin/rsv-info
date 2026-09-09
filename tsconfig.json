@@ -1,6 +1,7 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
+    "types": ["bun-types", "web"],
     "jsx": "react-jsx",
     "jsxImportSource": "react",
     "plugins": [
@@ -9,10 +10,11 @@
       }
     ],
     "verbatimModuleSyntax": true,
-    "baseUrl": ".",
     "paths": {
-      "@components/*": ["src/components/*"],
-      "@assets/*": ["src/assets/*"]
+      "@components/*": ["./src/components/*"],
+      "@assets/*": ["./src/assets/*"],
+      "src/*": ["./src/*"],
+      "cms/*": ["./cms/*"]
     }
   },
   "exclude": ["dist"]

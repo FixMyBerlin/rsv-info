@@ -1,0 +1,36 @@
+{
+  "syncedAt": "2026-09-08T15:10:42.454Z",
+  "geometrySource": "rsv-d",
+  "projectSlugs": ["rsv-d"],
+  "subsectionSlugs": ["he-frm4"],
+  "geometry": {
+    "id": "frm4-hessen",
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "rsv-d-he-frm4:Vorzugstrasse:route",
+          "id_rsv": "frm4-hessen",
+          "variant": "Vorzugstrasse",
+          "discarded": false,
+          "kind": "route",
+          "detail_level": "approximated"
+        },
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+            [
+              [8.5018, 50.143796],
+              [8.528319, 50.13359],
+              [8.537789, 50.149333],
+              [8.569823, 50.143505]
+            ]
+          ]
+        }
+      }
+    ],
+    "bbox": [8.5018, 50.13359, 8.569823, 50.149333]
+  },
+  "apiFields": {}
+}

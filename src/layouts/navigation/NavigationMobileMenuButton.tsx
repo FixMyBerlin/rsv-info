@@ -3,7 +3,7 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/20/solid'
 
 type Props = { open: boolean }
 
-export const NavigationMobileMenuButton: React.FC<Props> = ({ open }) => {
+export const NavigationMobileMenuButton = ({ open }: Props) => {
   return (
     <div className="mr-1 flex items-center md:hidden">
       <DisclosureButton className="inline-flex items-center justify-center rounded-md p-2 text-slate-400 hover:bg-gray-100 hover:text-slate-500 focus:ring-2 focus:ring-emerald-400 focus:outline-hidden focus:ring-inset">

@@ -7,7 +7,7 @@ type Props = {
 
 const progressStates = ['idea', 'agreement_process', 'planning', 'in_progress', 'done']
 
-export const SteckbriefPageProgressBar: React.FC<Props> = ({ currentState }) => {
+export const SteckbriefPageProgressBar = ({ currentState }: Props) => {
   return (
     <div className="flex h-14 min-w-full flex-row place-content-stretch pb-4 md:pr-6">
       {progressStates.map((state) => {

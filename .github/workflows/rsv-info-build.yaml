@@ -23,18 +23,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout your repository using git
-        uses: actions/checkout@v4
-      - name: Install, build, and upload your site output
-        uses: withastro/action@v2
+        uses: actions/checkout@v7
+      # Production uses `bun run build` (checked-in src/data/trassenscout/*.json only).
+      # Netlify CMS uses `bun run build:netlify` (syncs Trassenscout first) — see netlify.toml.
+      # Bun-only: withastro/action always installs Node (setup-node@v4 = Node 20 action runtime).
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: package.json
+      - name: Install dependencies
+        env:
+          HUSKY: '0'
+        run: bun install --frozen-lockfile
+      - name: Build site
         env:
           KEYSTATIC_STORAGE_KIND: "local"
           ASTRO_ENV: "production"
           ASTRO_OUTPUT_MODE: "static"
           ASTRO_USE_NETLIFY_ADAPTER: "false"
-        # with:
-        # path: . # The root location of your Astro project inside the repository. (optional)
-        # node-version: 20 # The specific version of Node that should be used to build your site. Defaults to 18. (optional)
-        # package-manager: pnpm@latest # The Node package manager that should be used to install dependencies and build your site. Automatically detected based on your lockfile. (optional)
+          HUSKY: '0'
+        run: bun run build
 
 # Please do not touch the following action
       - name: Store deployment content

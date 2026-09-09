@@ -3,47 +3,48 @@
   <h1 align="center"><a href="https://radschnellverbindungen.info/">Radschnellverbindungen.info</a></h1>
 </div>
 
-This site show's general information about Radschnellverbindungen (cycle highways) in Germany and specific about specific highways which are planned or build.
+This site explains Radschnellverbindungen (cycle highways) in Germany and publishes a Steckbrief (fact sheet) for each planned or built route.
 
-## 💾 Data
+## Data
 
-TLDR: The (geo)data is available in the [`content/geometries/`](./src/radschnellwege) folder. If you use the data, attribute it like this:
+Editors maintain Steckbrief text in Keystatic (`/keystatic` → Steckbriefe). Route geometry comes from Trassenscout and is checked in under `src/data/trassenscout/`.
 
-> © [FixMyCity](https://fixmycity.de)/[RSV-Dossier](https://github.com/FixMyBerlin/rsv-info) - [ODbL License](https://opendatacommons.org/licenses/odbl/summary/index.html)
+[docs/DATA.md](./docs/DATA.md) explains what to edit where, how the two sources are joined at build time, and how the Trassenscout sync runs (on every Netlify build, and as a weekly pull request for production).
 
-You find the geometry and meta information about the highways under [`./src/radschnellwege/`](./src/radschnellwege/). There is one file for all highways in [`meta/`](./src/radschnellwege/meta) folder containing the meta information. In the [`geometries/`](./src/content/geometries) folder, every cycle highway has one individual file. In [`./data/schema/`](./data/schema/)you'll find the schema for the json files.
+## Developing
 
-See [**README.md**](./src/radschnellwege/README.md) for more details.
+Found a bug? Open an issue.
 
-## 🧑‍💻 Developing
+### Getting started
 
-If you found any bugs feel free to create an issue.
+- Install [Bun](https://bun.sh/docs/installation). `package.json` pins `bun@1.4.0` in `packageManager`; `engines` requires 1.3.14 or newer.
+- Install dependencies: `bun install`
+- Copy `.env.example.local` to `.env`. `.env.example.netlify` and `.env.example.ionos` show the values used on Netlify and on IONOS.
+- Start the Astro dev server: `bun run dev` (or `bun start`)
+- Run `bun run` to list all scripts. Naming rules are in [.cursor/rules/package-json-scripts.md](./.cursor/rules/package-json-scripts.md).
 
-### Getting Started
+Dev: [Keystatic admin UI](http://127.0.0.1:4321/keystatic)
 
-For starting developing, the following steps could be helpful for getting started:
+### Checks
 
-- Use or nvm to install Node.js: `nvm use`
-- Install dependenices: `npm install`
-- Start astro develop service: `npm start`
-- Use `npm run` to see a list of commands
+- `bun run check` runs type check, lint (with autofix), format, tests and a non-blocking knip in parallel. Run it before committing.
+- `bun run check-ci` is the read-only variant that CI runs.
+- Husky runs `bun run check-pre-push` (same as `check`, but knip fails the push) on `git push`. If the hook fails in a GUI Git client, `bun` is probably missing from that client's `PATH`. See [Husky troubleshooting](https://typicode.github.io/husky/#/?id=command-not-found).
 
-We use husky to ensure commits don't include linting issues. If you use nvm, as suggested here, you should create a `~/.huskyrc`. See [docs](https://typicode.github.io/husky/#/?id=command-not-found)
+### Tooling notes
 
-Setup your `.env.development` file, for which you can use `.env.defaults` as a start.
+- Lint and format: [oxlint](https://oxc.rs/docs/guide/usage/linter.html) and [oxfmt](https://oxc.rs/docs/guide/usage/formatter.html). `.astro` files are linted but not formatted; oxfmt does not support Astro yet.
+- [React Compiler](https://react.dev/learn/react-compiler) runs through `babel-plugin-react-compiler` in the Astro React integration (see `astro.config.mjs`). The faster Oxc-based compiler needs `@vitejs/plugin-react` 6.1 or newer; `@astrojs/react` still ships 5.x.
+- TypeScript stays on 6.x until `astro check` supports TypeScript 7.
 
-For production you will also need a `.env.production` file. Otherwise the modules using the env variables, will not work.
+## Blog
 
-## Keystatic and Blog
+The blog on `/planung` and `/kommunikation` is edited in [Keystatic](https://keystatic.com/docs/introduction).
 
-We use [Keystatic](https://keystatic.com/docs/introduction) for the blog on /planung and /kommunikation.
-
-CMS Admin UI: [http://127.0.0.1:4321/keystatic](http://127.0.0.1:4321/keystatic)
-Homepage: [http://localhost:4321](http://localhost:4321)
+- [Keystatic CMS](https://rsv-info-cms.netlify.app/keystatic)
+- [Preview](https://rsv-info-cms.netlify.app/)
+- [Netlify admin](https://app.netlify.com/projects/rsv-info-cms/overview)
 
 ## License
 
-This project has different licenses. The code is licensed under the AGPL-3.0 License - see the [LICENSE.md](LICENSE.md) file for more information.
-It contains dependencies which have different Licenses, see [`package.json`](./package.json).
-
-For the license of the data, please see the specific [README.md](./src/radschnellwege/README.md) respectively [LICENSE](./src/radschnellwege/LICENSE) file.
+The code is licensed under AGPL-3.0, see [LICENSE](LICENSE). Dependencies have their own licenses, see [`package.json`](./package.json).

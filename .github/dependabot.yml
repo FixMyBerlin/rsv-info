@@ -1,0 +1,133 @@
+# FMC Dependabot defaults (tech-stack), tuned for this Astro site.
+# Schedule: first Friday of each month, 07:00 Europe/Berlin (private OSS / Astro).
+# See FixMyBerlin/fixmyskills tech-stack/references/dependabot.md
+#
+# Netlify Deploy Previews: skipped via netlify.toml ignore for dependabot/*
+# branches — do NOT put [skip netlify]/[skip ci] in commit-message.prefix;
+# rebase-merge would then skip Netlify builds on develop after merge.
+#
+# TypeScript stays on 6.x until astro check / the Astro language server support
+# TypeScript 7 (withastro/roadmap#1321).
+version: 2
+updates:
+  - package-ecosystem: bun
+    directories:
+      - /
+    schedule:
+      interval: cron
+      cronjob: '0 7 * * FRI#1'
+      timezone: Europe/Berlin
+    cooldown:
+      default-days: 5
+    open-pull-requests-limit: 1
+    exclude-paths:
+      - .cursor/**
+    labels:
+      - dependencies
+    commit-message:
+      prefix: chore
+      include: scope
+    ignore:
+      - dependency-name: typescript
+        update-types:
+          - version-update:semver-major
+    groups:
+      security-dev-tools:
+        applies-to: security-updates
+        patterns:
+          - 'oxlint*'
+          - 'oxfmt*'
+          - 'vitest*'
+          - 'knip*'
+          - 'husky*'
+          - '@types/*'
+          - 'typescript'
+          - 'eslint*'
+          - 'babel-plugin-*'
+          - 'browserslist*'
+          - 'bun-types'
+          - 'vite'
+
+      app-dev-minor-patch:
+        applies-to: version-updates
+        patterns:
+          - '@heroicons/*'
+          - '@vitejs/*'
+          - 'babel-plugin-*'
+          - 'eslint-*'
+          - 'husky'
+          - 'knip'
+          - 'oxfmt'
+          - 'oxlint*'
+          - 'sharp'
+          - 'vitest'
+          - 'vite'
+          - '@types/*'
+          - 'typescript'
+          - 'browserslist'
+          - 'browserslist-to-esbuild'
+          - 'bun-types'
+        update-types:
+          - minor
+          - patch
+
+      app-framework-minor-patch:
+        applies-to: version-updates
+        patterns:
+          - 'astro'
+          - '@astrojs/*'
+          - '@keystatic/*'
+          - '@tailwindcss/*'
+          - 'tailwindcss'
+          - '@turf/*'
+          - 'react'
+          - 'react-dom'
+          - '@types/react*'
+          - 'maplibre-gl'
+          - 'react-map-gl'
+          - 'nuqs'
+        update-types:
+          - minor
+          - patch
+
+      app-prod-misc-patch:
+        applies-to: version-updates
+        update-types:
+          - patch
+        patterns:
+          - '*'
+        exclude-patterns:
+          - 'astro'
+          - '@astrojs/*'
+          - '@keystatic/*'
+          - '@tailwindcss/*'
+          - 'tailwindcss'
+          - '@turf/*'
+          - 'react'
+          - 'react-dom'
+          - 'maplibre-gl'
+          - 'react-map-gl'
+          - 'nuqs'
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: cron
+      cronjob: '0 7 * * FRI#1'
+      timezone: Europe/Berlin
+    cooldown:
+      default-days: 5
+    open-pull-requests-limit: 1
+    labels:
+      - dependencies
+      - github_actions
+    commit-message:
+      prefix: chore
+      include: scope
+    groups:
+      actions-minor-patch:
+        update-types:
+          - minor
+          - patch
+        patterns:
+          - '*'

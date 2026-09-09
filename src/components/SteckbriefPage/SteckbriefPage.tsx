@@ -1,84 +1,113 @@
 import Link from '@components/links/Link'
 import { RSVMap } from '@components/Map/RsvMap'
-import { H1, H4 } from '@components/Text'
-import type { MetaSchema } from 'data/schema/meta.schema'
-import type { GeometrySchema } from 'src/content/config'
+import { H1, H4 } from '@components/Text/Headings'
+import type { ReactNode } from 'react'
+import { getSteckbriefDisplayTitle } from 'src/lib/steckbrief/getSteckbriefDisplayTitle'
+import type { PublishedSteckbriefData, SteckbriefApiFields } from 'src/types/steckbrief'
+import { SteckbriefPageFeedbackCallout } from './SteckbriefPageFeedbackCallout'
 import { SteckbriefPageProgressBar } from './SteckbriefPageProgressBar'
 
 type Props = {
-  setOverlay: (b: boolean) => void
-  meta: MetaSchema
-  geometry: GeometrySchema
+  steckbrief: PublishedSteckbriefData
+  description?: ReactNode
 }
 
-export const SteckbriefPage: React.FC<Props> = ({ meta, geometry }) => {
+const ApiFieldRow = ({ label, value }: { label: string; value?: string }) => {
+  if (!value) return null
+  return (
+    <div className="space-y-2">
+      <p className="font-bold">{label}</p>
+      <p>{value}</p>
+    </div>
+  )
+}
+
+export const SteckbriefPage = ({ steckbrief, description }: Props) => {
+  const { geometry, apiFields } = steckbrief
+  const displayTitle = getSteckbriefDisplayTitle(steckbrief)
+
   return (
     <div className="relative min-h-[860px] bg-white">
       <div className="mx-auto px-4 py-8 sm:px-6 sm:py-12 lg:py-12">
         <div className="mx-auto max-w-2xl lg:mx-0 lg:ml-[48vw] lg:max-w-4xl lg:px-0 lg:py-0 lg:pl-14">
-          <H1 className="sm:mt-0 sm:text-4xl!">
-            {/* @ts-expect-error undefined would also return NaN so nothing breaks */}
-            {Number.isNaN(parseFloat(meta.general.ref)) && `${meta.general.ref}: `}
-            {meta.general.name}
-          </H1>
+          <H1 className="sm:mt-0 sm:text-4xl!">{displayTitle}</H1>
           <div className="mt-8">
-            <SteckbriefPageProgressBar currentState={meta.state} />
+            <SteckbriefPageProgressBar currentState={steckbrief.state} />
           </div>
-          <div className="mt-8">
-            <H4 className="mb-4">Kurzfassung</H4>
-            {meta.general.description && (
-              <p>
-                {meta.general.description}
-                <br />
-                (Quelle:&nbsp;
-                {meta.general.source && (
+          {description ? (
+            <div className="prose mt-8 max-w-none">
+              <H4 className="mb-4">Kurzfassung</H4>
+              {description}
+              {steckbrief.sourceUrl && (
+                <p className="mt-2 text-sm">
+                  (Quelle:&nbsp;
                   <a
-                    href={meta.general.source}
+                    href={steckbrief.sourceUrl}
                     className="text-slate-600 hover:text-slate-700 hover:underline active:underline"
                   >
-                    {new URL(meta.general.source).host}
+                    {new URL(steckbrief.sourceUrl).host}
                   </a>
-                )}
-                )
-              </p>
-            )}
-          </div>
-          {meta.references?.website && (
+                  )
+                </p>
+              )}
+            </div>
+          ) : null}
+          {steckbrief.website && (
             <div className="mt-6">
-              <Link blank href={meta.references.website}>
+              <Link blank href={steckbrief.website}>
                 Zur Projektwebsite
               </Link>
             </div>
           )}
           <div className="mt-8 flex flex-col gap-3">
             <H4 className="mb-4">Projektdetails</H4>
-            <div className="space-y-2">
-              <p className="font-bold">Trassenführung</p>
-              <p>{`${meta.general.from.city} - ${meta.general.to.city}`}</p>
-            </div>
-            <div className="space-y-2">
-              <p className="font-bold">Länge</p>
-              <p>ca. {meta.general.length.toLocaleString('de-DE')}&thinsp;km</p>
-            </div>
-            <div className="flex min-w-max">
+            {steckbrief.fromCity && steckbrief.toCity && (
               <div className="space-y-2">
-                <p className="font-bold">Zuständigkeit</p>
-                {Boolean(meta.stakeholders?.length) &&
-                  meta.stakeholders?.map((stakeholder) => (
+                <p className="font-bold">Trassenführung</p>
+                <p>{`${steckbrief.fromCity} - ${steckbrief.toCity}`}</p>
+              </div>
+            )}
+            {steckbrief.lengthKm != null && (
+              <div className="space-y-2">
+                <p className="font-bold">Länge</p>
+                <p>ca. {steckbrief.lengthKm.toLocaleString('de-DE')}&thinsp;km</p>
+              </div>
+            )}
+            {Boolean(steckbrief.stakeholders?.length) && (
+              <div className="flex min-w-max">
+                <div className="space-y-2">
+                  <p className="font-bold">Zuständigkeit</p>
+                  {steckbrief.stakeholders?.map((stakeholder) => (
                     <p key={stakeholder.name}>{stakeholder.name}</p>
                   ))}
+                </div>
               </div>
-            </div>
-            <div className="space-y-2">
-              <p className="font-bold">Stand</p>
-              <p>
-                {new Date(meta.general.stand).toLocaleDateString('de-DE', {
-                  year: 'numeric',
-                  month: 'long',
-                })}
-              </p>
-            </div>
+            )}
+            {steckbrief.stand && (
+              <div className="space-y-2">
+                <p className="font-bold">Stand</p>
+                <p>
+                  {new Date(steckbrief.stand).toLocaleDateString('de-DE', {
+                    year: 'numeric',
+                    month: 'long',
+                  })}
+                </p>
+              </div>
+            )}
+            <TrassenscoutApiFields apiFields={apiFields} />
           </div>
+          <SteckbriefPageFeedbackCallout displayTitle={displayTitle} />
+          {steckbrief.lastCheckedDate ? (
+            <p className="mt-4 text-right text-sm text-slate-500">
+              Zuletzt geprüft am{' '}
+              {new Date(steckbrief.lastCheckedDate).toLocaleDateString('de-DE', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })}
+            </p>
+          ) : null}
           <div className="mt-12">
             <a href="/datenschutz/">Datenschutz</a>
             {' - '}
@@ -87,8 +116,24 @@ export const SteckbriefPage: React.FC<Props> = ({ meta, geometry }) => {
         </div>
       </div>
       <div className="mx-auto flex aspect-square max-h-[860px] translate-x-1 overflow-hidden overscroll-none md:max-w-[860px] lg:fixed lg:bottom-0 lg:left-0 lg:z-10 lg:mx-0 lg:h-full lg:max-h-full lg:w-[48vw] lg:max-w-[48vw] lg:items-stretch">
-        <RSVMap meta={meta} geometry={geometry} />
+        <RSVMap geometry={geometry} staticMap={steckbrief.staticMap} />
       </div>
     </div>
+  )
+}
+
+const TrassenscoutApiFields = ({ apiFields }: { apiFields: SteckbriefApiFields }) => {
+  const hasFields = apiFields.operator || apiFields.status || apiFields.estimatedCompletionDate
+  if (!hasFields) return null
+
+  return (
+    <>
+      <ApiFieldRow label="Betreiber" value={apiFields.operator} />
+      <ApiFieldRow label="Status (Teilabschnitt)" value={apiFields.status} />
+      <ApiFieldRow
+        label="Voraussichtliche Fertigstellung"
+        value={apiFields.estimatedCompletionDate}
+      />
+    </>
   )
 }

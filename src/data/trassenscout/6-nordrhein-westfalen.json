@@ -1,0 +1,661 @@
+{
+  "syncedAt": "2026-09-08T15:10:41.396Z",
+  "geometrySource": "rsv-d",
+  "projectSlugs": ["rsv-d"],
+  "subsectionSlugs": [
+    "nrw-k-rpr5a-a1",
+    "nrw-k-rpr5a-a2",
+    "nrw-k-rpr5a-a2-1",
+    "nrw-k-rpr5a-a2-2",
+    "nrw-k-rpr5a-a2-3",
+    "nrw-k-rpr5a-a4-1",
+    "nrw-k-rpr5a-a4-2",
+    "nrw-k-rpr5a-a4-3",
+    "nrw-k-rpr5a-a5-1",
+    "nrw-k-rpr5a-a5-2",
+    "nrw-k-rpr5b-a1",
+    "nrw-k-rpr5b-a2-2",
+    "nrw-k-rpr5b-a3-1",
+    "nrw-k-rpr5b-a3-2",
+    "nrw-k-rpr5b-a3-3",
+    "nrw-k-rpr5b-a4",
+    "nrw-k-rpr5b-a5-1",
+    "nrw-k-rpr5b-a5-2",
+    "nrw-k-rpr5b-a5-3",
+    "nrw-k-rpr5b-a6",
+    "nrw-k-rpr5b-ab-4"
+  ],
+  "geometry": {
+    "id": "6-nordrhein-westfalen",
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "rsv-d-nrw-k-rpr5a-a1:Vorzugstrasse:route",
+          "id_rsv": "6-nordrhein-westfalen",
+          "variant": "Vorzugstrasse",
+          "discarded": false,
+          "kind": "route",
+          "detail_level": "approximated"
+        },
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+            [
+              [6.921672, 50.854486],
+              [6.919924, 50.852051],
+              [6.91932, 50.851166],
+              [6.9185, 50.85005],
+              [6.91746, 50.848729],
+              [6.917194, 50.848569],
+              [6.916835, 50.848197],
+              [6.916606, 50.847838]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "rsv-d-nrw-k-rpr5a-a2:Vorzugstrasse:route",
+          "id_rsv": "6-nordrhein-westfalen",
+          "variant": "Vorzugstrasse",
+          "discarded": false,
+          "kind": "route",
+          "detail_level": "approximated"
+        },
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+            [
+              [6.944267, 50.870493],
+              [6.943045, 50.869796],
+              [6.941576, 50.868723],
+              [6.940025, 50.86765],
+              [6.938787, 50.866733],
+              [6.937466, 50.866233],
+              [6.936575, 50.865754],
+              [6.935337, 50.864952],
+              [6.934611, 50.864431],
+              [6.931607, 50.863087],
+              [6.928963, 50.861439]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "rsv-d-nrw-k-rpr5a-a2-1:Vorzugstrasse:route",
+          "id_rsv": "6-nordrhein-westfalen",
+          "variant": "Vorzugstrasse",
+          "discarded": false,
+          "kind": "route",
+          "detail_level": "approximated"
+        },
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+            [
+              [6.966113, 50.85342],
+              [6.966277, 50.853541],
+              [6.966429, 50.853701],
+              [6.966457, 50.853793],
+              [6.966732, 50.85603],
+              [6.962152, 50.859922],
+              [6.96209, 50.861258],
+              [6.961855, 50.8615],
+              [6.958005, 50.862688],
+              [6.959571, 50.864829],
+              [6.960406, 50.866329],
+              [6.960406, 50.866329]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "rsv-d-nrw-k-rpr5a-a2-2:Vorzugstrasse:route",
+          "id_rsv": "6-nordrhein-westfalen",
+          "variant": "Vorzugstrasse",
+          "discarded": false,
+          "kind": "route",
+          "detail_level": "approximated"
+        },
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+            [
+              [6.928963, 50.861439],
+              [6.928654, 50.861395],
+              [6.928338, 50.861152],
+              [6.928128, 50.86116],
+              [6.927626, 50.861184],
+              [6.926995, 50.861223],
+              [6.926778, 50.860742],
+              [6.926512, 50.86043],
+              [6.92606, 50.860137],
+              [6.92546, 50.859773],
+              [6.925268, 50.859539],
+              [6.921672, 50.854486]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "rsv-d-nrw-k-rpr5a-a2-3:Vorzugstrasse:route",
+          "id_rsv": "6-nordrhein-westfalen",
+          "variant": "Vorzugstrasse",
+          "discarded": false,
+          "kind": "route",
+          "detail_level": "approximated"
+        },
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+            [
+              [6.928338, 50.861152],
+              [6.927843, 50.860738],
+              [6.927695, 50.860535],
+              [6.927589, 50.860379],
+              [6.927453, 50.86032],
+              [6.927008, 50.860332],
+              [6.926512, 50.86043]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "rsv-d-nrw-k-rpr5a-a4-1:Vorzugstrasse:route",
+          "id_rsv": "6-nordrhein-westfalen",
+          "variant": "Vorzugstrasse",
+          "discarded": false,
+          "kind": "route",
+          "detail_level": "approximated"
+        },
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+            [
+              [6.954141, 50.877797],
+              [6.95258, 50.877709],
+              [6.951367, 50.877701],
+              [6.947591, 50.878318],
+              [6.946291, 50.875092],
+              [6.946186, 50.875111],
+              [6.945604, 50.873471],
+              [6.945332, 50.872229],
+              [6.944799, 50.871424],
+              [6.944267, 50.870493]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "rsv-d-nrw-k-rpr5a-a4-2:Vorzugstrasse:route",
+          "id_rsv": "6-nordrhein-westfalen",
+          "variant": "Vorzugstrasse",
+          "discarded": false,
+          "kind": "route",
+          "detail_level": "approximated"
+        },
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+            [
+              [6.953039, 50.873794],
+              [6.952314, 50.873955],
+              [6.951794, 50.874104],
+              [6.950915, 50.874377],
+              [6.950333, 50.87458],
+              [6.94959, 50.873932],
+              [6.949021, 50.873518],
+              [6.945418, 50.871213],
+              [6.944267, 50.870493]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "rsv-d-nrw-k-rpr5a-a4-3:Vorzugstrasse:route",
+          "id_rsv": "6-nordrhein-westfalen",
+          "variant": "Vorzugstrasse",
+          "discarded": false,
+          "kind": "route",
+          "detail_level": "approximated"
+        },
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+            [
+              [6.952477, 50.873919],
+              [6.95188, 50.873096],
+              [6.95175, 50.872955],
+              [6.951682, 50.872643],
+              [6.951818, 50.872166],
+              [6.951843, 50.871815],
+              [6.951843, 50.871565],
+              [6.951775, 50.871495],
+              [6.951509, 50.871374],
+              [6.950748, 50.86946],
+              [6.945418, 50.871213]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "rsv-d-nrw-k-rpr5a-a5-1:Vorzugstrasse:route",
+          "id_rsv": "6-nordrhein-westfalen",
+          "variant": "Vorzugstrasse",
+          "discarded": false,
+          "kind": "route",
+          "detail_level": "approximated"
+        },
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+            [
+              [6.984993, 50.900469],
+              [6.984677, 50.90033],
+              [6.984529, 50.900326],
+              [6.984541, 50.900237],
+              [6.984519, 50.900194],
+              [6.984467, 50.899975],
+              [6.9843, 50.899782],
+              [6.98412, 50.899669],
+              [6.983111, 50.899169],
+              [6.982418, 50.898806],
+              [6.982195, 50.898763],
+              [6.982059, 50.898673],
+              [6.981997, 50.898536],
+              [6.981644, 50.898302],
+              [6.981217, 50.898123],
+              [6.981137, 50.898029],
+              [6.981044, 50.897959],
+              [6.980747, 50.897787],
+              [6.980673, 50.897764],
+              [6.976779, 50.894988],
+              [6.976717, 50.894859],
+              [6.976557, 50.894816],
+              [6.976396, 50.894679],
+              [6.976396, 50.894594],
+              [6.97621, 50.894543],
+              [6.975572, 50.893988],
+              [6.975114, 50.893688],
+              [6.97452, 50.893282],
+              [6.973969, 50.892977],
+              [6.973443, 50.89277],
+              [6.969024, 50.891626],
+              [6.9689, 50.891574],
+              [6.96882, 50.891525],
+              [6.968631, 50.890935],
+              [6.968399, 50.89057],
+              [6.968324, 50.890467],
+              [6.968188, 50.890438],
+              [6.967226, 50.890395],
+              [6.966966, 50.890375],
+              [6.965963, 50.889731],
+              [6.966681, 50.888083],
+              [6.966768, 50.887661],
+              [6.966644, 50.887404],
+              [6.962348, 50.885233],
+              [6.961816, 50.883788],
+              [6.961828, 50.882163],
+              [6.961989, 50.881476],
+              [6.954933, 50.878836],
+              [6.954339, 50.878485],
+              [6.954141, 50.877797],
+              [6.953039, 50.873794]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "rsv-d-nrw-k-rpr5a-a5-2:Vorzugstrasse:route",
+          "id_rsv": "6-nordrhein-westfalen",
+          "variant": "Vorzugstrasse",
+          "discarded": false,
+          "kind": "route",
+          "detail_level": "approximated"
+        },
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+            [
+              [6.965963, 50.889731],
+              [6.965658, 50.891113],
+              [6.96574, 50.892789]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "rsv-d-nrw-k-rpr5b-a1:Vorzugstrasse:route",
+          "id_rsv": "6-nordrhein-westfalen",
+          "variant": "Vorzugstrasse",
+          "discarded": false,
+          "kind": "route",
+          "detail_level": "approximated"
+        },
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+            [
+              [6.976852, 50.845643],
+              [6.976208, 50.845679],
+              [6.976239, 50.845812],
+              [6.976128, 50.84594],
+              [6.975893, 50.847707],
+              [6.975794, 50.847898],
+              [6.975094, 50.847887],
+              [6.973516, 50.848684],
+              [6.970334, 50.850857],
+              [6.966113, 50.85342]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "rsv-d-nrw-k-rpr5b-a2-2:Vorzugstrasse:route",
+          "id_rsv": "6-nordrhein-westfalen",
+          "variant": "Vorzugstrasse",
+          "discarded": false,
+          "kind": "route",
+          "detail_level": "approximated"
+        },
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+            [
+              [6.966113, 50.85342],
+              [6.962393, 50.85624],
+              [6.960945, 50.857518],
+              [6.960202, 50.858092],
+              [6.959432, 50.858573],
+              [6.958689, 50.859006],
+              [6.957305, 50.859502],
+              [6.955769, 50.859976],
+              [6.954283, 50.860724],
+              [6.954163, 50.860981],
+              [6.954191, 50.861222],
+              [6.954283, 50.861439],
+              [6.954543, 50.861866],
+              [6.955189, 50.862748],
+              [6.955602, 50.863475],
+              [6.956205, 50.86458],
+              [6.956344, 50.865242],
+              [6.956363, 50.865845],
+              [6.955852, 50.867802]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "rsv-d-nrw-k-rpr5b-a3-1:Vorzugstrasse:route",
+          "id_rsv": "6-nordrhein-westfalen",
+          "variant": "Vorzugstrasse",
+          "discarded": false,
+          "kind": "route",
+          "detail_level": "approximated"
+        },
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+            [
+              [6.960406, 50.866329],
+              [6.955852, 50.867802],
+              [6.950748, 50.86946]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "rsv-d-nrw-k-rpr5b-a3-2:Vorzugstrasse:route",
+          "id_rsv": "6-nordrhein-westfalen",
+          "variant": "Vorzugstrasse",
+          "discarded": false,
+          "kind": "route",
+          "detail_level": "approximated"
+        },
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+            [
+              [6.955852, 50.867802],
+              [6.954209, 50.871921],
+              [6.954023, 50.872203],
+              [6.953736, 50.872566],
+              [6.953661, 50.872894],
+              [6.953773, 50.873204],
+              [6.954023, 50.873503],
+              [6.95342, 50.87372],
+              [6.953039, 50.873794]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "rsv-d-nrw-k-rpr5b-a3-3:Vorzugstrasse:route",
+          "id_rsv": "6-nordrhein-westfalen",
+          "variant": "Vorzugstrasse",
+          "discarded": false,
+          "kind": "route",
+          "detail_level": "approximated"
+        },
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+            [
+              [6.960406, 50.866329],
+              [6.961525, 50.868277],
+              [6.959631, 50.868927],
+              [6.958758, 50.869332],
+              [6.957115, 50.870375],
+              [6.95601, 50.870984],
+              [6.954376, 50.871886],
+              [6.954221, 50.871891]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "rsv-d-nrw-k-rpr5b-a4:Vorzugstrasse:route",
+          "id_rsv": "6-nordrhein-westfalen",
+          "variant": "Vorzugstrasse",
+          "discarded": false,
+          "kind": "route",
+          "detail_level": "approximated"
+        },
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+            [
+              [6.954933, 50.878836],
+              [6.954515, 50.880495],
+              [6.952324, 50.884806],
+              [6.951377, 50.887149],
+              [6.952074, 50.888865]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "rsv-d-nrw-k-rpr5b-a5-1:Vorzugstrasse:route",
+          "id_rsv": "6-nordrhein-westfalen",
+          "variant": "Vorzugstrasse",
+          "discarded": false,
+          "kind": "route",
+          "detail_level": "approximated"
+        },
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+            [
+              [6.952074, 50.888865],
+              [6.952863, 50.892842],
+              [6.953002, 50.893703],
+              [6.953141, 50.894206],
+              [6.953225, 50.894247],
+              [6.953318, 50.894728],
+              [6.953309, 50.894968],
+              [6.953197, 50.895366],
+              [6.953234, 50.895676],
+              [6.953383, 50.896057],
+              [6.953671, 50.896531],
+              [6.954571, 50.897386],
+              [6.954762, 50.897612],
+              [6.954887, 50.897858],
+              [6.955397, 50.899535],
+              [6.955114, 50.899556],
+              [6.954464, 50.899682],
+              [6.954093, 50.900244],
+              [6.953917, 50.900296],
+              [6.95342, 50.900332],
+              [6.950328, 50.900443],
+              [6.945203, 50.900782]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "rsv-d-nrw-k-rpr5b-a5-2:Vorzugstrasse:route",
+          "id_rsv": "6-nordrhein-westfalen",
+          "variant": "Vorzugstrasse",
+          "discarded": false,
+          "kind": "route",
+          "detail_level": "approximated"
+        },
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+            [
+              [6.952074, 50.888865],
+              [6.951693, 50.888883],
+              [6.949901, 50.889521],
+              [6.948889, 50.890002],
+              [6.947896, 50.890646],
+              [6.94642, 50.891811],
+              [6.944331, 50.893457],
+              [6.944145, 50.893469],
+              [6.943996, 50.893638],
+              [6.943699, 50.893597],
+              [6.943263, 50.895249],
+              [6.943486, 50.89649],
+              [6.944006, 50.897544],
+              [6.943736, 50.897919],
+              [6.944247, 50.899143],
+              [6.944377, 50.900068],
+              [6.944507, 50.900536],
+              [6.944108, 50.900595],
+              [6.943783, 50.900894],
+              [6.94395, 50.901052],
+              [6.944999, 50.90097],
+              [6.945203, 50.900782]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "rsv-d-nrw-k-rpr5b-a5-3:Vorzugstrasse:route",
+          "id_rsv": "6-nordrhein-westfalen",
+          "variant": "Vorzugstrasse",
+          "discarded": false,
+          "kind": "route",
+          "detail_level": "approximated"
+        },
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+            [
+              [6.944507, 50.900536],
+              [6.944813, 50.900512],
+              [6.945036, 50.900551],
+              [6.94518, 50.900677],
+              [6.945203, 50.900782]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "rsv-d-nrw-k-rpr5b-a6:Vorzugstrasse:route",
+          "id_rsv": "6-nordrhein-westfalen",
+          "variant": "Vorzugstrasse",
+          "discarded": false,
+          "kind": "route",
+          "detail_level": "approximated"
+        },
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+            [
+              [6.945203, 50.900782],
+              [6.945482, 50.904584],
+              [6.945649, 50.909947],
+              [6.945714, 50.912124],
+              [6.947311, 50.914946],
+              [6.94952, 50.918543]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "rsv-d-nrw-k-rpr5b-ab-4:Vorzugstrasse:route",
+          "id_rsv": "6-nordrhein-westfalen",
+          "variant": "Vorzugstrasse",
+          "discarded": false,
+          "kind": "route",
+          "detail_level": "approximated"
+        },
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+            [
+              [6.952863, 50.892842],
+              [6.945575, 50.893549],
+              [6.945194, 50.893397],
+              [6.944331, 50.893457]
+            ]
+          ]
+        }
+      }
+    ],
+    "bbox": [6.916606, 50.845643, 6.984993, 50.918543]
+  },
+  "apiFields": {}
+}

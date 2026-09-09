@@ -1,0 +1,46 @@
+diff --git a/dist/declarations/src/config.d.ts b/dist/declarations/src/config.d.ts
+index cd5057dbbc0ef2e81ba0734ada85c549247a197f..31834406b1460bf74e03919ce25f0f9c944a0985 100644
+--- a/dist/declarations/src/config.d.ts
++++ b/dist/declarations/src/config.d.ts
+@@ -133,7 +133,9 @@ export declare function collection<Schema extends Record<string, ComponentSchema
+     [K in keyof Schema]: Schema[K] extends SlugFormField<any, any, any, any> ? K : never;
+ }[keyof Schema]>(collection: Collection<Schema, SlugField & string> & {
+     columns?: {
+-        [K in keyof Schema]: Schema[K] extends FormField<any, any, string | number | boolean | Date | null | undefined> | SlugFormField<any, any, any, string> ? K & string : never;
++        [K in keyof Schema]: Schema[K] extends FormField<any, any, string | number | boolean | Date | null | undefined> | SlugFormField<any, any, any, string> ? K & string : Schema[K] extends {
++            kind: 'array';
++        } ? K & string : never;
+     }[keyof Schema][];
+ }): Collection<Schema, SlugField & string>;
+ export declare function singleton<Schema extends Record<string, ComponentSchema>>(collection: Singleton<Schema>): Singleton<Schema>;
+diff --git a/dist/index-15086783.js b/dist/index-15086783.js
+index a86693b79ed48616da1991826b7293c1a6fdedaa..bf664cc0e915a253b7e03c23ab5f6eb8c9a1c9ce 100644
+--- a/dist/index-15086783.js
++++ b/dist/index-15086783.js
+@@ -5282,9 +5282,24 @@ function ArrayFieldListView(props) {
+     children: item_0 => {
+       var _props$schema$itemLab, _props$schema;
+       const label = ((_props$schema$itemLab = (_props$schema = props.schema).itemLabel) === null || _props$schema$itemLab === void 0 ? void 0 : _props$schema$itemLab.call(_props$schema, item_0)) || `Item ${props.elements.indexOf(item_0) + 1}`;
++      const textValue = label.replace(/<[^>]*>/g, '');
+       return /*#__PURE__*/jsxs(Item$2, {
+-        textValue: label,
+-        children: [/*#__PURE__*/jsx(Text, {
++        textValue: textValue,
++        children: [label.includes('<') ? /*#__PURE__*/jsx("span", {
++          dangerouslySetInnerHTML: {
++            __html: label
++          },
++          onClick: e => {
++            if (e.target instanceof HTMLAnchorElement) {
++              e.stopPropagation();
++            }
++          },
++          onPointerDown: e => {
++            if (e.target instanceof HTMLAnchorElement) {
++              e.stopPropagation();
++            }
++          }
++        }) : /*#__PURE__*/jsx(Text, {
+           children: label
+         }), /*#__PURE__*/jsxs(TooltipTrigger, {
+           placement: "start",

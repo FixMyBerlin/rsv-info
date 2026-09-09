@@ -5,7 +5,7 @@ interface LinkPropsReact extends LinkProps {
   children: React.ReactNode
 }
 
-const Link: React.FC<LinkPropsReact> = ({
+const Link = ({
   href,
   className,
   classNameOverwrites,
@@ -13,7 +13,7 @@ const Link: React.FC<LinkPropsReact> = ({
   blank = undefined,
   button,
   children,
-}) => {
+}: LinkPropsReact) => {
   const isExternal = external || href.startsWith('http')
   const target = blank ? '_blank' : undefined
   const rel = isExternal ? 'noopener noreferrer' : undefined

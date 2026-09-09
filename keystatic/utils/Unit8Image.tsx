@@ -1,33 +1,37 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef } from 'react'
 
 type Props = {
-  data: any
+  data: ArrayBuffer | globalThis.Uint8Array
 }
 
 export const Uint8Array = ({ data }: Props) => {
-  const [imageUrl, setImageUrl] = useState<null | string>(null)
+  const imageRef = useRef<HTMLImageElement>(null)
 
-  useEffect(() => {
-    const blob = new Blob([data], { type: 'image/jpeg' }) // Adjust the type if needed
-    const url = URL.createObjectURL(blob)
-    setImageUrl(url)
+  useEffect(
+    function createImageObjectUrl() {
+      const blob = new Blob([new globalThis.Uint8Array(data)], { type: 'image/jpeg' })
+      const objectUrl = URL.createObjectURL(blob)
+      const image = imageRef.current
+      if (image) {
+        image.src = objectUrl
+      }
+      return function revokeImageObjectUrl() {
+        URL.revokeObjectURL(objectUrl)
+      }
+    },
+    [data],
+  )
 
-    // Clean up function to revoke the object URL
-    return () => {
-      URL.revokeObjectURL(url)
-    }
-  }, [data])
-
-  return imageUrl ? (
+  return (
     <img
+      ref={imageRef}
       style={{
         height: '100%',
         width: '100%',
         overflow: 'hidden',
         objectFit: 'cover',
       }}
-      src={imageUrl}
       alt="Image Preview"
     />
-  ) : null
+  )
 }

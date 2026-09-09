@@ -1,34 +1,36 @@
-import { bbox, bboxPolygon, geojsonType, square, transformScale } from '@turf/turf'
-
+import { bbox } from '@turf/bbox'
+import { bboxPolygon } from '@turf/bbox-polygon'
+import { square } from '@turf/square'
+import { transformScale } from '@turf/transform-scale'
 import maplibregl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import { useEffect, useState } from 'react'
-import Map, { FullscreenControl, NavigationControl } from 'react-map-gl/maplibre'
-
-import type { GeometrySchema } from 'data/schema/geometry.schema'
+import Map, {
+  AttributionControl,
+  FullscreenControl,
+  NavigationControl,
+  type ViewStateChangeEvent,
+} from 'react-map-gl/maplibre'
+import { useMapParam } from 'src/lib/routing/useMapParam'
+import type { GeometrySchema } from 'src/types/geometry'
+import { sortFeaturesForMap } from 'src/utils/geometryKind'
 import { maptilerBaseUrl, maptilerKey } from 'src/utils/mapTiler.const'
 import { RSVSegment } from './RsvSegment'
 
 type BBox2d = [number, number, number, number]
 
-function assertFeatureCollection(
-  geojson: any,
-): asserts geojson is GeoJSON.FeatureCollection<GeoJSON.MultiLineString> {
-  geojsonType(geojson, 'FeatureCollection', 'DynamicMap')
-}
 type Props = {
   geometry: GeometrySchema
 }
 
-export const DynamicMap: React.FC<Props> = ({ geometry }) => {
-  assertFeatureCollection(geometry)
+export const DynamicMap = ({ geometry }: Props) => {
+  const { mapParam, setMapParam } = useMapParam()
+
   // the factor by which the bbox is scaled to the viewport
   const scaleFactor = 4
   const bboxView = geometry.bbox
     ? bbox(transformScale(bboxPolygon(square(geometry.bbox)), scaleFactor))
     : undefined
-
-  const [selected] = useState(undefined)
 
   const [isScreenHorizontal, setIsScreenHorizontal] = useState(false)
 
@@ -47,25 +49,41 @@ export const DynamicMap: React.FC<Props> = ({ geometry }) => {
     }
   }, [])
 
+  const initialViewState = mapParam
+    ? {
+        longitude: mapParam.lng,
+        latitude: mapParam.lat,
+        zoom: mapParam.zoom,
+      }
+    : {
+        bounds: geometry.bbox,
+        fitBoundsOptions: {
+          padding: 20,
+        },
+      }
+
   return (
-    <div className="relative h-full w-full">
+    <div className="relative h-full w-full [&_.maplibregl-ctrl-bottom-left]:bottom-14">
       <Map
-        initialViewState={{
-          bounds: geometry.bbox as BBox2d,
-          fitBoundsOptions: {
-            padding: 20,
-          },
-        }}
+        initialViewState={initialViewState}
         mapLib={maplibregl}
         mapStyle={`${maptilerBaseUrl}/style.json?key=${maptilerKey}`}
         maxBounds={bboxView as BBox2d}
         attributionControl={false}
+        RTLTextPlugin={false}
         scrollZoom={isScreenHorizontal}
-        interactiveLayerIds={geometry.features.map(({ properties }) => properties.id)}
+        onMoveEnd={(event: ViewStateChangeEvent) => {
+          const { latitude, longitude, zoom } = event.viewState
+          void setMapParam({ zoom, lat: latitude, lng: longitude }, { history: 'replace' })
+        }}
       >
+        <AttributionControl compact position="bottom-left" />
         <FullscreenControl style={{ background: '#D9D9D9' }} />
-        {geometry.features.map((feature: GeometrySchema['features'][number]) => (
-          <RSVSegment key={feature.properties.id} feature={feature} selected={selected} />
+        {sortFeaturesForMap(geometry.features).map((feature, index) => (
+          <RSVSegment
+            key={`${feature.properties.id}-${feature.geometry.type}-${index}`}
+            feature={feature}
+          />
         ))}
         <NavigationControl showCompass={false} />
       </Map>

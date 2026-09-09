@@ -7,7 +7,7 @@ type Props = {
   className?: string
 }
 
-export const FooterLinkList: React.FC<Props> = ({ title, linkList, className = '' }) => {
+export const FooterLinkList = ({ title, linkList, className = '' }: Props) => {
   return (
     <div className={className}>
       {title && (

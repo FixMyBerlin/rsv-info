@@ -1,0 +1,24 @@
+---
+import ImageDouble from '@components/ImageComponents/ImageDouble.astro'
+import ImageSingleHorizontal from '@components/ImageComponents/ImageSingleHorizontal.astro'
+import ImageSingleSquare from '@components/ImageComponents/ImageSingleSquare.astro'
+import ImageSingleVertical from '@components/ImageComponents/ImageSingleVertical.astro'
+import type { CollectionEntry } from 'astro:content'
+import { render } from 'astro:content'
+
+type Props = {
+  entry: CollectionEntry<'planningposts'> | CollectionEntry<'communicationposts'>
+}
+
+const { entry } = Astro.props
+const { Content } = await render(entry)
+---
+
+<Content
+  components={{
+    ImageSingleHorizontal,
+    ImageSingleSquare,
+    ImageSingleVertical,
+    ImageDouble,
+  }}
+/>

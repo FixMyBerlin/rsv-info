@@ -39,7 +39,7 @@ export const selectLinkStyle = (button?: LinkProps['button'], className?: string
       return clsx(buttonStylesForWhiteLinkElement, className)
     case true:
       return clsx(buttonStylesForGreenLinkElement, className)
-    default:
+    case undefined:
       return clsx(linkStyles, className)
   }
 }

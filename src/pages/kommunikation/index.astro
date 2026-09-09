@@ -31,7 +31,7 @@ const sortedcommunicationposts = communicationposts
             const { title, type, teaserText, teaserImage, imageCopyright } = post.data
             return (
               <TeaserCard
-                href={post.slug}
+                href={`/kommunikation/${post.id}`}
                 title={title}
                 description={teaserText}
                 tag={type}

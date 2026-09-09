@@ -1,0 +1,31 @@
+{
+  "prettier.enable": false,
+  "oxc.fmt.configPath": "oxfmt.config.mjs",
+  "oxc.lint.configPath": "oxlint.config.mjs",
+  "oxc.fixKind": "dangerous_fix_or_suggestion",
+  "oxc.typeAware": true,
+  "oxc.path.tsgolint": "./node_modules/.bin/tsgolint",
+  "editor.defaultFormatter": "oxc.oxc-vscode",
+  "editor.formatOnSave": false,
+  "editor.formatOnSaveMode": "file",
+  "editor.codeActionsOnSave": {
+    "source.format.oxc": "always",
+    "source.fixAll.oxc": "always",
+    "source.fixAllDangerous.oxc": "always"
+  },
+  "[typescript]": { "editor.defaultFormatter": "oxc.oxc-vscode" },
+  "[typescriptreact]": { "editor.defaultFormatter": "oxc.oxc-vscode" },
+  "[javascript]": { "editor.defaultFormatter": "oxc.oxc-vscode" },
+  "[javascriptreact]": { "editor.defaultFormatter": "oxc.oxc-vscode" },
+  "[json]": { "editor.defaultFormatter": "oxc.oxc-vscode" },
+  "[jsonc]": { "editor.defaultFormatter": "oxc.oxc-vscode" },
+  "[markdown]": { "editor.defaultFormatter": "oxc.oxc-vscode" },
+  "[yaml]": { "editor.defaultFormatter": "oxc.oxc-vscode" },
+  "[astro]": { "editor.defaultFormatter": "astro-build.astro-vscode" },
+  "files.associations": {
+    "*.mdc": "markdown"
+  },
+  "workbench.editorAssociations": { "*.mdc": "default" },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "js/ts.experimental.useTsgo": false
+}

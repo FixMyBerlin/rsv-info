@@ -1,33 +1,66 @@
-import type { GeometrySchema } from 'data/schema/geometry.schema'
-import type { Feature } from 'maplibre-gl'
+import type { GeometryFeature, GeometrySchema } from '../../src/types/geometry'
+import { geometryKind, sortFeaturesForMap } from '../../src/utils/geometryKind'
+import { mapPaint, segmentColor } from '../../src/utils/mapColors'
 
 const pkg = require('@googlemaps/polyline-codec')
-const turf = require('@turf/turf')
+const { simplify } = require('@turf/simplify')
 const fs = require('fs')
 const path = require('path')
-const { segmentColor } = require('./mapColors.js')
 const { maptilerBaseUrl, maptilerKey } = require('./mapTiler.const.js')
 const { encode } = pkg
-const { simplify } = turf
 
 const outputDir = path.resolve('public/rsv-map-images')
-const geometryDir = path.resolve('src/content/geometries')
+const steckbriefeDir = path.resolve('src/data/steckbriefe')
+const FALLBACK_FILENAME = 'fallback.png'
 
-// from rsv-dossier/src/utils/staticmap.ts
-// @ts-expect-error
-const buildPaths = ({ properties, geometry: { coordinates } }: Feature) => {
-  const paint = { width: 5, stroke: segmentColor(properties) }
-  // @ts-expect-error
-  const paintArr = Object.keys(paint).map((key) => `${key}:${paint[key]}`)
+function hexToRgba(hex: string, alpha: number): string {
+  const normalized = hex.replace('#', '')
+  const r = Number.parseInt(normalized.slice(0, 2), 16)
+  const g = Number.parseInt(normalized.slice(2, 4), 16)
+  const b = Number.parseInt(normalized.slice(4, 6), 16)
+  return `rgba(${r},${g},${b},${alpha})`
+}
 
-  // flip the coordinate order for encoding
-  return (
-    coordinates
-      // @ts-expect-error
-      .map((linestring) => encode(linestring.map((position) => [...position].reverse())))
-      // @ts-expect-error
-      .map((polyline) => [...paintArr, `enc:${polyline}`].join('|'))
+function buildLinePaths(feature: GeometryFeature): string[] {
+  if (feature.geometry.type !== 'MultiLineString') return []
+
+  const kind = geometryKind(feature)
+  const color = segmentColor(feature.properties)
+  const isCorridor = kind === 'corridor'
+  const stroke = isCorridor ? hexToRgba(color, mapPaint.corridorLineOpacity) : color
+  const paint = {
+    width: isCorridor ? mapPaint.corridorLineWidth : mapPaint.routeLineWidth,
+    stroke,
+    fill: 'none',
+  }
+  const paintArr = Object.keys(paint).map((key) => `${key}:${paint[key as keyof typeof paint]}`)
+
+  return feature.geometry.coordinates
+    .map((linestring) => encode(linestring.map((position) => [...position].reverse())))
+    .map((polyline) => [...paintArr, `enc:${polyline}`].join('|'))
+}
+
+function buildPolygonPaths(feature: GeometryFeature): string[] {
+  if (feature.geometry.type !== 'MultiPolygon') return []
+
+  const stroke = segmentColor(feature.properties)
+  const fill = hexToRgba(stroke, mapPaint.areaFillOpacity)
+  const paint = { width: mapPaint.areaOutlineWidth, stroke, fill }
+  const paintArr = Object.keys(paint).map((key) => `${key}:${paint[key as keyof typeof paint]}`)
+
+  return feature.geometry.coordinates.flatMap((polygon) =>
+    polygon.map((ring) => {
+      const coordinates = ring.map(([lng, lat]) => `${lng},${lat}`).join('|')
+      return [...paintArr, coordinates].join('|')
+    }),
   )
+}
+
+function buildPaths(feature: GeometryFeature): string[] {
+  if (feature.geometry.type === 'MultiPolygon') {
+    return buildPolygonPaths(feature)
+  }
+  return buildLinePaths(feature)
 }
 
 type StaticMapRequestParams = {
@@ -40,13 +73,10 @@ const staticMapRequest = (
   [width, height]: [number, number],
 ) => {
   const dims = `${width / 2}x${height / 2}@2x.png`
-
-  // URL and Keys: ~/utils/mapTiler.const.ts
   const url = new URL(`${maptilerBaseUrl}/static/${bbox.toString()}/${dims}`)
   url.searchParams.append('key', maptilerKey)
   url.searchParams.append('attribution', '0')
-  features.forEach((feature) => {
-    // @ts-expect-error
+  sortFeaturesForMap(features).forEach((feature) => {
     buildPaths(feature).forEach((path: string) => {
       url.searchParams.append('path', path)
     })
@@ -54,58 +84,128 @@ const staticMapRequest = (
   return url
 }
 
-const processFile = async (file: string, geometryDir: string, outputDir: string) => {
-  try {
-    const filePath = path.resolve(geometryDir, file)
-    const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'))
+async function fetchMapImage(url: string): Promise<Buffer> {
+  const response = await fetch(url)
+  if (!response.ok) {
+    throw new Error(`Failed to fetch image: ${response.statusText}`)
+  }
+  const arrayBuffer = await response.arrayBuffer()
+  return Buffer.from(arrayBuffer)
+}
 
-    // filter out discarded route variants
-    const filteredData = {
-      ...data,
-      features: data.features.filter((feature: Feature) => !feature.properties.discarded),
+function loadGeometryFromCache(slug: string): GeometrySchema | null {
+  const { loadTrassenscoutCacheSync } = require('../../src/lib/trassenscout/loadTrassenscoutCache')
+  const cache = loadTrassenscoutCacheSync(slug)
+  return cache?.geometry ?? null
+}
+
+function hasRenderableMapFeatures(geometry: GeometrySchema): boolean {
+  return geometry.features.some((feature) => !feature.properties.discarded)
+}
+
+async function writeFallbackImage(): Promise<void> {
+  const { emptyGeometry } = require('../../src/lib/trassenscout/emptyGeometry')
+  const empty = emptyGeometry('_fallback')
+  const url = staticMapRequest(empty, [1920, 1920]).toString()
+  const buffer = await fetchMapImage(url)
+  const outputFilePath = path.resolve(outputDir, FALLBACK_FILENAME)
+  fs.writeFileSync(outputFilePath, buffer)
+  console.log(`Fallback image saved to ${outputFilePath}`)
+}
+
+type ProcessResult = 'saved' | 'skipped' | 'error'
+
+const MAP_IMAGE_CONCURRENCY = 4
+
+async function mapPool<T, R>(items: T[], concurrency: number, fn: (item: T) => Promise<R>) {
+  const results: R[] = Array.from({ length: items.length })
+  let nextIndex = 0
+
+  async function worker() {
+    while (nextIndex < items.length) {
+      const index = nextIndex
+      nextIndex += 1
+      results[index] = await fn(items[index])
+    }
+  }
+
+  const workerCount = Math.min(concurrency, items.length)
+  await Promise.all(Array.from({ length: workerCount }, () => worker()))
+  return results
+}
+
+const processSteckbrief = async (slug: string): Promise<ProcessResult> => {
+  try {
+    const data = loadGeometryFromCache(slug)
+    if (!data || !hasRenderableMapFeatures(data)) {
+      console.log(`Skipping ${slug}: no Trassenscout geometry`)
+      return 'skipped'
     }
 
-    // generate static map from geometry
+    const filteredData = {
+      ...data,
+      features: data.features.filter((feature) => !feature.properties.discarded),
+    }
+
     let url = staticMapRequest(filteredData, [1920, 1920]).toString()
     let tolerance = 0.000001
 
-    // console.log({ data })
-
-    // respect the MapTiler URL limit
     while (url.length > 8192) {
       const simplified = simplify(filteredData, { tolerance, highQuality: true })
       url = staticMapRequest(simplified, [1920, 1920]).toString()
       tolerance *= 2
     }
 
-    const response = await fetch(url)
-    if (!response.ok) {
-      throw new Error(`Failed to fetch image: ${response.statusText}`)
-    }
-    const arrayBuffer = await response.arrayBuffer()
-    const buffer = Buffer.from(arrayBuffer)
-
-    // Write the buffer to a file
-    const outputFilePath = path.resolve(outputDir, `${filteredData.id}.png`)
+    const buffer = await fetchMapImage(url)
+    const outputFilePath = path.resolve(outputDir, `${slug}.png`)
     fs.writeFileSync(outputFilePath, buffer)
 
     console.log(`Image saved to ${outputFilePath}`)
-    return true
+    return 'saved'
   } catch (error) {
-    console.error(`Error processing file ${file}:`, error)
-    return false
+    console.error(`Error processing ${slug}:`, error)
+    return 'error'
+  }
+}
+
+function pruneStaleMapImages(activeSlugs: Set<string>, slugsWithoutGeometry: Set<string>) {
+  if (!fs.existsSync(outputDir)) return
+
+  for (const file of fs.readdirSync(outputDir)) {
+    if (!file.endsWith('.png') || file === FALLBACK_FILENAME) continue
+
+    const slug = file.replace(/\.png$/, '')
+    if (!activeSlugs.has(slug) || slugsWithoutGeometry.has(slug)) {
+      const filePath = path.resolve(outputDir, file)
+      fs.unlinkSync(filePath)
+      console.log(`Removed stale map image ${filePath}`)
+    }
   }
 }
 
 const processFiles = async () => {
-  const files = fs.readdirSync(geometryDir)
+  fs.mkdirSync(outputDir, { recursive: true })
 
-  // const results = await processFile(files[0], geometryDir, outputDir)
-  const results = await Promise.all(
-    files.map((file: string) => processFile(file, geometryDir, outputDir)),
+  const slugs = fs
+    .readdirSync(steckbriefeDir, { withFileTypes: true })
+    .filter((entry: { isDirectory: () => boolean }) => entry.isDirectory())
+    .map((entry: { name: string }) => entry.name)
+
+  await writeFallbackImage()
+
+  const results = await mapPool(slugs, MAP_IMAGE_CONCURRENCY, processSteckbrief)
+  const slugsWithoutGeometry = new Set<string>(
+    slugs.filter((_: string, index: number) => results[index] === 'skipped'),
   )
-  const count = results.length
-  console.log(`${count} images (from ${files.length} geometry files) have been saved`)
+  pruneStaleMapImages(new Set<string>(slugs), slugsWithoutGeometry)
+
+  const saved = results.filter((result) => result === 'saved').length
+  const failed = results.filter((result) => result === 'error').length
+  const skipped = slugsWithoutGeometry.size
+  console.log(
+    `${saved} route map image(s) saved, ${skipped} steckbrief(e) use fallback` +
+      (failed ? `, ${failed} failed (existing images kept)` : ''),
+  )
 }
 
 processFiles()

@@ -1,0 +1,35 @@
+{
+  "syncedAt": "2026-09-08T15:10:40.498Z",
+  "geometrySource": "rsv-d",
+  "projectSlugs": ["rsv-d"],
+  "subsectionSlugs": ["nrw-k-rpr7"],
+  "geometry": {
+    "id": "7-nordrhein-westfalen",
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "id": "rsv-d-nrw-k-rpr7:Vorzugstrasse:route",
+          "id_rsv": "7-nordrhein-westfalen",
+          "variant": "Vorzugstrasse",
+          "discarded": false,
+          "kind": "route",
+          "detail_level": "approximated"
+        },
+        "geometry": {
+          "type": "MultiLineString",
+          "coordinates": [
+            [
+              [6.932239, 50.95037],
+              [6.80123, 50.998115],
+              [6.80123, 50.998115]
+            ]
+          ]
+        }
+      }
+    ],
+    "bbox": [6.80123, 50.95037, 6.932239, 50.998115]
+  },
+  "apiFields": {}
+}
