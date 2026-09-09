@@ -22,6 +22,11 @@ jobs:
           fail-on-severity: high
           comment-summary-in-pr: true
           allow-licenses: MIT, Apache-2.0, BSD-2-Clause, BSD-3-Clause, ISC, MPL-2.0, 0BSD, Unlicense, CC0-1.0, AGPL-3.0, AGPL-3.0-or-later
+          # GitHub's dependency graph has no SPDX for Actions (license Null).
+          allow-dependencies-licenses: pkg:githubactions/actions/checkout, pkg:githubactions/oven-sh/setup-bun, pkg:githubactions/peter-evans/create-pull-request
+          # GHSA-26w7-cxv4-gfx2 is Sharp/libheif AVIF RCE. Astro only lists a patch on 7.2.8;
+          # this site stays on Astro 6 and pins sharp >= 0.35.4 (the actual libheif fix).
+          allow-ghsas: GHSA-26w7-cxv4-gfx2
 
   check:
     name: Run Type Check & Linters
