@@ -2,8 +2,9 @@ import { bbox } from '@turf/bbox'
 import { bboxPolygon } from '@turf/bbox-polygon'
 import { square } from '@turf/square'
 import { transformScale } from '@turf/transform-scale'
-import maplibregl from 'maplibre-gl'
+import * as maplibregl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
+import './maplibreWorker'
 import { useEffect, useState } from 'react'
 import Map, {
   AttributionControl,
