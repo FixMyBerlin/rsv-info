@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-09-08T15:10:46.958Z",
+  "syncedAt": "2026-09-14T04:20:10.313Z",
   "geometrySource": "rsv-d",
   "projectSlugs": ["rsv-d"],
   "subsectionSlugs": ["hb-pr4", "ni-pr4", "ni-pr4-v1"],
@@ -282,12 +282,12 @@
       {
         "type": "Feature",
         "properties": {
-          "id": "rsv-d-ni-pr4-v1:Alternative:route",
+          "id": "rsv-d-ni-pr4-v1:Vorzugstrasse:corridor",
           "id_rsv": "10-niedersachsen",
-          "variant": "Alternative",
+          "variant": "Vorzugstrasse",
           "discarded": false,
-          "kind": "route",
-          "detail_level": "approximated"
+          "kind": "corridor",
+          "detail_level": "corridor"
         },
         "geometry": {
           "type": "MultiLineString",
@@ -313,6 +313,6 @@
     "bbox": [8.426033, 52.939235, 8.787583, 53.076863]
   },
   "apiFields": {
-    "status": "variant"
+    "status": "Korridor"
   }
 }

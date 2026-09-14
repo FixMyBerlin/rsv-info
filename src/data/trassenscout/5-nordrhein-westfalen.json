@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-09-08T15:10:40.074Z",
+  "syncedAt": "2026-09-14T04:20:13.900Z",
   "geometrySource": "rsv-d",
   "projectSlugs": ["rsv-d"],
   "subsectionSlugs": ["nrw-5"],
@@ -10,12 +10,12 @@
       {
         "type": "Feature",
         "properties": {
-          "id": "rsv-d-nrw-5:Vorzugstrasse:route",
+          "id": "rsv-d-nrw-5:Vorzugstrasse:corridor",
           "id_rsv": "5-nordrhein-westfalen",
           "variant": "Vorzugstrasse",
           "discarded": false,
-          "kind": "route",
-          "detail_level": "approximated"
+          "kind": "corridor",
+          "detail_level": "corridor"
         },
         "geometry": {
           "type": "MultiLineString",
@@ -33,5 +33,7 @@
     ],
     "bbox": [5.98741, 51.141935, 6.445032, 51.195097]
   },
-  "apiFields": {}
+  "apiFields": {
+    "status": "Korridor"
+  }
 }

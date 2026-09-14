@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-09-08T15:10:44.631Z",
+  "syncedAt": "2026-09-14T04:20:09.052Z",
   "geometrySource": "rsv-d",
   "projectSlugs": ["rsv-d"],
   "subsectionSlugs": ["nrw-k-rpr-mr"],
@@ -10,12 +10,12 @@
       {
         "type": "Feature",
         "properties": {
-          "id": "rsv-d-nrw-k-rpr-mr:Vorzugstrasse:route",
+          "id": "rsv-d-nrw-k-rpr-mr:Vorzugstrasse:corridor",
           "id_rsv": "11-nordrhein-westfahlen",
           "variant": "Vorzugstrasse",
           "discarded": false,
-          "kind": "route",
-          "detail_level": "approximated"
+          "kind": "corridor",
+          "detail_level": "corridor"
         },
         "geometry": {
           "type": "MultiLineString",
@@ -36,5 +36,7 @@
     ],
     "bbox": [6.946907, 50.965283, 7.006504, 50.973386]
   },
-  "apiFields": {}
+  "apiFields": {
+    "status": "Korridor"
+  }
 }

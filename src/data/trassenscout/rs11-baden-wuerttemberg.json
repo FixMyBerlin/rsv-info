@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-09-08T15:10:38.208Z",
+  "syncedAt": "2026-09-14T04:19:52.414Z",
   "geometrySource": "rsv-d",
   "projectSlugs": ["rsv-d"],
   "subsectionSlugs": ["bw-11"],
@@ -10,12 +10,12 @@
       {
         "type": "Feature",
         "properties": {
-          "id": "rsv-d-bw-11:Vorzugstrasse:route",
+          "id": "rsv-d-bw-11:Vorzugstrasse:corridor",
           "id_rsv": "rs11-baden-wuerttemberg",
           "variant": "Vorzugstrasse",
           "discarded": false,
-          "kind": "route",
-          "detail_level": "approximated"
+          "kind": "corridor",
+          "detail_level": "corridor"
         },
         "geometry": {
           "type": "MultiLineString",
@@ -40,5 +40,7 @@
     ],
     "bbox": [9.073373, 48.789825, 9.195096, 48.826272]
   },
-  "apiFields": {}
+  "apiFields": {
+    "status": "Korridor"
+  }
 }
