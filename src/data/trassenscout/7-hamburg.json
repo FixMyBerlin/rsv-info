@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-09-08T15:10:40.180Z",
+  "syncedAt": "2026-09-14T04:19:45.699Z",
   "geometrySource": "rsv-d",
   "projectSlugs": ["rsv-d"],
   "subsectionSlugs": ["hh-7"],
@@ -10,12 +10,12 @@
       {
         "type": "Feature",
         "properties": {
-          "id": "rsv-d-hh-7:Vorzugstrasse:route",
+          "id": "rsv-d-hh-7:Vorzugstrasse:corridor",
           "id_rsv": "7-hamburg",
           "variant": "Vorzugstrasse",
           "discarded": false,
-          "kind": "route",
-          "detail_level": "approximated"
+          "kind": "corridor",
+          "detail_level": "corridor"
         },
         "geometry": {
           "type": "MultiLineString",
@@ -31,5 +31,7 @@
     ],
     "bbox": [9.712322, 53.28106, 10.017898, 53.437007]
   },
-  "apiFields": {}
+  "apiFields": {
+    "status": "Korridor"
+  }
 }

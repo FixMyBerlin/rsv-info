@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-09-08T15:10:36.900Z",
+  "syncedAt": "2026-09-14T04:20:12.843Z",
   "geometrySource": "rsv-d",
   "projectSlugs": ["rsv-d"],
   "subsectionSlugs": ["sn-l-r3-v1", "sn-l-r3-vt"],
@@ -10,12 +10,12 @@
       {
         "type": "Feature",
         "properties": {
-          "id": "rsv-d-sn-l-r3-v1:Alternative:route",
+          "id": "rsv-d-sn-l-r3-v1:Vorzugstrasse:corridor",
           "id_rsv": "sn-l-r3",
-          "variant": "Alternative",
+          "variant": "Vorzugstrasse",
           "discarded": false,
-          "kind": "route",
-          "detail_level": "approximated"
+          "kind": "corridor",
+          "detail_level": "corridor"
         },
         "geometry": {
           "type": "MultiLineString",
@@ -143,6 +143,6 @@
     "bbox": [12.221686, 51.344725, 12.385339, 51.403595]
   },
   "apiFields": {
-    "status": "variant"
+    "status": "Korridor"
   }
 }

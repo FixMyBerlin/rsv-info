@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-09-08T15:10:37.577Z",
+  "syncedAt": "2026-09-14T04:19:59.335Z",
   "geometrySource": "rsv-d",
   "projectSlugs": ["rsv-d"],
   "subsectionSlugs": ["by-9"],
@@ -10,12 +10,12 @@
       {
         "type": "Feature",
         "properties": {
-          "id": "rsv-d-by-9:Vorzugstrasse:route",
+          "id": "rsv-d-by-9:Vorzugstrasse:corridor",
           "id_rsv": "9-bayern",
           "variant": "Vorzugstrasse",
           "discarded": false,
-          "kind": "route",
-          "detail_level": "approximated"
+          "kind": "corridor",
+          "detail_level": "corridor"
         },
         "geometry": {
           "type": "MultiLineString",
@@ -44,5 +44,7 @@
     ],
     "bbox": [10.934548, 49.415994, 11.066061, 49.445874]
   },
-  "apiFields": {}
+  "apiFields": {
+    "status": "Korridor"
+  }
 }
