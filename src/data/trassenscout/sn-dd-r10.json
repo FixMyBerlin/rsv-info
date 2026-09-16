@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-09-08T15:10:47.497Z",
+  "syncedAt": "2026-09-15T08:41:15.124Z",
   "geometrySource": "rsv-d",
   "projectSlugs": ["rsv-d"],
   "subsectionSlugs": ["sn-dd-r10", "sn-dd-r10-ug"],
@@ -48,9 +48,9 @@
       {
         "type": "Feature",
         "properties": {
-          "id": "rsv-d-sn-dd-r10-ug:Vorzugstrasse:area",
+          "id": "rsv-d-sn-dd-r10-ug:Alternative:area",
           "id_rsv": "sn-dd-r10",
-          "variant": "Vorzugstrasse",
+          "variant": "Alternative",
           "discarded": false,
           "kind": "area",
           "detail_level": "area"
@@ -112,5 +112,7 @@
     ],
     "bbox": [13.568344, 51.071284, 13.73143, 51.12781]
   },
-  "apiFields": {}
+  "apiFields": {
+    "status": "variant"
+  }
 }
