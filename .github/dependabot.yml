@@ -4,7 +4,7 @@
 #
 # Netlify Deploy Previews: skipped via netlify.toml ignore for dependabot/*
 # branches — do NOT put [skip netlify]/[skip ci] in commit-message.prefix;
-# rebase-merge would then skip Netlify builds on develop after merge.
+# rebase-merge would then skip Netlify builds on main after merge.
 #
 # TypeScript stays on 6.x until astro check / the Astro language server support
 # TypeScript 7 (withastro/roadmap#1321).

@@ -7,6 +7,8 @@ A Steckbrief page joins two sources at build time:
 
 The Trassenscout JSON is checked in. Production never calls Trassenscout at build time; it only reads the checked-in files.
 
+The long-lived branch is `main`. Keystatic GitHub mode saves on `main` or on a new branch that opens a PR into `main`. Trassenscout cache updates also land through a PR into `main` (`sync/trassenscout`). There is no `develop`.
+
 ## How the pieces connect
 
 ```mermaid
@@ -84,7 +86,7 @@ Sync and the RSV-D field call `https://trassenscout.de` ([src/lib/trassenscout/a
 | Weekly GitHub Action         | `bun run trassenscout:sync` | Fetches and opens a PR against `main`              |
 | Keystatic RSV-D field        | browser fetch               | Reads the subsection list, writes nothing to disk  |
 
-Netlify runs `build:netlify` ([netlify.toml](../netlify.toml)), so a `geometrySource` change in Keystatic shows up on the next deploy preview without a sync commit. Production only changes when a sync PR is merged to `main`.
+Netlify runs `build:netlify` ([netlify.toml](../netlify.toml)), so a `geometrySource` change in Keystatic shows up on the next Netlify deploy without a sync commit (CMS production if saved on `main`, Deploy Preview if saved on a Keystatic branch). IONOS production maps only change when a sync PR is merged to `main`.
 
 ## Syncing Trassenscout data
 
@@ -114,7 +116,7 @@ Hidden Steckbriefe (`visibility: hidden`) are still synced, so switching them ba
 | Hide a Steckbrief                                                                                    | Keystatic → Sichtbarkeit → Versteckt. It stays in the CMS but gets no list card and no page after the next deploy                   |
 | Delete a Steckbrief                                                                                  | Keystatic entry menu → delete. This removes `src/data/steckbriefe/<slug>/`. Prefer Versteckt unless the entry is a duplicate        |
 
-Every change needs a rebuild to reach production. Netlify rebuilds on push; IONOS rebuilds when `main` changes.
+Every change needs a rebuild to reach production. Netlify rebuilds on push to `main` and on Deploy Previews; IONOS rebuilds when `main` changes. After a `geometrySource` change, run **Weekly Trassenscout sync** (or wait for Monday) and merge that PR so IONOS maps match.
 
 ## Trassenscout API fields
 
