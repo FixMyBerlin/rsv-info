@@ -1,32 +1,12 @@
 {
-  "syncedAt": "2026-09-15T08:41:22.561Z",
+  "syncedAt": "2026-09-16T14:29:30.973Z",
   "geometrySource": "rsv-d",
   "projectSlugs": ["rsv-d"],
-  "subsectionSlugs": ["sn-l-r3-v1", "sn-l-r3-vt"],
+  "subsectionSlugs": ["sn-l-r3-vt"],
   "geometry": {
     "id": "sn-l-r3",
     "type": "FeatureCollection",
     "features": [
-      {
-        "type": "Feature",
-        "properties": {
-          "id": "rsv-d-sn-l-r3-v1:Vorzugstrasse:corridor",
-          "id_rsv": "sn-l-r3",
-          "variant": "Vorzugstrasse",
-          "discarded": false,
-          "kind": "corridor",
-          "detail_level": "corridor"
-        },
-        "geometry": {
-          "type": "MultiLineString",
-          "coordinates": [
-            [
-              [12.25242, 51.403595],
-              [12.221686, 51.402403]
-            ]
-          ]
-        }
-      },
       {
         "type": "Feature",
         "properties": {
@@ -127,9 +107,7 @@
         }
       }
     ],
-    "bbox": [12.221686, 51.344723, 12.385348, 51.404384]
+    "bbox": [12.228589, 51.344723, 12.385348, 51.404384]
   },
-  "apiFields": {
-    "status": "Korridor"
-  }
+  "apiFields": {}
 }
