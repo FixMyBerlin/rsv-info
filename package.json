@@ -45,8 +45,7 @@
     "bleach:info": "echo 'Also delete the browser cache, see https://github.com/vitejs/vite/discussions/17738#discussioncomment-10158746'",
     "bleach:all": "rm -rf node_modules/ && bun run bleach",
     "bleach:full": "rm bun.lock && bun run bleach:all",
-    "prepare": "husky",
-    "release": "gh pr create --base main --head develop --title \"Release $(date '+%Y-%m-%d')\" --body \"\""
+    "prepare": "husky"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.10",
