@@ -13,8 +13,8 @@ on:
 jobs:
   retrieve-project:
     name: check readiness
-    # Dependabot PRs do not need IONOS Deploy Now builds.
-    if: ${{ github.actor != 'dependabot[bot]' }}
+    # Dependabot PRs and the weekly Trassenscout branch do not need IONOS Deploy Now builds.
+    if: ${{ github.actor != 'dependabot[bot]' && github.ref != 'refs/heads/sync/trassenscout' }}
     runs-on: ubuntu-latest
     outputs:
       deployment-enabled: ${{ fromJson(steps.project.outputs.info).deployment-enabled }}

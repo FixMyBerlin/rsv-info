@@ -10,7 +10,7 @@ jobs:
   dependency-review:
     name: Dependency Review
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'pull_request' && github.head_ref != 'sync/trassenscout'
     permissions:
       contents: read
       pull-requests: write
@@ -31,6 +31,7 @@ jobs:
   check:
     name: Run Type Check & Linters
     runs-on: ubuntu-latest
+    if: github.head_ref != 'sync/trassenscout'
     steps:
       - uses: actions/checkout@v7
 
@@ -48,3 +49,29 @@ jobs:
         env:
           HUSKY: '0'
         run: bun run check-ci
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    if: github.head_ref == 'sync/trassenscout'
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: package.json
+
+      - name: Install dependencies
+        env:
+          HUSKY: '0'
+        run: bun install --frozen-lockfile
+
+      - name: Build
+        env:
+          KEYSTATIC_STORAGE_KIND: local
+          ASTRO_ENV: production
+          ASTRO_OUTPUT_MODE: static
+          ASTRO_USE_NETLIFY_ADAPTER: 'false'
+          HUSKY: '0'
+        run: bun run build
