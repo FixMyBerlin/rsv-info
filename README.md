@@ -9,7 +9,8 @@ This site explains Radschnellverbindungen (cycle highways) in Germany and publis
 
 Editors maintain Steckbrief text in Keystatic (`/keystatic` → Steckbriefe). Route geometry comes from Trassenscout and is checked in under `src/data/trassenscout/`.
 
-[docs/DATA.md](./docs/DATA.md) explains what to edit where, how the two sources are joined at build time, and how the Trassenscout sync runs (on every Netlify build, and as a weekly pull request for production).
+- [docs/EDITORIAL.md](./docs/EDITORIAL.md) — how to publish: Keystatic branch auto-sync, weekly Trassenscout PR, previews, and links.
+- [docs/DATA.md](./docs/DATA.md) — what to edit where, how the two sources are joined at build time, and how the Trassenscout sync works technically.
 
 ## Developing
 
@@ -39,7 +40,7 @@ Dev: [Keystatic admin UI](http://127.0.0.1:4321/keystatic)
 
 ## Blog
 
-The blog on `/planung` and `/kommunikation` is edited in [Keystatic](https://keystatic.com/docs/introduction).
+The blog on `/planung` and `/kommunikation` is edited in [Keystatic](https://keystatic.com/docs/introduction). Same CMS and PR flow as Steckbriefe; see [docs/EDITORIAL.md](./docs/EDITORIAL.md).
 
 - [Keystatic CMS](https://rsv-info-cms.netlify.app/keystatic)
 - [Preview](https://rsv-info-cms.netlify.app/)

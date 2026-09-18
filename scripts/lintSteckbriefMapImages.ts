@@ -26,6 +26,6 @@ console.error(
   `Missing public/rsv-map-images/<slug>.png for ${missing.length} Steckbrief(e) that have Trassenscout geometry:\n` +
     missing.map((slug) => `  ${slug}`).join('\n') +
     '\n\nRun `bun run generate:map-images` (or `bun run trassenscout:sync`).\n' +
-    'That script is not part of `astro build`. It runs on Netlify via `build:netlify`, in the weekly Trassenscout workflow, and when you run it locally.',
+    'That script is not part of `astro build`. It runs in the Trassenscout sync Action, on Netlify CMS production via `build:netlify`, and when you run it locally.',
 )
 process.exit(1)
