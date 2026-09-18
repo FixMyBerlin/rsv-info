@@ -7,7 +7,7 @@ There are two jobs. They can share one pull request.
 | Source | What it changes | How it reaches `main` |
 | --- | --- | --- |
 | [Trassenscout](https://trassenscout.de) | Route geometry, subsection status, operator, completion date, and the static map images | Auto-sync onto a Keystatic branch, or the weekly/manual PR from `main` |
-| [Keystatic](https://rsv-info-cms.netlify.app/keystatic) | Steckbrief text, visibility, geometry source, Planung/Kommunikation posts | Keystatic save on a branch → pull request (do not save straight to `main` unless you intend to go live immediately) |
+| [Keystatic](https://rsv-info-cms.netlify.app/keystatic) | Steckbrief text, visibility, geometry source, Planung/Kommunikation posts | Keystatic save on a branch → pull request. Direct pushes to `main` are blocked. |
 
 ```mermaid
 flowchart TD
@@ -44,36 +44,50 @@ In the Netlify UI, turn on cancelling stale Deploy Previews so the first (MDX-on
 
 This is the usual way to ship text and maps together.
 
+### Part 1: Edit
+
 1. Open the [Keystatic admin](https://rsv-info-cms.netlify.app/keystatic).
-2. Create a **new branch**. Do not save to `main` unless you want to go live immediately.
-3. Edit Steckbriefe and save. Each save of files under `src/data/steckbriefe/` starts **Trassenscout sync** on that branch. The Action fetches Trassenscout using this branch’s Geometrie-Quelle and commits JSON plus map images onto the **same** branch when they changed.
-4. Open a **pull request** into `main` (Keystatic can open it, or use [GitHub](https://github.com/FixMyBerlin/rsv-info/compare)).
-5. Review the **Netlify deploy preview**. Deploy Previews use `bun run build` (checked-in JSON), same as IONOS. Until the first sync commit lands, maps can still be the old files; after that, the preview is what production will ship.
+2. Create a **new branch**. Direct pushes to `main` are blocked, so a branch is required.
+3. Edit Steckbriefe and save. Each save of files under `src/data/steckbriefe/` starts **Trassenscout sync** on the new branch you created. The Action fetches Trassenscout using that branch’s Geometrie-Quelle and commits JSON plus map images onto the **same** branch when they changed.
+
+The same Keystatic admin also edits **Planung** and **Kommunikation** posts. Those saves do not start Trassenscout sync, because the Action only watches Steckbrief files. Route geometry and map images stay as they were; you still open a pull request (Part 2) to preview and ship the post text.
+
+### Part 2: Pull request and preview
+
+4. When the edits are done, open a **pull request** into `main` (Keystatic can open it, or use [GitHub](https://github.com/FixMyBerlin/rsv-info/compare)). Open it once you want a **last round of checks**, not in the middle of many small saves.
+5. Wait until Netlify has created the **deploy preview**. That preview is the first place to review text and maps together. Deploy Previews use `bun run build` (checked-in JSON), same as IONOS. Until the first sync commit lands, maps can still be the old files; after that, the preview is what production will ship.
+
+**FYI:** Every later push on the branch starts a **new** Netlify deploy.
+
+### Part 3: Release
+
 6. Merge. IONOS deploys from `main`.
 
-Changing **Geometrie-Quelle** is enough: the next Steckbrief save on that branch syncs the new selection. Do not run the weekly job from `main` for that.
+### Scenario: Trassenscout changed while the PR is waiting
 
-Blog posts (Planung / Kommunikation) do not trigger the Action. Geometry is unchanged.
+Auto-sync only runs when someone saves a Steckbrief (or when you start the Action by hand). If your pull request is already open and nobody saves again, new Trassenscout data does **not** appear on the branch. The preview still shows the last synced maps.
 
-### Trassenscout changed, PR is idle
-
-Nothing pushes, so auto-sync does not run. Either save once more in Keystatic, or:
+To pick up the new geometry, save the Steckbrief once more in Keystatic (even without text changes). That starts sync on your branch again. If you prefer GitHub instead:
 
 1. Open [Trassenscout sync](https://github.com/FixMyBerlin/rsv-info/actions/workflows/weekly-trassenscout-sync.yaml).
 2. **Run workflow**.
-3. **Use workflow from `main`** — that dropdown is the YAML version, not the content branch.
+3. **Use workflow from `main`** — that dropdown is the version of the Action, not the content branch.
 4. Set **branch** to the Keystatic branch name (e.g. `sn-variant`).
 5. **Run workflow**.
 
-### Two open CMS branches on the same Steckbrief
+### Scenario: Two branches for the same Steckbrief
 
-Both may rewrite the same `public/rsv-map-images/<slug>.png`. Merge one first, update the other from `main` (rebase or merge), then **Run workflow** on that branch so the PNG is regenerated and the conflict goes away.
+Work on one Steckbrief in **one** Keystatic branch at a time. If two pull requests both change the same route, they both try to update the same map image. GitHub then shows a conflict.
 
-Do not put Keystatic edits on `sync/trassenscout`.
+Merge one PR first. On the remaining PR, use GitHub’s **Update branch** (bring in the latest `main`), then run **Trassenscout sync** on that Keystatic branch so the map image is written again and the conflict goes away.
 
-New Keystatic branches only auto-sync after this workflow file is on `main`. An older branch (for example `sn-variant`) needs a rebase onto `main`, or one manual Run workflow, until then.
+### What to do: Do not edit the weekly sync branch
+
+Keystatic edits belong on a **new** CMS branch. Do not save onto `sync/trassenscout` (the weekly “Syncronisation mit Trassenscout” PR). That branch is only for geometry from Trassenscout.
 
 ## Geometry-only (weekly)
+
+Use this when you only need current Trassenscout geometry on production, with no Keystatic text changes. Edit in [Trassenscout](https://trassenscout.de) first if the source data is still wrong.
 
 Once a week the same Action runs on **Monday at 06:00 Europe/Berlin** from `main`. It opens or **updates** the pull request **Syncronisation mit Trassenscout** on the fixed branch `sync/trassenscout`. It does not copy Keystatic text.
 
@@ -83,9 +97,13 @@ Once a week the same Action runs on **Monday at 06:00 Europe/Berlin** from `main
 
 Skipping a week is fine. The next run **updates the same open PR**. If the previous PR was already merged, a new PR is created. If Trassenscout did not change, there is no PR.
 
-To run it by hand from `main`: same Action → Run workflow → **Use workflow from `main`** → branch **`main`**.
+To run it by hand from `main` (instead of waiting for Monday): same Action → Run workflow → **Use workflow from `main`** → branch **`main`**.
 
 Those PRs skip Dependency Review and `check-ci`; GitHub runs `bun run build` (same as IONOS). IONOS still deploys only after merge to `main`.
+
+## Hide a Steckbrief
+
+To take a Steckbrief off the public site without deleting it: in Keystatic set **Sichtbarkeit** to **Versteckt**, then follow Part 2 and Part 3 (pull request, preview, merge). Prefer that over deleting the entry. Hidden entries stay in the CMS and still sync from Trassenscout, so you can show them again later without rebuilding geometry.
 
 ## What is live where
 
@@ -94,23 +112,6 @@ Those PRs skip Dependency Review and `check-ci`; GitHub runs `bun run build` (sa
 | Keystatic text | `main` | The PR branch | Last merge to `main` |
 | Trassenscout maps | Fetched live at build time | Checked-in JSON on the PR | Checked-in JSON on `main` |
 | `/keystatic` | Yes | No (static preview) | No |
-
-## Checklist
-
-**Ship a complete release (text and maps)**
-
-1. [Keystatic](https://rsv-info-cms.netlify.app/keystatic) → new branch, edit, save. Wait for the sync commit if maps should change.
-2. Open a PR, review the Netlify preview after that commit.
-3. Merge.
-
-**Ship current Trassenscout data only**
-
-1. [Optional] Edit in [Trassenscout](https://trassenscout.de).
-2. Wait for Monday, or [run Trassenscout sync](https://github.com/FixMyBerlin/rsv-info/actions/workflows/weekly-trassenscout-sync.yaml) with branch `main`.
-3. Review the Netlify preview on [the sync PR](https://github.com/FixMyBerlin/rsv-info/pulls).
-4. Merge.
-
-**Hide a Steckbrief** without deleting it: Keystatic → Sichtbarkeit → Versteckt, then merge. Prefer that over deleting the entry.
 
 ## Repo setup (maintainers)
 
