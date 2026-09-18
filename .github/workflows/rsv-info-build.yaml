@@ -24,8 +24,8 @@ jobs:
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v7
-      # Production uses `bun run build` (checked-in src/data/trassenscout/*.json only).
-      # Netlify CMS uses `bun run build:netlify` (syncs Trassenscout first) — see netlify.toml.
+      # Production and Netlify Deploy Previews use `bun run build` (checked-in src/data/trassenscout/*.json only).
+      # Netlify CMS production uses `bun run build:netlify` (syncs Trassenscout first) — see netlify.toml.
       # Bun-only: withastro/action always installs Node (setup-node@v4 = Node 20 action runtime).
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2

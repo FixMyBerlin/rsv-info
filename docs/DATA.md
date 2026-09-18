@@ -7,7 +7,9 @@ A Steckbrief page joins two sources at build time:
 
 The Trassenscout JSON is checked in. Production never calls Trassenscout at build time; it only reads the checked-in files.
 
-The long-lived branch is `main`. Keystatic GitHub mode saves on `main` or on a new branch that opens a PR into `main`. Trassenscout cache updates also land through a PR into `main` (`sync/trassenscout`). There is no `develop`.
+The long-lived branch is `main`. Keystatic GitHub mode saves on `main` or on a new branch that opens a PR into `main`. Trassenscout cache updates land on that CMS branch (auto-sync) or through a PR into `main` (`sync/trassenscout`). There is no `develop`.
+
+Editor playbook: [EDITORIAL.md](./EDITORIAL.md).
 
 ## How the pieces connect
 
@@ -39,7 +41,7 @@ Keystatic `steckbriefe` ([cms/steckbriefe.keystatic.ts](../cms/steckbriefe.keyst
 
 `src/data/trassenscout/<slug>.json`: normalized geometry, the aggregated API fields `operator`, `status` and `estimatedCompletionDate`, and sync metadata.
 
-`public/rsv-map-images/<slug>.png`: static map for social sharing and teasers, regenerated on every sync. `fallback.png` is used for Steckbriefe without geometry.
+`public/rsv-map-images/<slug>.png`: static map for social sharing and teasers. Each PNG has a `<slug>.sha256` sidecar so unchanged MapTiler requests are skipped. `fallback.png` is used for Steckbriefe without geometry.
 
 ## Geometry source (`geometrySource`)
 
@@ -69,7 +71,7 @@ Each RSV-D subsection should belong to exactly one Steckbrief. This is a convent
 
 ### Picking RSV-D subsections in Keystatic
 
-The RSV-D field ([keystatic/fields/rsvDSubsectionsField.tsx](../keystatic/fields/rsvDSubsectionsField.tsx)) has a button "Teilabschnitte aktualisieren". It fetches the `rsv-d` project JSON from Trassenscout in the browser and lists the subsections. Saving the Steckbrief commits only the selection. Geometry appears on the map after the next sync (next Netlify deploy, or the weekly PR for production).
+The RSV-D field ([keystatic/fields/rsvDSubsectionsField.tsx](../keystatic/fields/rsvDSubsectionsField.tsx)) has a button "Teilabschnitte aktualisieren". It fetches the `rsv-d` project JSON from Trassenscout in the browser and lists the subsections. Saving the Steckbrief commits only the selection. Geometry appears on the map after the Trassenscout sync commits JSON for that branch (automatic on the next Steckbrief save on a CMS branch, or the weekly PR from `main`). The Keystatic CMS site on Netlify still live-fetches Trassenscout at build time.
 
 The field only works where Keystatic runs (Netlify and local dev). Production on IONOS is a static build without `/keystatic`.
 
@@ -79,14 +81,15 @@ Sync and the RSV-D field call `https://trassenscout.de` ([src/lib/trassenscout/a
 
 ## When Trassenscout is fetched
 
-| Where                        | Command                     | Trassenscout                                       |
-| ---------------------------- | --------------------------- | -------------------------------------------------- |
-| Netlify (CMS and previews)   | `bun run build:netlify`     | Syncs before `astro build`                         |
-| Production (IONOS, `main`)   | `bun run build`             | Not fetched; checked-in JSON only                  |
-| Weekly GitHub Action         | `bun run trassenscout:sync` | Fetches and opens a PR against `main`              |
-| Keystatic RSV-D field        | browser fetch               | Reads the subsection list, writes nothing to disk  |
+| Where                                 | Command                     | Trassenscout                                       |
+| ------------------------------------- | --------------------------- | -------------------------------------------------- |
+| Netlify CMS production                | `bun run build:netlify`     | Syncs before `astro build`                         |
+| Netlify Deploy Preview                | `bun run build`             | Not fetched; checked-in JSON only (same as IONOS)  |
+| Production (IONOS, `main`)            | `bun run build`             | Not fetched; checked-in JSON only                  |
+| Trassenscout sync Action              | `bun run trassenscout:sync` | Fetches; commits onto the target branch or weekly PR |
+| Keystatic RSV-D field                 | browser fetch               | Reads the subsection list, writes nothing to disk  |
 
-Netlify runs `build:netlify` ([netlify.toml](../netlify.toml)), so a `geometrySource` change in Keystatic shows up on the next Netlify deploy without a sync commit (CMS production if saved on `main`, Deploy Preview if saved on a Keystatic branch). IONOS production maps only change when a sync PR is merged to `main`.
+Netlify CMS production (`rsv-info-cms.netlify.app`) runs `build:netlify` ([netlify.toml](../netlify.toml)), so the workbench can show live Trassenscout. Deploy Previews and IONOS production only read the checked-in JSON. Maps on a Keystatic PR match production after the sync Action has committed onto that branch. See [EDITORIAL.md](./EDITORIAL.md).
 
 ## Syncing Trassenscout data
 
@@ -97,9 +100,14 @@ bun run trassenscout:sync
 This runs two scripts in sequence:
 
 1. `trassenscout:update` ([scripts/trassenscout/update.ts](../scripts/trassenscout/update.ts)) fetches every Steckbrief with a `geometrySource`, writes `src/data/trassenscout/<slug>.json`, skips unchanged files, and deletes JSON files whose Steckbrief no longer has a geometry source. If some fetches fail but at least one succeeds, the script logs the failures and exits 0.
-2. `generate:map-images` ([scripts/staticMapImages/generateStaticMapImages.ts](../scripts/staticMapImages/generateStaticMapImages.ts)) renders MapTiler PNGs into `public/rsv-map-images/`, removes images for slugs that no longer have geometry, and refreshes `fallback.png`.
+2. `generate:map-images` ([scripts/staticMapImages/generateStaticMapImages.ts](../scripts/staticMapImages/generateStaticMapImages.ts)) renders MapTiler PNGs into `public/rsv-map-images/`, skips slugs whose request hash is unchanged, removes images for slugs that no longer have geometry, and refreshes `fallback.png` the same way.
 
-The weekly GitHub Action ([.github/workflows/weekly-trassenscout-sync.yaml](../.github/workflows/weekly-trassenscout-sync.yaml)) runs the same command on `main` every Monday at 06:00 Europe/Berlin and opens or updates the PR "Syncronisation mit Trassenscout" on the branch `sync/trassenscout`. Those PRs skip Dependency Review, `check-ci`, and the IONOS Deploy Now preview; GitHub runs `bun run build` (same as IONOS production). Review the Netlify deploy preview, then merge to `main` — production still deploys via IONOS. The action can also be started by hand via `workflow_dispatch`.
+The GitHub Action ([.github/workflows/weekly-trassenscout-sync.yaml](../.github/workflows/weekly-trassenscout-sync.yaml), display name **Trassenscout sync**) runs that command:
+
+- Every Monday at 06:00 Europe/Berlin, and on **Run workflow** with branch `main`: checks out `main` and opens or updates the PR "Syncronisation mit Trassenscout" on `sync/trassenscout`. Those PRs skip Dependency Review, `check-ci`, and IONOS; GitHub runs `bun run build`.
+- On each push to `src/data/steckbriefe/**` on a CMS branch, and on **Run workflow** with that branch: commits JSON and map images onto the same branch so one PR can ship text and maps. Needs the `TRASSENSCOUT_SYNC_TOKEN` secret so the bot commit can trigger CI.
+
+Review the Netlify deploy preview, then merge to `main` — production still deploys via IONOS.
 
 Hidden Steckbriefe (`visibility: hidden`) are still synced, so switching them back to visible needs no new sync.
 
@@ -109,14 +117,14 @@ Hidden Steckbriefe (`visibility: hidden`) are still synced, so switching them ba
 | ---------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 | Title, Kurzfassung, from/to, length, stand, source, website, stakeholders, Planungsstand, home teaser | Keystatic → Steckbriefe                                                                                                             |
 | Which Trassenscout projects or RSV-D subsections feed the map                                        | Keystatic → Steckbriefe → Geometrie-Quelle                                                                                          |
-| Route geometry, subsection operator, status, completion date                                         | Trassenscout. Netlify previews pick it up on the next build; production after the weekly PR or a manual `bun run trassenscout:sync` |
+| Route geometry, subsection operator, status, completion date                                         | Trassenscout. A Keystatic branch auto-syncs on the next Steckbrief save; or wait for the weekly PR from `main` |
 | Blog posts on Planung and Kommunikation                                                              | Keystatic → blog collections                                                                                                        |
 | Page URL slug                                                                                        | Keystatic → Steckbriefe → Slug. Keep existing slugs; changing one breaks inbound links                                              |
 | Add a Steckbrief                                                                                     | Keystatic → Steckbriefe → New entry                                                                                                 |
 | Hide a Steckbrief                                                                                    | Keystatic → Sichtbarkeit → Versteckt. It stays in the CMS but gets no list card and no page after the next deploy                   |
 | Delete a Steckbrief                                                                                  | Keystatic entry menu → delete. This removes `src/data/steckbriefe/<slug>/`. Prefer Versteckt unless the entry is a duplicate        |
 
-Every change needs a rebuild to reach production. Netlify rebuilds on push to `main` and on Deploy Previews; IONOS rebuilds when `main` changes. After a `geometrySource` change, run **Weekly Trassenscout sync** (or wait for Monday) and merge that PR so IONOS maps match.
+Every change needs a rebuild to reach production. Netlify rebuilds the CMS site on push to `main` and Deploy Previews on PRs; IONOS rebuilds only when `main` changes. After a `geometrySource` change on a CMS branch, the next Steckbrief save (or Run workflow on that branch) writes the JSON so IONOS maps match after merge.
 
 ## Trassenscout API fields
 

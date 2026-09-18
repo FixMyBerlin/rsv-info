@@ -40,4 +40,4 @@ Use `&&` only inside a single step when the shell must run multiple commands as 
 
 ## Existing scripts that break the colon rule
 
-These predate the rule and are not run through `<group>:*`: `build:netlify`, `build:local`, `generate-types:*`, `updatePackages:*`, `export:steckbriefe`, `trassenscout:*`, `generate:map-images`, `bleach:*`. Do not add more of this kind. Renaming them changes Netlify config and the weekly sync workflow, so do it in a dedicated change.
+These predate the rule and are not run through `<group>:*`: `build:netlify`, `build:local`, `generate-types:*`, `updatePackages:*`, `export:steckbriefe`, `trassenscout:*`, `generate:map-images`, `bleach:*`. Do not add more of this kind. Renaming them changes Netlify config and the Trassenscout sync workflow, so do it in a dedicated change.

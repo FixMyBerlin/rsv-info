@@ -1,5 +1,6 @@
 [build]
-command = "bun run build:netlify"
+# Deploy Previews match IONOS (checked-in Trassenscout JSON). CMS production still live-syncs.
+command = "if [ \"$CONTEXT\" = \"deploy-preview\" ]; then KEYSTATIC_STORAGE_KIND=local ASTRO_ENV=production ASTRO_OUTPUT_MODE=static ASTRO_USE_NETLIFY_ADAPTER=false bun run build; else bun run build:netlify; fi"
 publish = "dist"
 # Exit 0 = skip. Skip Dependabot Deploy Previews only (not production or other branch deploys).
 # Do not put [skip netlify] in Dependabot commit messages — rebase-merge would

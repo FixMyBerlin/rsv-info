@@ -2,19 +2,23 @@
 # Build steps can be customized in the rsv-info-build.yaml.
 # More information under https://docs.ionos.space/docs/github-actions-customization/
 # version: 2022-07-21
+#
+# Production is IONOS on `main` only. CMS/Keystatic branches preview on Netlify.
+# If IONOS regenerates this file, re-apply `push.branches: [main]` and the job `if`.
 
 name: "Deploy Now: Orchestration"
 run-name: "Deploy Now: Build rsv-info · ${{ github.event.head_commit.message || format('Triggered by {0}', github.triggering_actor) }}"
 
 on:
-  - push
-  - workflow_dispatch
+  push:
+    branches: [main]
+  workflow_dispatch:
 
 jobs:
   retrieve-project:
     name: check readiness
-    # Dependabot PRs and the weekly Trassenscout branch do not need IONOS Deploy Now builds.
-    if: ${{ github.actor != 'dependabot[bot]' && github.ref != 'refs/heads/sync/trassenscout' }}
+    # Dependabot and the weekly Trassenscout branch do not need IONOS Deploy Now builds.
+    if: ${{ github.ref == 'refs/heads/main' && github.actor != 'dependabot[bot]' && github.ref != 'refs/heads/sync/trassenscout' }}
     runs-on: ubuntu-latest
     outputs:
       deployment-enabled: ${{ fromJson(steps.project.outputs.info).deployment-enabled }}
