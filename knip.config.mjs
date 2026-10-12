@@ -6,7 +6,6 @@ export default {
   entry: ['keystatic.config.ts', 'keystatic/**/*.{ts,tsx}', 'cms/**/*.{ts,tsx,astro}'],
   ignore: ['src/data/**'],
   ignoreDependencies: [
-    'babel-plugin-react-compiler', // string plugin in astro.config.mjs
     '@types/geojson', // GeoJSON namespace used without a direct import
   ],
   rules: {

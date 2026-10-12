@@ -33,11 +33,8 @@ export default defineConfig({
   site: 'https://radschnellverbindungen.info',
   integrations: [
     ASTRO_OUTPUT_MODE === 'static' ? undefined : keystatic(),
-    react({
-      babel: {
-        plugins: ['babel-plugin-react-compiler'],
-      },
-    }),
+    // React Compiler via Oxc (needs `oxc-transform-react`); `babel` option was removed in @astrojs/react 7
+    react({ compiler: true }),
     mdx(),
     sitemap(), // We don't exclute inactive pages but rely on the per page `noindex`
   ],
@@ -59,7 +56,7 @@ export default defineConfig({
       target: browserslistToEsbuild(),
     },
     optimizeDeps: {
-      // Babel React Compiler injects this import; pre-bundle so Vite does not
+      // React Compiler injects this import; pre-bundle so Vite does not
       // rediscover it mid-session and reload a second React copy in islands.
       include: ['react/compiler-runtime'],
     },
