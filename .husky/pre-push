@@ -4,6 +4,8 @@ set -e
 . "$(dirname -- "$0")/ensure-bun.sh"
 
 # @see references/package-json-scripts.md
-bun run check-pre-push
+# `--bun`: run the tools on Bun, not on whatever `node` is first in PATH. Git hooks start without
+# nvm, so they can pick up a broken Homebrew `node` (e.g. after a `simdjson` upgrade).
+bun --bun run check-pre-push
 
 # Use `git push --no-verify` to skip (sparingly).
