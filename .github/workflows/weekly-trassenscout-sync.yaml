@@ -20,9 +20,11 @@ on:
     paths:
       - src/data/steckbriefe/**
 
+# `issues: write` lets the token check open a renewal reminder issue.
 permissions:
   contents: write
   pull-requests: write
+  issues: write
 
 concurrency:
   group: >-
@@ -37,13 +39,73 @@ jobs:
     env:
       HUSKY: '0'
     steps:
-      - name: Require sync token
+      # TRASSENSCOUT_SYNC_TOKEN is a GitHub token (not a Trassenscout one; that API is public).
+      # It is only needed so the sync commit / sync PR triggers CI. When it is missing, expired
+      # or revoked, the sync falls back to the built-in GITHUB_TOKEN and still runs, just without
+      # CI on the sync commit. Renewal steps: docs/EDITORIAL.md → "Trassenscout sync token".
+      - name: Check sync token
+        id: token
         env:
-          TOKEN: ${{ secrets.TRASSENSCOUT_SYNC_TOKEN }}
+          SYNC_TOKEN: ${{ secrets.TRASSENSCOUT_SYNC_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+          # Update together with the token. Shown on GitHub when the token is created.
+          SYNC_TOKEN_EXPIRES_ON: '2027-10-15'
+          REMIND_DAYS_BEFORE: '30'
+          ISSUE_TITLE: 'Trassenscout sync: renew TRASSENSCOUT_SYNC_TOKEN'
+          ISSUE_ASSIGNEE: tordans
         run: |
-          if [ -z "$TOKEN" ]; then
-            echo '::error::Set repository secret TRASSENSCOUT_SYNC_TOKEN (fine-grained PAT with contents:write and pull-requests:write) so the bot commit can trigger CI.'
-            exit 1
+          # usable: the secret is set and GitHub accepts it. problem: text for warning and issue.
+          usable=false
+          problem=''
+          if [ -z "$SYNC_TOKEN" ]; then
+            problem='The repository secret TRASSENSCOUT_SYNC_TOKEN is not set.'
+          else
+            status=$(curl -s -o /dev/null -w '%{http_code}' \
+              -H "Authorization: Bearer $SYNC_TOKEN" \
+              "https://api.github.com/repos/${{ github.repository }}")
+            if [ "$status" = '200' ]; then
+              usable=true
+            else
+              problem="GitHub rejected TRASSENSCOUT_SYNC_TOKEN (HTTP $status); it is probably expired or revoked."
+            fi
+          fi
+          echo "use_sync_token=$usable" >> "$GITHUB_OUTPUT"
+
+          days_left=$(( ( $(date -ud "$SYNC_TOKEN_EXPIRES_ON" +%s) - $(date -u +%s) ) / 86400 ))
+          if [ "$usable" = true ] && [ "$days_left" -le "$REMIND_DAYS_BEFORE" ]; then
+            problem="TRASSENSCOUT_SYNC_TOKEN expires on $SYNC_TOKEN_EXPIRES_ON ($days_left days left)."
+          fi
+          if [ "$usable" = false ]; then
+            problem="$problem The sync falls back to GITHUB_TOKEN: it still runs, but CI does not run on the sync commit or sync PR."
+          fi
+
+          if [ -z "$problem" ]; then
+            echo "Sync token OK, expires on $SYNC_TOKEN_EXPIRES_ON ($days_left days left)."
+            exit 0
+          fi
+
+          echo "::warning::$problem"
+          {
+            echo "### Trassenscout sync token"
+            echo
+            echo "$problem"
+            echo
+            echo "Renewal steps: [docs/EDITORIAL.md](${{ github.server_url }}/${{ github.repository }}/blob/main/docs/EDITORIAL.md#trassenscout-sync-token)"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          # One open reminder issue at a time; the weekly run adds a comment, Steckbrief saves do not.
+          body="$problem
+
+          Renew the token following [docs/EDITORIAL.md → Trassenscout sync token](${{ github.server_url }}/${{ github.repository }}/blob/main/docs/EDITORIAL.md#trassenscout-sync-token), then update \`SYNC_TOKEN_EXPIRES_ON\` in \`.github/workflows/weekly-trassenscout-sync.yaml\` and close this issue.
+
+          Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          existing=$(gh issue list --repo "${{ github.repository }}" --state open \
+            --search "\"$ISSUE_TITLE\" in:title" --json number --jq '.[0].number')
+          if [ -n "$existing" ] && [ "${{ github.event_name }}" = schedule ]; then
+            gh issue comment "$existing" --repo "${{ github.repository }}" --body "$body" || true
+          elif [ -z "$existing" ]; then
+            gh issue create --repo "${{ github.repository }}" --title "$ISSUE_TITLE" \
+              --assignee "$ISSUE_ASSIGNEE" --body "$body" || true
           fi
 
       - name: Resolve target branch
@@ -61,7 +123,7 @@ jobs:
         uses: actions/checkout@v7
         with:
           ref: ${{ steps.target.outputs.branch }}
-          token: ${{ secrets.TRASSENSCOUT_SYNC_TOKEN }}
+          token: ${{ steps.token.outputs.use_sync_token == 'true' && secrets.TRASSENSCOUT_SYNC_TOKEN || github.token }}
           fetch-depth: 0
 
       - name: Setup Bun
@@ -80,7 +142,7 @@ jobs:
         if: ${{ steps.target.outputs.branch == 'main' }}
         uses: peter-evans/create-pull-request@v8
         with:
-          token: ${{ secrets.TRASSENSCOUT_SYNC_TOKEN }}
+          token: ${{ steps.token.outputs.use_sync_token == 'true' && secrets.TRASSENSCOUT_SYNC_TOKEN || github.token }}
           branch: sync/trassenscout
           base: main
           title: Syncronisation mit Trassenscout
