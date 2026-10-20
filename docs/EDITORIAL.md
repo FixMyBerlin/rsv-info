@@ -111,7 +111,52 @@ To take a Steckbrief off the public site without deleting it, set **Sichtbarkeit
 
 ## Setup notes (maintainers)
 
-The sync needs the repository secret `TRASSENSCOUT_SYNC_TOKEN`: a fine-grained PAT (or GitHub App installation token) with `contents:write` and `pull-requests:write`. The default `GITHUB_TOKEN` would not trigger CI on the sync commit.
+### Trassenscout sync token
+
+`TRASSENSCOUT_SYNC_TOKEN` is a **GitHub** token, not a Trassenscout one; the Trassenscout API is public. The sync uses it to push the sync commit and open the sync pull request.
+
+Why not just the built-in `GITHUB_TOKEN`: GitHub does not start other workflows for commits and pull requests made with it. The sync then still works, but CI (`ci.yml`) does not run on the sync pull request or on the sync commit at the head of a Keystatic pull request. `main` requires no status checks, so such pull requests can still be merged.
+
+So the token is optional. When it is missing, expired or revoked, the sync falls back to `GITHUB_TOKEN`, shows a warning on the run, and opens the issue "Trassenscout sync: renew TRASSENSCOUT_SYNC_TOKEN". The same issue opens 30 days before the expiry date in `SYNC_TOKEN_EXPIRES_ON` in [the workflow](../.github/workflows/weekly-trassenscout-sync.yaml).
+
+Current token: fine-grained PAT "rsv-info Trassenscout sync" by @tordans, expires **2027-10-15**. Commits and pull requests from the sync appear under the token owner's account.
+
+#### Renew the token
+
+1. Create a new fine-grained token. This link pre-fills the form; check each field against the table:
+   https://github.com/settings/personal-access-tokens/new?name=rsv-info+Trassenscout+sync&description=GitHub+Action+weekly-trassenscout-sync+in+FixMyBerlin%2Frsv-info&target_name=FixMyBerlin&expires_in=366&contents=write&pull_requests=write
+
+   | Field | Value |
+   | --- | --- |
+   | Resource owner | **FixMyBerlin** |
+   | Expiration | As long as the org allows, for example 1 year |
+   | Repository access | Only select repositories → `FixMyBerlin/rsv-info` |
+   | Contents | Read and write |
+   | Pull requests | Read and write |
+
+   If GitHub says the token is pending approval, an org owner approves it at https://github.com/organizations/FixMyBerlin/settings/personal-access-token-requests.
+
+2. Save it as the repository secret. `gh` asks for the value, so it stays out of your shell history:
+
+   ```bash
+   gh secret set TRASSENSCOUT_SYNC_TOKEN --repo FixMyBerlin/rsv-info
+   ```
+
+   Or in the browser: https://github.com/FixMyBerlin/rsv-info/settings/secrets/actions
+
+3. Set `SYNC_TOKEN_EXPIRES_ON` in [the workflow](../.github/workflows/weekly-trassenscout-sync.yaml) and the date above to the new expiry date, and merge that change.
+
+4. Test it. The run log of the step "Check sync token" should say "Sync token OK":
+
+   ```bash
+   gh workflow run weekly-trassenscout-sync.yaml --repo FixMyBerlin/rsv-info -f branch=main
+   ```
+
+   ```bash
+   gh run list --repo FixMyBerlin/rsv-info --workflow weekly-trassenscout-sync.yaml --limit 3
+   ```
+
+5. Close the reminder issue and delete the old token at https://github.com/settings/personal-access-tokens.
 
 In Netlify, keep “cancel stale deploy previews” enabled, so the preview built before the sync commit is dropped and only the up-to-date one remains.
 

@@ -35,7 +35,7 @@ Dev: [Keystatic admin UI](http://127.0.0.1:4321/keystatic)
 ### Tooling notes
 
 - Lint and format: [oxlint](https://oxc.rs/docs/guide/usage/linter.html) and [oxfmt](https://oxc.rs/docs/guide/usage/formatter.html). `.astro` files are linted but not formatted; oxfmt does not support Astro yet.
-- [React Compiler](https://react.dev/learn/react-compiler) runs through `babel-plugin-react-compiler` in the Astro React integration (see `astro.config.mjs`). The faster Oxc-based compiler needs `@vitejs/plugin-react` 6.1 or newer; `@astrojs/react` still ships 5.x.
+- [React Compiler](https://react.dev/learn/react-compiler) runs through the Oxc-based compiler of the Astro React integration (`react({ compiler: true })` in `astro.config.mjs`), which needs the dev dependency `oxc-transform-react`.
 - TypeScript stays on 6.x until `astro check` supports TypeScript 7.
 
 ## Blog

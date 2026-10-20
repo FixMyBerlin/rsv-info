@@ -105,7 +105,7 @@ This runs two scripts in sequence:
 The GitHub Action ([.github/workflows/weekly-trassenscout-sync.yaml](../.github/workflows/weekly-trassenscout-sync.yaml), display name **Trassenscout sync**) runs that command:
 
 - Every Monday at 06:00 Europe/Berlin, and on **Run workflow** with branch `main`: checks out `main` and opens or updates the PR "Syncronisation mit Trassenscout" on `sync/trassenscout`. Those PRs skip Dependency Review, `check-ci`, and IONOS; GitHub runs `bun run build`.
-- On each push to `src/data/steckbriefe/**` on a CMS branch, and on **Run workflow** with that branch: commits JSON and map images onto the same branch so one PR can ship text and maps. Needs the `TRASSENSCOUT_SYNC_TOKEN` secret so the bot commit can trigger CI.
+- On each push to `src/data/steckbriefe/**` on a CMS branch, and on **Run workflow** with that branch: commits JSON and map images onto the same branch so one PR can ship text and maps. With the `TRASSENSCOUT_SYNC_TOKEN` secret the bot commit also triggers CI; without it the sync still runs ([details](./EDITORIAL.md#trassenscout-sync-token)).
 
 Review the Netlify deploy preview, then merge to `main` — production still deploys via IONOS.
 
